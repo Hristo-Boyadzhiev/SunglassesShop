@@ -9,7 +9,6 @@ const routes: Routes = [
 {path: 'catalog', children: [
   {path: '', pathMatch: 'full', component: CatalogComponent},
   {path: ':sunglassesId', component: DetailsComponent}
-
 ]},
 ];
 
