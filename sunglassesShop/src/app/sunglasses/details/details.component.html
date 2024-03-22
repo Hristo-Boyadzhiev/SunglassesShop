@@ -2,20 +2,25 @@
     <article class="img-container">
         <img src="{{sunglassesDetails?.imageUrl}}" alt="sunglasses-image">
     </article>
-    
+
     <article class="sunglasses-details">
         <p class="brand-and-models">{{sunglassesDetails?.brand}} {{sunglassesDetails?.model}}</p>
         <p class="price">Price: {{sunglassesDetails?.price}}€</p>
-        
+
         <div class="buy">
             <p class="quantity">Quantity:</p>
-            <input type="number" min="1"  class="quantity">
-            <span><a routerLink="#">BUY</a></span>
+            <input type="number" min="1" class="quantity">
+            <span class="buy"><a class="buyLink" routerLink="#">BUY</a></span>
         </div>
-        <!-- <p>Gender: {{sunglassesDetails?.gender}}</p>
-        <p>Shape: {{sunglassesDetails?.shape}}</p>
-        <p>Frame color: {{sunglassesDetails?.frameColor}}</p>
-        <p>Glass color: {{sunglassesDetails?.glassColor}}</p> -->
-        
+        <details class="sunglasses-description">
+            <summary>Sunglasses description</summary>
+
+            <p>Gender: {{sunglassesDetails?.gender}}</p>
+            <p>Shape: {{sunglassesDetails?.shape}}</p>
+            <p>Frame color: {{sunglassesDetails?.frameColor}}</p>
+            <p>Glass color: {{sunglassesDetails?.glassColor}}</p>
+        </details>
+
+
     </article>
 </section>

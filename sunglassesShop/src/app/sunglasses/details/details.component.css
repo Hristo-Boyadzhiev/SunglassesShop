@@ -3,7 +3,6 @@ section.details-container {
     gap: 2em;
     max-width: 80em;
     margin: 2em auto;
-    border:1px solid red;
 }
 
 img {
@@ -13,20 +12,17 @@ img {
 }
 
 article.img-container {
-    /* position: fixed; */
     flex-basis: 50%;
-    border:1px solid blue;
 }
 
 article.sunglasses-details {
     flex-basis: 50%;
-    border:1px solid blue;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     font-family: Bebas Neue;
     font-size: 1.5em;
     text-align: center;
-    padding-top: 2em;
 }
 
 p.brand-and-models {
@@ -46,21 +42,32 @@ input.quantity {
     height: 100%;
 }
 
-a {
-    display: block;
+span.buy {
+    display: inline-block;
+}
+
+a.buyLink {
+    display: inline-block;
     text-decoration: none;
     font-size: 1.2em;
     font-family: Bebas Neue;
     color: black;
     padding: 0.3em 1.5em;
     border: 1px solid black;
-    /* border-radius: 0.5em;   */
 }
 
 a:hover {
     background: black;
     color: white;
-    /* font-size: 2em; */
-    /* letter-spacing: 0.3em; */
+    font-size: 1.5em;
+    letter-spacing: 0.3em;
     transition: 0.3s ease-in-out
+}
+
+details.sunglasses-description {
+    margin-top: 1em;
+}
+
+details.sunglasses-description p {
+    font-size: 0.8em;
 }
