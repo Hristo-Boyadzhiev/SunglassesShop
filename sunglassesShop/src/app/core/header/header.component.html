@@ -12,10 +12,10 @@
             <ul>
                 <li><a routerLink="/home">Home</a></li>
                 <li><a routerLink="/catalog">Catalog</a></li>
-                <li *ngIf="isLogged"><a routerLink="/create">Create</a></li>
-                <li *ngIf="!isLogged"><a routerLink="/login">Login</a></li>
-                <li *ngIf="!isLogged"><a routerLink="/register">Register</a></li>
-                <li *ngIf="isLogged" class="logout" (click)="logout()"><a>Logout</a></li>
+                <li *ngIf="isAuthenticated"><a routerLink="/create">Create</a></li>
+                <li *ngIf="!isAuthenticated"><a routerLink="/login">Login</a></li>
+                <li *ngIf="!isAuthenticated"><a routerLink="/register">Register</a></li>
+                <li *ngIf="isAuthenticated" class="logout" (click)="logout()"><a>Logout</a></li>
             </ul>
         </nav>
     </div>

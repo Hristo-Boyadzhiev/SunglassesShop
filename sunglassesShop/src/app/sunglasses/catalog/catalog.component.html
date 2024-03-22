@@ -1,6 +1,6 @@
 <div *ngIf="isEmptyCollection" class="emptyCollectionContainer">
     <p class="message">{{emptyCollectionMessage}}</p>
-    <span><a routerLink="/create">Create</a></span>
+    <span *ngIf="isAuthenticated"><a routerLink="/create">Create</a></span>
 </div>
 
 

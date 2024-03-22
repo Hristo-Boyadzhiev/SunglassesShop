@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SunglassesService } from '../sunglasses.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
 
 @Component({
   selector: 'app-catalog',
@@ -11,7 +12,14 @@ export class CatalogComponent implements OnInit {
   isEmptyCollection: boolean = false
   emptyCollectionMessage: string | undefined
 
-  constructor(private sunglassesService: SunglassesService) { }
+  constructor(
+    private sunglassesService: SunglassesService,
+    private authenticationService: AuthenticationService
+  ) { }
+
+  get isAuthenticated(): boolean {
+    return this.authenticationService.isAuthenticated
+  }
 
   ngOnInit(): void {
     this.sunglassesService.getSunglasses().subscribe({

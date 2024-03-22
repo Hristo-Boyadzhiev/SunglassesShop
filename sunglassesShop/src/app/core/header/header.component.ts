@@ -15,7 +15,7 @@ export class HeaderComponent {
     private router: Router
     ) { }
 
-  get isLogged():boolean{
+  get isAuthenticated():boolean{
     return this.authenticationService.isAuthenticated
   }
 
