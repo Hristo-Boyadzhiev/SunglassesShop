@@ -5,13 +5,15 @@ import { SunglassesRoutingModule } from './sunglasses-routing.module';
 import { CatalogComponent } from './catalog/catalog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { DetailsComponent } from './details/details.component';
 
 
 
 @NgModule({
   declarations: [
     CreateComponent,
-    CatalogComponent
+    CatalogComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,

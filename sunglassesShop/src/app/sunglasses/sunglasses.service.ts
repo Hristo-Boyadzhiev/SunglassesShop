@@ -29,4 +29,8 @@ export class SunglassesService {
         glassColor
       })
   }
+
+  getSunglassesDetails(id: number):Observable<Sunglasses>{
+    return this.http.get<Sunglasses>(`/api/data/sunglasses/${id}`)
+  }
 }

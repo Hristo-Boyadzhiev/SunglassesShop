@@ -14,7 +14,7 @@
             <!-- Тук може да използвам pipe за ограничаване дължината на името -->
             <p class="brand-and-model">{{sunglasses.brand}} {{sunglasses.model}}</p>
             <p class="price">{{sunglasses.price}}€</p>
-            <span class="details"><a class="detailsLink" routerLink="#">Details</a></span>
+            <span class="details"><a class="detailsLink" [routerLink]="['/catalog/details', sunglasses._id]">Details</a></span>
         </div>
     </article>
 </section>
