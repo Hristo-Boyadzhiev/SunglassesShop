@@ -58,7 +58,7 @@ export class RegisterComponent {
           // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
           // Да тествам дали работи оптимално.
           if (responseError.error.message === 'Invalid access token') {
-            localStorage.removeItem('auth')
+            this.authenticationService.clearLocalStorage()
           } else {
             alert(responseError.error.message)
 

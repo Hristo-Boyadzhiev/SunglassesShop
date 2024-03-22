@@ -34,7 +34,7 @@ export class CatalogComponent implements OnInit {
         // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
         // Да тествам дали работи оптимално.
         if (responseError.error.message === 'Invalid access token') {
-          localStorage.removeItem('auth')
+          this.authenticationService.clearLocalStorage()
         } else {
           if (responseError.status === 404) {
             this.isEmptyCollection = true

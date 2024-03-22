@@ -21,6 +21,11 @@ export class AuthenticationService {
     }
   }
 
+  clearLocalStorage(){
+    localStorage.removeItem(this.key)
+    this.getUser()
+  }
+
   get isAuthenticated(): boolean {
     return !!this.getUser()
   }

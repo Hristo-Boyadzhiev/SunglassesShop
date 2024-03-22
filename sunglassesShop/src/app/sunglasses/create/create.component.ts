@@ -4,6 +4,7 @@ import { imageUrlValidator } from 'src/app/shared/validators/image-url-validator
 import { SunglassesService } from '../sunglasses.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
 
 @Component({
   selector: 'app-create',
@@ -25,6 +26,7 @@ export class CreateComponent {
   constructor(
     private fb: FormBuilder,
     private sunglassesService: SunglassesService,
+    private authenticationService: AuthenticationService,
     private router: Router
   ) { }
 
@@ -70,7 +72,7 @@ export class CreateComponent {
         },
         error: (responseError: HttpErrorResponse) => {
           if (responseError.error.message === 'Invalid access token') {
-            localStorage.removeItem('auth')
+            this.authenticationService.clearLocalStorage()
           } else {
             alert(responseError.error.message)
 
