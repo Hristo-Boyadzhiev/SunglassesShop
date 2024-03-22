@@ -27,7 +27,6 @@ export class CatalogComponent implements OnInit {
   ngOnInit(): void {
     this.sunglassesService.getSunglasses().subscribe({
       next: sunglasses => {
-        console.log(sunglasses)
         this.sunglassesCollection = sunglasses
       },
       error: (responseError: HttpErrorResponse) => {

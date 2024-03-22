@@ -13,7 +13,6 @@ export class DetailsComponent implements OnInit{
   constructor (private activatedRoute: ActivatedRoute){}
 
   ngOnInit(): void {
-    this.sunglassesDetails = this.activatedRoute.snapshot.data['sunglassesId']
-    console.log(this.sunglassesDetails)
+
   }
 }
