@@ -13,7 +13,7 @@ import { Sunglasses } from 'src/app/shared/types/sunglasses';
 export class CatalogComponent implements OnInit {
   isEmptyCollection: boolean = false
   emptyCollectionMessage: string | undefined
-  sunglassesCollection: Sunglasses[] = []
+  sunglassesCollection: any
 
   constructor(
     private sunglassesService: SunglassesService,
@@ -27,12 +27,12 @@ export class CatalogComponent implements OnInit {
   ngOnInit(): void {
     this.sunglassesService.getSunglasses().subscribe({
       next: sunglasses => {
-        console.log(sunglasses)
-        // this.sunglassesCollection = sunglasses
+          this.sunglassesCollection = sunglasses
       },
       error: (responseError: HttpErrorResponse) => {
         // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
         // Да тествам дали работи оптимално.
+        // При 'Invalid access token' в съчетание с status 404(липсват очила) не работи както трябва
         if (responseError.error.message === 'Invalid access token') {
           this.authenticationService.clearLocalStorage()
         } else {
