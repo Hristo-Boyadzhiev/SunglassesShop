@@ -7,7 +7,7 @@ import {
   HTTP_INTERCEPTORS,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { AuthenticationService } from './authentication/authentication.service';
 
@@ -36,7 +36,19 @@ export class AppInterceptor implements HttpInterceptor {
       }
     }
 
-    return next.handle(request)
+    return next.handle(request).pipe(
+      // catchError((responseError: HttpErrorResponse) => {
+        // При тази грешка изтривам токена и не хвърлям нищо
+        // Във всички други случаи хвърлям грешката нататък и тя се обработва от съответния компонент
+      //   if (responseError.status === 403 &&
+      //     responseError.error.message === 'Invalid access token') {
+      //     localStorage.removeItem('auth')
+      //     throw null
+      //   } else {
+      //     throw responseError
+      //   }
+      // })
+    )
   }
 }
 

@@ -35,14 +35,20 @@ export class LoginComponent {
           this.router.navigate(['/catalog'])
         },
         error: (responseError: HttpErrorResponse) => {
-          alert(responseError.error.message)
+          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+          // Да тествам дали работи оптимално.
+          if (responseError.error.message === 'Invalid access token') {
+            localStorage.removeItem('auth')
+          } else {
+            alert(responseError.error.message)
 
-          // Заради стиловете за валидация не използвам this.form.reset()
-          // Да измисля как да го оправя
-          this.form.setValue({
-            email: '',
-            password: ''
-          })
+            // Заради стиловете за валидация не използвам this.form.reset()
+            // Да измисля как да го оправя
+            this.form.setValue({
+              email: '',
+              password: ''
+            })
+          }
         }
       })
     } else {

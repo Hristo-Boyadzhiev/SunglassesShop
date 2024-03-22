@@ -51,10 +51,15 @@ export class RegisterComponent {
       typeof password === 'string'
     ) {
       this.authenticationService.register(firstName, lastName, email, password).subscribe({
-          next: user => {
-            this.router.navigate(['/catalog'])
-          },
-          error: (responseError: HttpErrorResponse) => {
+        next: user => {
+          this.router.navigate(['/catalog'])
+        },
+        error: (responseError: HttpErrorResponse) => {
+          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+          // Да тествам дали работи оптимално.
+          if (responseError.error.message === 'Invalid access token') {
+            localStorage.removeItem('auth')
+          } else {
             alert(responseError.error.message)
 
             this.form.setValue({
@@ -68,7 +73,8 @@ export class RegisterComponent {
               }
             })
           }
-        })
+        }
+      })
     } else {
       alert('Invalid register data. Please try again.');
     }

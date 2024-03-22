@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SunglassesService } from '../sunglasses.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
+import { Sunglasses } from 'src/app/shared/types/sunglasses';
+
 
 @Component({
   selector: 'app-catalog',
@@ -11,6 +13,7 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
 export class CatalogComponent implements OnInit {
   isEmptyCollection: boolean = false
   emptyCollectionMessage: string | undefined
+  sunglassesCollection: Sunglasses[] = []
 
   constructor(
     private sunglassesService: SunglassesService,
@@ -25,13 +28,20 @@ export class CatalogComponent implements OnInit {
     this.sunglassesService.getSunglasses().subscribe({
       next: sunglasses => {
         console.log(sunglasses)
+        // this.sunglassesCollection = sunglasses
       },
       error: (responseError: HttpErrorResponse) => {
-        if (responseError.status === 404) {
-          this.isEmptyCollection = true
-          this.emptyCollectionMessage = 'No sunglasses yet'
+        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+        // Да тествам дали работи оптимално.
+        if (responseError.error.message === 'Invalid access token') {
+          localStorage.removeItem('auth')
         } else {
-          alert(responseError.error.message)
+          if (responseError.status === 404) {
+            this.isEmptyCollection = true
+            this.emptyCollectionMessage = 'No sunglasses yet'
+          } else {
+            alert(responseError.error.message)
+          }
         }
       }
     })

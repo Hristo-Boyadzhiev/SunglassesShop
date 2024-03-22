@@ -25,7 +25,7 @@ export class CreateComponent {
   constructor(
     private fb: FormBuilder,
     private sunglassesService: SunglassesService,
-    private router:Router
+    private router: Router
   ) { }
 
   createHandler() {
@@ -54,7 +54,7 @@ export class CreateComponent {
       typeof shape === 'string' &&
       typeof frameColor === 'string' &&
       typeof glassColor === 'string'
-     ){
+    ) {
       this.sunglassesService.createSunglasses(
         brand,
         model,
@@ -65,22 +65,26 @@ export class CreateComponent {
         frameColor,
         glassColor
       ).subscribe({
-        next: newSunglasses=>{
+        next: newSunglasses => {
           this.router.navigate(['/catalog'])
-        }, 
-        error: (responseError:HttpErrorResponse)=>{
-          alert(responseError.error.message)
-          
-          this.form.setValue({
-            brand: '',
-            model: '',
-            price: '',
-            imageUrl: '',
-            gender: '',
-            shape: '',
-            frameColor: '',
-            glassColor: '',
-          })
+        },
+        error: (responseError: HttpErrorResponse) => {
+          if (responseError.error.message === 'Invalid access token') {
+            localStorage.removeItem('auth')
+          } else {
+            alert(responseError.error.message)
+
+            this.form.setValue({
+              brand: '',
+              model: '',
+              price: '',
+              imageUrl: '',
+              gender: '',
+              shape: '',
+              frameColor: '',
+              glassColor: '',
+            })
+          }
         }
       })
     } else {

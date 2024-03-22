@@ -13,9 +13,9 @@ export class HeaderComponent {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router
-    ) { }
+  ) { }
 
-  get isAuthenticated():boolean{
+  get isAuthenticated(): boolean {
     return this.authenticationService.isAuthenticated
   }
 
@@ -24,8 +24,14 @@ export class HeaderComponent {
       next: example => {
         this.router.navigate(['/catalog'])
       },
-      error: (responseError:HttpErrorResponse)=>{
-        alert(responseError.error.message)
+      error: (responseError: HttpErrorResponse) => {
+        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+        // Да тествам дали работи оптимално.
+        if (responseError.error.message === 'Invalid access token') {
+          localStorage.removeItem('auth')
+        } else {
+          alert(responseError.error.message)
+        }
       }
     })
   }
