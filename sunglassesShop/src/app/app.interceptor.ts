@@ -36,7 +36,9 @@ export class AppInterceptor implements HttpInterceptor {
       }
     }
 
-    return next.handle(request).pipe(
+    return next.handle(request)
+
+
       // catchError((responseError: HttpErrorResponse) => {
         // При тази грешка изтривам токена и не хвърлям нищо
         // Във всички други случаи хвърлям грешката нататък и тя се обработва от съответния компонент
@@ -48,7 +50,6 @@ export class AppInterceptor implements HttpInterceptor {
       //     throw responseError
       //   }
       // })
-    )
   }
 }
 

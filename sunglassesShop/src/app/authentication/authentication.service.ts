@@ -21,7 +21,7 @@ export class AuthenticationService {
     }
   }
 
-  clearLocalStorage(){
+  clearLocalStorage(): void{
     localStorage.removeItem(this.key)
     this.getUser()
   }

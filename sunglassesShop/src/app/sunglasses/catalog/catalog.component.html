@@ -1,9 +1,20 @@
-<div *ngIf="isEmptyCollection" class="emptyCollectionContainer">
+<section *ngIf="isEmptyCollection" class="emptyCollectionContainer">
     <p class="message">{{emptyCollectionMessage}}</p>
-    <span *ngIf="isAuthenticated"><a routerLink="/create">Create</a></span>
-</div>
+    <span *ngIf="isAuthenticated" class="create"><a class="createLink" routerLink="/create">Create</a></span>
+</section>
 
 
-<div *ngIf="!isEmptyCollection" class="collectionContainer">
-    <!-- <p>{{}}</p> -->
-</div>
+<section *ngIf="!isEmptyCollection" class="collectionContainer">
+    <article *ngFor="let sunglasses of sunglassesCollection" class="sunglasses">
+        <div class="img-container">
+            <img src="{{sunglasses.imageUrl}}" alt="sunglasses-image">
+        </div>
+
+        <div class="content">
+            <!-- Тук може да използвам pipe за ограничаване дължината на името -->
+            <p class="brand-and-model">{{sunglasses.brand}} {{sunglasses.model}}</p>
+            <p class="price">{{sunglasses.price}}€</p>
+            <span class="details"><a class="detailsLink" routerLink="#">Details</a></span>
+        </div>
+    </article>
+</section>

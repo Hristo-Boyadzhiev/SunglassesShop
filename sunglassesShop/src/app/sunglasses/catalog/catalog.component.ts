@@ -12,8 +12,8 @@ import { Sunglasses } from 'src/app/shared/types/sunglasses';
 })
 export class CatalogComponent implements OnInit {
   isEmptyCollection: boolean = false
-  emptyCollectionMessage: string | undefined
-  sunglassesCollection: any
+  emptyCollectionMessage: string = ''
+  sunglassesCollection: Sunglasses[] = []
 
   constructor(
     private sunglassesService: SunglassesService,
@@ -27,7 +27,8 @@ export class CatalogComponent implements OnInit {
   ngOnInit(): void {
     this.sunglassesService.getSunglasses().subscribe({
       next: sunglasses => {
-          this.sunglassesCollection = sunglasses
+        console.log(sunglasses)
+        this.sunglassesCollection = sunglasses
       },
       error: (responseError: HttpErrorResponse) => {
         // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
@@ -38,6 +39,7 @@ export class CatalogComponent implements OnInit {
         } else {
           if (responseError.status === 404) {
             this.isEmptyCollection = true
+            this.sunglassesCollection = []
             this.emptyCollectionMessage = 'No sunglasses yet'
           } else {
             alert(responseError.error.message)

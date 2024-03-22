@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
+import { Observable } from 'rxjs';
+import { Sunglasses } from '../shared/types/sunglasses';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +12,13 @@ export class SunglassesService {
 
   constructor(private http: HttpClient) { }
 
-  getSunglasses() {
-    return this.http.get('/api/data/sunglasses')
+  getSunglasses():Observable<Sunglasses[]> {
+    return this.http.get<Sunglasses[]>('/api/data/sunglasses')
   }
 
-  createSunglasses(brand: string, model: string, price: number, imageUrl: string, gender: string, shape: string, frameColor: string, glassColor: string) {
+  createSunglasses(brand: string, model: string, price: number, imageUrl: string, gender: string, shape: string, frameColor: string, glassColor: string): Observable<Sunglasses[]> {
     return this.http
-      .post('/api/data/sunglasses', {
+      .post<Sunglasses[]>('/api/data/sunglasses', {
         brand,
         model,
         price,
