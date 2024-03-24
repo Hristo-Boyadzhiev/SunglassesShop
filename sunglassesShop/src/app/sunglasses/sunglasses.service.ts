@@ -33,4 +33,9 @@ export class SunglassesService {
   getSunglassesDetails(id: number):Observable<Sunglasses>{
     return this.http.get<Sunglasses>(`/api/data/sunglasses/${id}`)
   }
+
+  buySunglasses(quantity: number, sunglassesDetails: Sunglasses):Observable<Sunglasses>{
+    return this.http
+    .post<Sunglasses>('/api/data/purchases', {quantity, sunglassesDetails})
+  }
 }

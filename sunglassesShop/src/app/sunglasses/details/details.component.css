@@ -29,7 +29,7 @@ p.brand-and-models {
     font-size: 2em;
 }
 
-div.buy {
+form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,13 +40,10 @@ div.buy {
 input.quantity {
     width: 2em;
     height: 100%;
+    border-color: black;
 }
 
-span.buy {
-    display: inline-block;
-}
-
-a.buyLink {
+button.buy-button {
     display: inline-block;
     text-decoration: none;
     font-size: 1.2em;
@@ -56,10 +53,23 @@ a.buyLink {
     border: 1px solid black;
 }
 
-a:hover {
+button.buy-button:hover {
     background: black;
     color: white;
     font-size: 1.5em;
+    letter-spacing: 0.3em;
+    transition: 0.3s ease-in-out
+}
+
+button.buy-button:disabled {
+    background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+    color: light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
+    border-color: light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3));
+}
+
+button.buy-button:disabled:hover {
+    background: grey;
+    color: white;
     letter-spacing: 0.3em;
     transition: 0.3s ease-in-out
 }

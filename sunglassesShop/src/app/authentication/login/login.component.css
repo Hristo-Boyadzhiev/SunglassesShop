@@ -51,7 +51,7 @@ button.submit:hover {
     transition: 0.3s ease-in-out
 }
 
-button.submit[disabled]:hover {
+button.submit:disabled:hover {
     background: grey;
     color: white;
     font-size: 2em;

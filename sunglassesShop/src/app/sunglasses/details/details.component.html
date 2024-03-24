@@ -7,11 +7,26 @@
         <p class="brand-and-models">{{sunglassesDetails?.brand}} {{sunglassesDetails?.model}}</p>
         <p class="price">Price: {{sunglassesDetails?.price}}€</p>
 
-        <div class="buy">
-            <p class="quantity">Quantity:</p>
-            <input type="number" min="1" class="quantity">
-            <span class="buy"><a class="buyLink" routerLink="#">BUY</a></span>
-        </div>
+            <form *ngIf="isAuthenticated" #form="ngForm" (ngSubmit)="quantityHandler(form)">
+                <label for="quantity">Quantity:</label>
+                <input
+                type="number"
+                class="quantity"
+                id="quantity"
+                name="quantity"
+                min="1"
+                [ngModel]="defaultQuantity"
+                #inputQuantity="ngModel"
+                required
+                >
+                <button 
+                class="buy-button"
+                [disabled]="form.invalid"
+                >BUY</button>
+            </form>
+
+
+
         <details class="sunglasses-description">
             <summary>Sunglasses description</summary>
 

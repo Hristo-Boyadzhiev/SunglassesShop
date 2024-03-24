@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CreateComponent } from './create/create.component';
 import { SunglassesRoutingModule } from './sunglasses-routing.module';
 import { CatalogComponent } from './catalog/catalog.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { DetailsComponent } from './details/details.component';
 
@@ -13,13 +13,14 @@ import { DetailsComponent } from './details/details.component';
   declarations: [
     CreateComponent,
     CatalogComponent,
-    DetailsComponent
+    DetailsComponent,
   ],
   imports: [
     CommonModule,
     SunglassesRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class SunglassesModule { }
