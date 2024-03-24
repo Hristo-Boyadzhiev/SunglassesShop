@@ -38,7 +38,7 @@ export class SunglassesService {
     const data = {
       sunglassesDetails,
       quantity,
-      userId: sunglassesDetails._id
+      userId: sunglassesDetails._ownerId
   }
     return this.http
     .post<Sunglasses>('/api/data/purchases', data)

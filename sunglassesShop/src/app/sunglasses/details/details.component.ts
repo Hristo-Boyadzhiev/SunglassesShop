@@ -51,8 +51,10 @@ export class DetailsComponent implements OnInit {
 
     const { quantity } = form.value
 
+    // Тряб
+
     if (this.sunglassesDetails) {
-      this.sunglassesService.buySunglasses(quantity, this.sunglassesDetails).subscribe({
+      this.sunglassesService.buySunglasses(quantity, this.sunglassesDetails, user).subscribe({
         next: boughtSunglasses => {
           console.log(boughtSunglasses)
         },
