@@ -43,31 +43,29 @@ export class DetailsComponent implements OnInit {
     })
   }
 
-  quantityHandler(form:NgForm){
-    if(form.invalid){
+  quantityHandler(form: NgForm) {
+    if (form.invalid) {
       console.log('Invalid form')
       return
     }
 
-    const {quantity} = form.value
+    const { quantity } = form.value
 
-    if(this.sunglassesDetails){
+    if (this.sunglassesDetails) {
       this.sunglassesService.buySunglasses(quantity, this.sunglassesDetails).subscribe({
-        next: boughtSunglasses=>{
+        next: boughtSunglasses => {
           console.log(boughtSunglasses)
+        },
+        error: (responseError: HttpErrorResponse) => {
+          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+          // Да тествам дали работи оптимално.
+          if (responseError.error.message === 'Invalid access token') {
+            this.authenticationService.clearLocalStorage()
+          } else {
+            alert(responseError.error.message)
+          }
         }
       })
     }
-
-
-
-
-    // const data = {
-      //     furniture,
-      //     quantity: 1,
-      //     userId,
-      //     userEmail
-      // }
   }
-
 }

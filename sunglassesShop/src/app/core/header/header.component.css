@@ -19,11 +19,10 @@ ul {
     flex-basis: 94%;
     display: flex;
     gap: 2em;
-    justify-content: center;
     margin-left: 2em;
 }
 
-li {
+ul li {
     display: block;
 }
 
@@ -44,6 +43,6 @@ ul li a:hover {
     cursor: pointer;
 }
 
-.purchaseBasket{
-    margin-left: auto
+.purchaseBasket {
+    margin-left: auto;
 }
