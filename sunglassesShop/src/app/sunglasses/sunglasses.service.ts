@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Sunglasses } from '../shared/types/sunglasses';
 
 @Injectable({

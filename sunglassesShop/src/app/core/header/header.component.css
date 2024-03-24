@@ -1,14 +1,26 @@
 .container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-   border-bottom: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 0 2em;
+}
+
+.img-container {
+    flex-basis: 6%;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 ul {
+    flex-basis: 94%;
     display: flex;
     gap: 2em;
+    justify-content: center;
+    margin-left: 2em;
 }
 
 li {
@@ -28,18 +40,10 @@ ul li a:hover {
     transition: 0.3s ease-in-out
 }
 
-.img-container {
-    width: 6%;
-}
-
-img {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
 .logout {
     cursor: pointer;
 }
 
-
+.purchaseBasket{
+    margin-left: auto
+}
