@@ -14,6 +14,7 @@ import { NgForm } from '@angular/forms';
 export class DetailsComponent implements OnInit {
   sunglassesDetails: Sunglasses | undefined
   defaultQuantity = 1
+  buyerId: string | undefined
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -31,7 +32,6 @@ export class DetailsComponent implements OnInit {
     this.sunglassesService.getSunglassesDetails(id).subscribe({
       next: currentSunglassesDetails => {
         this.sunglassesDetails = currentSunglassesDetails
-        // console.log(this.sunglassesDetails)
       },
       error: (responseError: HttpErrorResponse) => {
         if (responseError.error.message === 'Invalid access token') {
@@ -50,11 +50,10 @@ export class DetailsComponent implements OnInit {
     }
 
     const { quantity } = form.value
+    this.buyerId = this.authenticationService.getUser()?._id
 
-    // Тряб
-
-    if (this.sunglassesDetails) {
-      this.sunglassesService.buySunglasses(quantity, this.sunglassesDetails, user).subscribe({
+    if (this.sunglassesDetails && this.buyerId) {
+      this.sunglassesService.buySunglasses(quantity, this.sunglassesDetails, this.buyerId).subscribe({
         next: boughtSunglasses => {
           console.log(boughtSunglasses)
         },
@@ -68,6 +67,8 @@ export class DetailsComponent implements OnInit {
           }
         }
       })
+    } else {
+      alert('You are not authenticated. Please log-in')
     }
   }
 }

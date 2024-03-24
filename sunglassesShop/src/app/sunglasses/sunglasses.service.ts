@@ -34,13 +34,12 @@ export class SunglassesService {
     return this.http.get<Sunglasses>(`/api/data/sunglasses/${id}`)
   }
 
-  buySunglasses(quantity: number, sunglassesDetails: Sunglasses):Observable<Sunglasses>{
-    const data = {
+  buySunglasses(quantity: number, sunglassesDetails: Sunglasses, buyerId: string):Observable<Sunglasses>{
+    return this.http
+    .post<Sunglasses>('/api/data/purchases', {
       sunglassesDetails,
       quantity,
-      userId: sunglassesDetails._ownerId
-  }
-    return this.http
-    .post<Sunglasses>('/api/data/purchases', data)
+      buyerId
+    })
   }
 }
