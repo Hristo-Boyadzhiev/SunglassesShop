@@ -4,21 +4,27 @@ import { PurchasesService } from '../purchases.service';
 import { Purchase } from 'src/app/shared/types/purchase';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { DeliveryCostPipe } from 'src/app/shared/pipes/delivery-cost.pipe';
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.css']
+  styleUrls: ['./basket.component.css'],
+  providers: [DeliveryCostPipe]
 })
 export class BasketComponent implements OnInit {
   buyerId: string | undefined
   purchasesList: Purchase[] = []
   isEmptyCollection: boolean = true
   total: number = 0
+  deliveryCost: number = 0
+  paymentAmount: number = 0
+
 
   constructor(
     private authenticationService: AuthenticationService,
-    private purchasesService: PurchasesService
+    private purchasesService: PurchasesService,
+    private deliveryCostPipe: DeliveryCostPipe
   ) { }
 
   get isAuthenticated(): boolean {
@@ -38,6 +44,8 @@ export class BasketComponent implements OnInit {
             this.isEmptyCollection = false
             this.purchasesList = currentUserPurchases
             this.total = this.purchasesList.reduce((acc, purchase)=>acc + purchase.totalPrice, 0)
+            this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
+            this.paymentAmount = this.total + this.deliveryCost
           }
         },
         error: (responseError: HttpErrorResponse) => {
@@ -75,6 +83,8 @@ export class BasketComponent implements OnInit {
         })
 
         this.total = this.purchasesList.reduce((acc, purchase)=>acc + purchase.totalPrice, 0)
+        this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
+        this.paymentAmount = this.total + this.deliveryCost
       },
       error: (responseError: HttpErrorResponse) => {
         // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
