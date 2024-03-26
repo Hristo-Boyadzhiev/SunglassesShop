@@ -86,14 +86,15 @@ section.basket-items article.single-product div.sunglasses-details {
     justify-content: space-around;
 }
 
-section.basket-items article.single-product div.sunglasses-details .brand-and-model {
+section.basket-items article.single-product div.sunglasses-details div.brand-and-model,
+section.basket-items article.single-product div.sunglasses-details div.price-container {
     display: flex;
     flex-direction: column;
     gap: 0.5em
 }
 
 section.basket-items article.single-product div.sunglasses-details .brand-and-model, 
-section.basket-items article.single-product div.sunglasses-details .sunglasses-price {
+section.basket-items article.single-product div.sunglasses-details .sunglasses-total-price {
     font-weight: bold;
 }
 

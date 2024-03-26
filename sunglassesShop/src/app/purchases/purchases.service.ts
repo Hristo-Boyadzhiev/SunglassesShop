@@ -14,9 +14,9 @@ export class PurchasesService {
     return this.http.get<Purchase[]>(`/api/data/purchases?where=${searchQuery}`)
   }
 
-  // Да направя от тип Observable
   editPurchaseQuantity(id:string, sunglassesWithEditedQuantity: Purchase):Observable<Purchase>{
     return this.http
     .put<Purchase>(`/api/data/purchases/${id}`, sunglassesWithEditedQuantity)
+
   }
 }

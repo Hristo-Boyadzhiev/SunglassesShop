@@ -38,7 +38,12 @@
                     >
                 </form>
 
-                <p class="sunglasses-price">{{sunglasses.sunglassesDetails.price}}€</p>
+                <div class="price-container">
+                    <p>Price:</p>
+                    <p>{{sunglasses.sunglassesDetails.price}}€</p>
+                </div>
+
+                <p class="sunglasses-total-price">{{sunglasses.totalPrice}}€</p>
                 <span><i class="fa-solid fa-trash-can"></i></span>
             </div>
         </article>
@@ -53,14 +58,15 @@
         <article class="summary-content">
             <div class="total">
                 <p>Total:</p>
-                <p>100 ex</p>
+                <p>{{total}}€</p>
             </div>
 
             <div class="delivery">
                 <p>Delivery:</p>
-                <p>100 ex</p>
+                <p></p>
             </div>
 
+            <!-- Да направя Pipe - ако total e <100 доставка 5 евро, иначе 0 -->
             <div class="payment-amount">
                 <p>Payment amount:</p>
                 <p>100 ex</p>

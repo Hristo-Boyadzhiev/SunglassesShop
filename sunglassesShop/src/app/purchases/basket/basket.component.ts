@@ -14,6 +14,7 @@ export class BasketComponent implements OnInit {
   buyerId: string | undefined
   purchasesList: Purchase[] = []
   isEmptyCollection: boolean = true
+  total: number = 0
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -36,7 +37,7 @@ export class BasketComponent implements OnInit {
           } else {
             this.isEmptyCollection = false
             this.purchasesList = currentUserPurchases
-            // console.log(currentUserPurchases)
+            this.total = this.purchasesList.reduce((acc, purchase)=>acc + purchase.totalPrice, 0)
           }
         },
         error: (responseError: HttpErrorResponse) => {
@@ -63,11 +64,17 @@ export class BasketComponent implements OnInit {
     // При всяка промяна на количеството се прави put request и да променя quantity
     const { quantity } = form.value
     const id = sunglasses._id
-    const sunglassesWithEditedQuantity = { ...sunglasses, quantity: Number(quantity) }
+    const sunglassesWithEditedQuantity = { ...sunglasses, quantity: Number(quantity), totalPrice: Number(quantity) * sunglasses.sunglassesDetails.price  }
 
     this.purchasesService.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe({
       next: editedSunglasses => {
-        // console.log(editedSunglasses)
+        this.purchasesList = this.purchasesList.map(purchase=>{
+          return purchase._id === editedSunglasses._id
+        ? editedSunglasses
+        : purchase
+        })
+
+        this.total = this.purchasesList.reduce((acc, purchase)=>acc + purchase.totalPrice, 0)
       },
       error: (responseError: HttpErrorResponse) => {
         // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
@@ -79,7 +86,6 @@ export class BasketComponent implements OnInit {
         }
       }
     })
-
   }
 
 }
