@@ -27,6 +27,8 @@
 
                 <!-- ngModelChange - Всеки път, когато потребителят промени стойността в полето
                     събитието ngModelChange ще се изпълни.  -->
+                <!-- onkeydown="return false" ще предотврати въвеждането на стойности с клавиатурата, 
+                като се гарантира, че полето може да се актуализира само с помощта на стрелките. -->
                 <form #form="ngForm" class="quantity-form">
                     <label for="quantity">Quantity:</label>
                     <input 
@@ -39,22 +41,15 @@
                     (ngModelChange)="quantityHandler(form, sunglasses)" 
                     required
                     min="1"
-                    appFormStyles
+                    onkeydown="return false"
                     >
                 </form>
 
-                <!-- <ng-container *ngIf="inputQuantity.touched">
-                    <p class="error" *ngIf="inputQuantity?.errors?.['required']">The quantity is required</p>
-                    <p class="error" *ngIf="inputQuantity?.errors?.['min']">The quantity must be positive number</p>
-                </ng-container> -->
-
-                <!-- <div class="price-container" *ngIf="inputQuantity?.errors ?false :true"> -->
                     <div class="price-container" >
                     <p>Price:</p>
                     <p>{{sunglasses.sunglassesDetails.price}}€</p>
                 </div>
 
-                <!-- <p class="sunglasses-total-price" *ngIf="inputQuantity?.errors ?false :true">{{sunglasses.totalPrice}}€</p> -->
                 <p class="sunglasses-total-price">{{sunglasses.totalPrice}}€</p>
 
                 <span (click)="deleteSunglasses(sunglasses._id)" class="deletePurchase">

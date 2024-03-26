@@ -64,10 +64,8 @@ export class BasketComponent implements OnInit {
   }
 
   quantityHandler(form: NgForm, sunglasses: Purchase) {
-    // Когато формата е невалидна да се сетва на 1
     if (form.invalid) {
       alert('The quantity must be positive number')
-      // sunglasses.quantity=1
       return;
   }
 
@@ -113,6 +111,15 @@ export class BasketComponent implements OnInit {
           this.total = this.purchasesList.reduce((acc, purchase) => acc + purchase.totalPrice, 0)
           this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
           this.paymentAmount = this.total + this.deliveryCost
+        }
+      },
+      error: (responseError: HttpErrorResponse) => {
+        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+        // Да тествам дали работи оптимално.
+        if (responseError.error.message === 'Invalid access token') {
+          this.authenticationService.clearLocalStorage()
+        } else {
+          alert(responseError.error.message)
         }
       }
     })
