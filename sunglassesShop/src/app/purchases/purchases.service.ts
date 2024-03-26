@@ -17,6 +17,10 @@ export class PurchasesService {
   editPurchaseQuantity(id:string, sunglassesWithEditedQuantity: Purchase):Observable<Purchase>{
     return this.http
     .put<Purchase>(`/api/data/purchases/${id}`, sunglassesWithEditedQuantity)
+  }
 
+  deletePurchase(id:string):Observable<Purchase>{
+    return this.http
+    .delete<Purchase>(`/api/data/purchases/${id}`)
   }
 }

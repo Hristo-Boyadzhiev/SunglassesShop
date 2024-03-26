@@ -167,3 +167,18 @@ button.complete-order-button:hover {
     letter-spacing: 0.3em;
     transition: 0.3s ease-in-out
 }
+
+a.link-sunglasses {
+    text-decoration: none;
+    color: black;
+}
+
+span.deletePurchase {
+    cursor: pointer;
+}
+
+.error {
+    font-family: Bebas Neue;
+    font-size: 1.2em;
+    color: red
+}

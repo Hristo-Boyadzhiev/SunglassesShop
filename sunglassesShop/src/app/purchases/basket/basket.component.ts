@@ -20,7 +20,6 @@ export class BasketComponent implements OnInit {
   deliveryCost: number = 0
   paymentAmount: number = 0
 
-
   constructor(
     private authenticationService: AuthenticationService,
     private purchasesService: PurchasesService,
@@ -41,9 +40,10 @@ export class BasketComponent implements OnInit {
           if (currentUserPurchases.length === 0) {
             this.isEmptyCollection = true
           } else {
+            // console.log(currentUserPurchases)
             this.isEmptyCollection = false
             this.purchasesList = currentUserPurchases
-            this.total = this.purchasesList.reduce((acc, purchase)=>acc + purchase.totalPrice, 0)
+            this.total = this.purchasesList.reduce((acc, purchase) => acc + purchase.totalPrice, 0)
             this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
             this.paymentAmount = this.total + this.deliveryCost
           }
@@ -64,25 +64,27 @@ export class BasketComponent implements OnInit {
   }
 
   quantityHandler(form: NgForm, sunglasses: Purchase) {
+    // Когато формата е невалидна да се сетва на 1
     if (form.invalid) {
-      console.log('invalid form')
-      return
-    }
+      alert('The quantity must be positive number')
+      // sunglasses.quantity=1
+      return;
+  }
 
     // При всяка промяна на количеството се прави put request и да променя quantity
     const { quantity } = form.value
     const id = sunglasses._id
-    const sunglassesWithEditedQuantity = { ...sunglasses, quantity: Number(quantity), totalPrice: Number(quantity) * sunglasses.sunglassesDetails.price  }
+    const sunglassesWithEditedQuantity = { ...sunglasses, quantity: Number(quantity), totalPrice: Number(quantity) * sunglasses.sunglassesDetails.price }
 
     this.purchasesService.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe({
       next: editedSunglasses => {
-        this.purchasesList = this.purchasesList.map(purchase=>{
+        this.purchasesList = this.purchasesList.map(purchase => {
           return purchase._id === editedSunglasses._id
-        ? editedSunglasses
-        : purchase
+            ? editedSunglasses
+            : purchase
         })
 
-        this.total = this.purchasesList.reduce((acc, purchase)=>acc + purchase.totalPrice, 0)
+        this.total = this.purchasesList.reduce((acc, purchase) => acc + purchase.totalPrice, 0)
         this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
         this.paymentAmount = this.total + this.deliveryCost
       },
@@ -93,6 +95,24 @@ export class BasketComponent implements OnInit {
           this.authenticationService.clearLocalStorage()
         } else {
           alert(responseError.error.message)
+        }
+      }
+    })
+  }
+
+  deleteSunglasses(id: string) {
+    this.purchasesService.deletePurchase(id).subscribe({
+      next: deletedPurchase => {
+        this.purchasesList = this.purchasesList.filter(purchase => {
+          return purchase._id !== id
+        })
+
+        if (this.purchasesList.length === 0) {
+          this.isEmptyCollection = true
+        } else {
+          this.total = this.purchasesList.reduce((acc, purchase) => acc + purchase.totalPrice, 0)
+          this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
+          this.paymentAmount = this.total + this.deliveryCost
         }
       }
     })
