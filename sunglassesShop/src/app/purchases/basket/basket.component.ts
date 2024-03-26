@@ -31,13 +31,13 @@ export class BasketComponent implements OnInit {
 
       this.purchasesService.getUserPurchases(searchQuery).subscribe({
         next: currentUserPurchases => {
-         if(currentUserPurchases.length === 0){
-          this.isEmptyCollection = true
-         } else {
-          this.isEmptyCollection = false
-          this.purchasesList = currentUserPurchases
-          console.log(currentUserPurchases)
-         }
+          if (currentUserPurchases.length === 0) {
+            this.isEmptyCollection = true
+          } else {
+            this.isEmptyCollection = false
+            this.purchasesList = currentUserPurchases
+            // console.log(currentUserPurchases)
+          }
         },
         error: (responseError: HttpErrorResponse) => {
           // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
@@ -50,18 +50,36 @@ export class BasketComponent implements OnInit {
         }
       })
     } else {
-     alert('You are not authenticated. Please log-in')
+      alert('You are not authenticated. Please log-in')
     }
   }
 
-  quantityHandler(form:NgForm){
-    if(form.invalid){
+  quantityHandler(form: NgForm, sunglasses: Purchase) {
+    if (form.invalid) {
       console.log('invalid form')
       return
     }
 
-// При всяка промяна на количеството да направя Put request и да променя quantity
-    console.log(form.value)
+    // При всяка промяна на количеството се прави put request и да променя quantity
+    const { quantity } = form.value
+    const id = sunglasses._id
+    const sunglassesWithEditedQuantity = { ...sunglasses, quantity: Number(quantity) }
+
+    this.purchasesService.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe({
+      next: editedSunglasses => {
+        // console.log(editedSunglasses)
+      },
+      error: (responseError: HttpErrorResponse) => {
+        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+        // Да тествам дали работи оптимално.
+        if (responseError.error.message === 'Invalid access token') {
+          this.authenticationService.clearLocalStorage()
+        } else {
+          alert(responseError.error.message)
+        }
+      }
+    })
+
   }
 
 }

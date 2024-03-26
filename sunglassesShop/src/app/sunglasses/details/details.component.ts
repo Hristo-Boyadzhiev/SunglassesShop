@@ -55,7 +55,7 @@ export class DetailsComponent implements OnInit {
     if (this.sunglassesDetails && this.buyerId) {
       this.sunglassesService.buySunglasses(quantity, this.sunglassesDetails, this.buyerId).subscribe({
         next: boughtSunglasses => {
-          console.log(boughtSunglasses)
+          // console.log(boughtSunglasses)
         },
         error: (responseError: HttpErrorResponse) => {
           // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.

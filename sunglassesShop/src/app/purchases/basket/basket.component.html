@@ -33,18 +33,43 @@
                     min="1"
                     [ngModel]="sunglasses.quantity" 
                     #inputQuantity="ngModel" 
-                    (ngModelChange)="quantityHandler(form)"
-                    required>
+                    (ngModelChange)="quantityHandler(form, sunglasses)"
+                    required
+                    >
                 </form>
 
                 <p class="sunglasses-price">{{sunglasses.sunglassesDetails.price}}€</p>
                 <span><i class="fa-solid fa-trash-can"></i></span>
             </div>
-
         </article>
     </section>
 
     <section class="order-complete">
+
+        <header class="summary-header">
+            <h2>Summary</h2>
+        </header>
+
+        <article class="summary-content">
+            <div class="total">
+                <p>Total:</p>
+                <p>100 ex</p>
+            </div>
+
+            <div class="delivery">
+                <p>Delivery:</p>
+                <p>100 ex</p>
+            </div>
+
+            <div class="payment-amount">
+                <p>Payment amount:</p>
+                <p>100 ex</p>
+            </div>
+
+            <div class="complete-order">
+                <button class="complete-order-button">Complete the order</button>
+            </div>
+        </article>
 
     </section>
 

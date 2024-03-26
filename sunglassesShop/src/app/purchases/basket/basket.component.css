@@ -44,13 +44,16 @@ img {
 
 section.basket-container {
     display: flex;
+    margin: 2em;
+    border:1px solid lightgray;
+    border-radius: 0.5em
 }
 
 section.basket-items {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
     padding: 1em 2em;
+    flex-basis: 70%;
 }
 
 section.basket-items header{
@@ -105,4 +108,61 @@ section.basket-items article.single-product div.sunglasses-details form.quantity
     width: 2em;
     height: 100%;
     border-color: black;
+}
+
+section.order-complete {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    padding: 2em;
+    flex-basis: 30%;
+    background: rgb(179, 171, 171);
+    border-radius: 0.5em;
+}
+
+section.order-complete header.summary-header h2 {
+    font-family: Bebas Neue;
+    font-size: 1.9em;
+    text-align: center;
+    padding-bottom: 1.5em;
+    border-bottom: 1px solid lightgray;
+}
+
+section.order-complete article.summary-content {
+    display: flex;
+    flex-direction: column;
+    gap:1.5em;
+    font-family: Roboto Condensed;
+    font-size: 1.3em;
+}
+
+section.order-complete article.summary-content div.total,
+section.order-complete article.summary-content div.delivery,
+section.order-complete article.summary-content div.payment-amount {
+    display: flex;
+    justify-content: space-between;
+}
+
+section.order-complete article.summary-content div.payment-amount {
+font-weight: bold;
+}
+
+section.order-complete article.summary-content div.complete-order {
+    text-align: center;
+}
+
+button.complete-order-button {
+    font-family: Bebas Neue;
+    font-size: 1.5em;
+    padding: 0.3em 1.2em;
+    margin-top: 1em;
+    border-radius: 0.5em;
+}
+
+button.complete-order-button:hover {
+    background: black;
+    color: white;
+    font-size: 1.5em;
+    letter-spacing: 0.3em;
+    transition: 0.3s ease-in-out
 }
