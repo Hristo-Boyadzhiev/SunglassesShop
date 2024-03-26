@@ -1,1 +1,51 @@
-<p>basket works!</p>
+<section *ngIf="isEmptyCollection" class="empty-collection-container">
+    <p class="message">The basket is empty</p>
+    <span *ngIf="isAuthenticated" class="catalog"><a class="catalog-link" routerLink="/catalog">Catalog</a></span>
+</section>
+
+<section *ngIf="!isEmptyCollection" class="basket-container">
+
+    <section class="basket-items">
+        <header>
+            <h2>Basket</h2>
+            <p>{{purchasesList.length}} items</p>
+        </header>
+        <article *ngFor="let sunglasses of purchasesList" class="single-product">
+            <div class="img-container">
+                <img src="{{sunglasses.sunglassesDetails.imageUrl}}" alt="sunglasses-image">
+            </div>
+
+            <div class="sunglasses-details">
+                <div class="brand-and-model">
+                    <p class="sunglasses-brand">{{sunglasses.sunglassesDetails.brand}}</p>
+                    <p class="sunglasses-model">{{sunglasses.sunglassesDetails.model}}</p>
+                </div>
+
+                <!-- ngModelChange - Всеки път, когато потребителят промени стойността в полето
+                    събитието ngModelChange ще се изпълни.  -->
+                <form #form="ngForm" class="quantity-form">
+                    <label for="quantity">Quantity:</label>
+                    <input 
+                    type="number" 
+                    class="quantity" 
+                    id="quantity" 
+                    name="quantity" 
+                    min="1"
+                    [ngModel]="sunglasses.quantity" 
+                    #inputQuantity="ngModel" 
+                    (ngModelChange)="quantityHandler(form)"
+                    required>
+                </form>
+
+                <p class="sunglasses-price">{{sunglasses.sunglassesDetails.price}}€</p>
+                <span><i class="fa-solid fa-trash-can"></i></span>
+            </div>
+
+        </article>
+    </section>
+
+    <section class="order-complete">
+
+    </section>
+
+</section>

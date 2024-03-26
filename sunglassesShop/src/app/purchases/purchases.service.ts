@@ -10,7 +10,6 @@ export class PurchasesService {
 
   constructor(private http: HttpClient) { }
 
-  // От тип Observable
   getUserPurchases(searchQuery: string):Observable<Purchase[]> {
     return this.http.get<Purchase[]>(`/api/data/purchases?where=${searchQuery}`)
   }

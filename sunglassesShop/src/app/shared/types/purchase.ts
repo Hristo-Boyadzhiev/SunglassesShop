@@ -2,9 +2,9 @@ import { Sunglasses } from "./sunglasses";
 
 export interface Purchase {
     _ownerId: string,
-    sunglassesDetail: Sunglasses,
-    "quantity": number,
-    "BuyerId": string,
-    "_createdOn": number,
-    "_id": string
+    sunglassesDetails: Sunglasses,
+    quantity: number,
+    buyerId: string,
+    _createdOn: number,
+    _id: string
 }

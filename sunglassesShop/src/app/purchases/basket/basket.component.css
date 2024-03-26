@@ -1,0 +1,108 @@
+.empty-collection-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+p.message {
+    font-family: Kanit;
+    font-size: 5em;
+    margin-top: 2.5em;
+}
+
+span.catalog {
+    display: inline-block;
+}
+
+a.catalog-link {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-family: Bebas Neue;
+    color: black;
+    padding: 0.3em 1.5em;
+    border: 1px solid black;
+    border-radius: 0.5em;  
+}
+
+a.catalog-link:hover {
+    background: black;
+    color: white;
+    font-size: 2em;
+    letter-spacing: 0.3em;
+    transition: 0.3s ease-in-out
+}
+
+/* No empty basket */
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+section.basket-container {
+    display: flex;
+}
+
+section.basket-items {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+    padding: 1em 2em;
+}
+
+section.basket-items header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3em;
+    font-family: Bebas Neue;
+    padding: 1em 0 2em 0;
+    border-bottom: 1px solid lightgray;
+}
+
+section.basket-items article.single-product {
+    display: flex;
+    align-items: center;
+    font-family: Roboto Condensed;
+    font-size: 1.2em;
+    border-bottom: 1px solid lightgray;
+    height: 200px;
+}
+
+section.basket-items article.single-product div.img-container {
+    flex-basis: 30%;
+}
+
+section.basket-items article.single-product div.sunglasses-details {
+    flex-basis: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+section.basket-items article.single-product div.sunglasses-details .brand-and-model {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em
+}
+
+section.basket-items article.single-product div.sunglasses-details .brand-and-model, 
+section.basket-items article.single-product div.sunglasses-details .sunglasses-price {
+    font-weight: bold;
+}
+
+section.basket-items article.single-product div.sunglasses-details form.quantity-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: center;
+}
+
+section.basket-items article.single-product div.sunglasses-details form.quantity-form input.quantity {
+    width: 2em;
+    height: 100%;
+    border-color: black;
+}
