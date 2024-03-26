@@ -43,6 +43,7 @@
                     <p>{{sunglasses.sunglassesDetails.price}}€</p>
                 </div>
 
+                <!-- Да се смята total price -->
                 <p class="sunglasses-total-price">{{sunglasses.totalPrice}}€</p>
                 <span><i class="fa-solid fa-trash-can"></i></span>
             </div>
@@ -60,13 +61,13 @@
                 <p>Total:</p>
                 <p>{{total}}€</p>
             </div>
-
+            
+   <!-- Да направя Pipe - ако total e <100 доставка 5 евро, иначе 0 -->
             <div class="delivery">
                 <p>Delivery:</p>
-                <p></p>
+                <p>{{total | deliveryCost:100}}€</p>
             </div>
 
-            <!-- Да направя Pipe - ако total e <100 доставка 5 евро, иначе 0 -->
             <div class="payment-amount">
                 <p>Payment amount:</p>
                 <p>100 ex</p>
