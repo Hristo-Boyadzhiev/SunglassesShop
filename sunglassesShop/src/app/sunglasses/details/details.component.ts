@@ -5,6 +5,7 @@ import { SunglassesService } from '../sunglasses.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { NgForm } from '@angular/forms';
+import { PurchasesService } from 'src/app/purchases/purchases.service';
 
 @Component({
   selector: 'app-details',
@@ -20,6 +21,7 @@ export class DetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private sunglassesService: SunglassesService,
     private authenticationService: AuthenticationService,
+    private purchasesService: PurchasesService
   ) { }
 
   get isAuthenticated(): boolean {
@@ -43,7 +45,7 @@ export class DetailsComponent implements OnInit {
     })
   }
 
-  quantityHandler(form: NgForm) {
+  buySunglassesHandler(form: NgForm) {
     if (form.invalid) {
       console.log('Invalid form')
       return
@@ -51,25 +53,64 @@ export class DetailsComponent implements OnInit {
 
     const { quantity } = form.value
     this.buyerId = this.authenticationService.getUser()?._id
+    const searchQuery = encodeURIComponent(`buyerId="${this.buyerId}"`)
 
-    if (this.sunglassesDetails && this.buyerId) {
-      const totalPrice = quantity * this.sunglassesDetails.price
-      this.sunglassesService.buySunglasses(quantity, totalPrice, this.sunglassesDetails, this.buyerId).subscribe({
-        next: boughtSunglasses => {
-          // console.log(boughtSunglasses)
-        },
-        error: (responseError: HttpErrorResponse) => {
-          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-          // Да тествам дали работи оптимално.
-          if (responseError.error.message === 'Invalid access token') {
-            this.authenticationService.clearLocalStorage()
+    this.purchasesService.getUserPurchases(searchQuery).subscribe({
+      next: currentUserPurchases => {
+        const userPurchase = currentUserPurchases.find(purchase => {
+          return purchase.sunglassesDetails._id === this.sunglassesDetails?._id
+        })
+
+        if (userPurchase) {
+          const id = userPurchase._id
+          const editQuantity = quantity + userPurchase.quantity
+          const sunglassesWithEditedQuantity = { ...userPurchase, quantity: editQuantity, totalPrice: editQuantity * userPurchase.sunglassesDetails.price }
+
+          this.purchasesService.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe({
+            next: editedSunglasses => {
+              console.log(editedSunglasses)
+            }
+            ,
+            error: (responseError: HttpErrorResponse) => {
+              // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+              // Да тествам дали работи оптимално.
+              if (responseError.error.message === 'Invalid access token') {
+                this.authenticationService.clearLocalStorage()
+              } else {
+                alert(responseError.error.message)
+              }
+            }
+          })
+        } else {
+          if (this.sunglassesDetails && this.buyerId) {
+            const totalPrice = quantity * this.sunglassesDetails.price
+            this.sunglassesService.buySunglasses(quantity, totalPrice, this.sunglassesDetails, this.buyerId).subscribe({
+              next: boughtSunglasses => {
+              },
+              error: (responseError: HttpErrorResponse) => {
+                // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+                // Да тествам дали работи оптимално.
+                if (responseError.error.message === 'Invalid access token') {
+                  this.authenticationService.clearLocalStorage()
+                } else {
+                  alert(responseError.error.message)
+                }
+              }
+            })
           } else {
-            alert(responseError.error.message)
+            alert('You are not authenticated. Please log-in')
           }
         }
-      })
-    } else {
-      alert('You are not authenticated. Please log-in')
-    }
+      },
+      error: (responseError: HttpErrorResponse) => {
+        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+        // Да тествам дали работи оптимално.
+        if (responseError.error.message === 'Invalid access token') {
+          this.authenticationService.clearLocalStorage()
+        } else {
+          alert(responseError.error.message)
+        }
+      }
+    })
   }
 }

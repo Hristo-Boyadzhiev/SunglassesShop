@@ -7,7 +7,7 @@
         <p class="brand-and-models">{{sunglassesDetails?.brand}} {{sunglassesDetails?.model}}</p>
         <p class="price">Price: {{sunglassesDetails?.price}}€</p>
 
-            <form *ngIf="isAuthenticated" #form="ngForm" (ngSubmit)="quantityHandler(form)">
+            <form *ngIf="isAuthenticated" #form="ngForm" (ngSubmit)="buySunglassesHandler(form)">
                 <label for="quantity">Quantity:</label>
                 <input
                 type="number"
