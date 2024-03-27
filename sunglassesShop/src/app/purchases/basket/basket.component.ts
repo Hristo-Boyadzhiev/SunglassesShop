@@ -5,6 +5,7 @@ import { Purchase } from 'src/app/shared/types/purchase';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { DeliveryCostPipe } from 'src/app/shared/pipes/delivery-cost.pipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-basket',
@@ -19,11 +20,13 @@ export class BasketComponent implements OnInit {
   total: number = 0
   deliveryCost: number = 0
   paymentAmount: number = 0
+  isCompletedOrder: boolean = false
 
   constructor(
     private authenticationService: AuthenticationService,
     private purchasesService: PurchasesService,
-    private deliveryCostPipe: DeliveryCostPipe
+    private deliveryCostPipe: DeliveryCostPipe,
+    private router: Router
   ) { }
 
   get isAuthenticated(): boolean {
@@ -123,6 +126,13 @@ export class BasketComponent implements OnInit {
         }
       }
     })
+  }
+
+  completeOrderHandler(){
+    this.isCompletedOrder = !this.isCompletedOrder
+    setTimeout(() => {
+      this.router.navigate(['/catalog'])
+    }, 3000);
   }
 
 }

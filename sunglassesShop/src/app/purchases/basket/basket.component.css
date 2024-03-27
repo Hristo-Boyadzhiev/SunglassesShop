@@ -177,8 +177,12 @@ span.deletePurchase {
     cursor: pointer;
 }
 
-.error {
+/* completed section styles*/
+
+h1.completed-text {
     font-family: Bebas Neue;
-    font-size: 1.2em;
-    color: red
+    letter-spacing: 0.1em;
+    font-size: 5em;
+    text-align: center;
+    margin-top: 3.2em;
 }

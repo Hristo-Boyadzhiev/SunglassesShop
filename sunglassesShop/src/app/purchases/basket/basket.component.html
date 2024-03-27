@@ -3,7 +3,7 @@
     <span *ngIf="isAuthenticated" class="catalog"><a class="catalog-link" routerLink="/catalog">Catalog</a></span>
 </section>
 
-<section *ngIf="!isEmptyCollection" class="basket-container">
+<section *ngIf="!isEmptyCollection && !isCompletedOrder" class="basket-container">
 
     <section class="basket-items">
         <header>
@@ -84,10 +84,14 @@
             </div>
 
             <div class="complete-order">
-                <button class="complete-order-button">Complete the order</button>
+                <button (click)="completeOrderHandler()" class="complete-order-button">Complete the order</button>
             </div>
         </article>
 
     </section>
 
+</section>
+
+<section *ngIf="isCompletedOrder" class="completed-order">
+       <h1 class="completed-text"> YOUR PURCHASE IS COMPLETED!</h1>     
 </section>
