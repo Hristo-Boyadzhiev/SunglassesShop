@@ -17,6 +17,7 @@ export class DetailsComponent implements OnInit {
   sunglassesDetails: Sunglasses | undefined
   defaultQuantity = 1
   user: User | undefined
+  buyerId: string | undefined
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -46,6 +47,7 @@ export class DetailsComponent implements OnInit {
     })
   }
 
+
   buySunglassesHandler(form: NgForm) {
     if (form.invalid) {
       console.log('Invalid form')
@@ -58,6 +60,8 @@ export class DetailsComponent implements OnInit {
     const buyerId = this.user?._id
     const searchQuery = encodeURIComponent(`buyerId="${buyerId}"`)
 
+
+    // Ако няма никакви поръчки ще върни 403. 
     this.purchasesService.getUserPurchases(searchQuery).subscribe({
       next: currentUserPurchases => {
         if (this.sunglassesDetails) {
