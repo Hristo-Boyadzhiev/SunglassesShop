@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { NgForm } from '@angular/forms';
 import { PurchasesService } from 'src/app/purchases/purchases.service';
+import { User } from 'src/app/shared/types/user';
 
 @Component({
   selector: 'app-details',
@@ -15,7 +16,7 @@ import { PurchasesService } from 'src/app/purchases/purchases.service';
 export class DetailsComponent implements OnInit {
   sunglassesDetails: Sunglasses | undefined
   defaultQuantity = 1
-  buyerId: string | undefined
+  user: User | undefined
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -52,8 +53,10 @@ export class DetailsComponent implements OnInit {
     }
 
     const { quantity } = form.value
-    this.buyerId = this.authenticationService.getUser()?._id
-    const searchQuery = encodeURIComponent(`buyerId="${this.buyerId}"`)
+    this.user = this.authenticationService.getUser()
+
+    const buyerId = this.user?._id
+    const searchQuery = encodeURIComponent(`buyerId="${buyerId}"`)
 
     this.purchasesService.getUserPurchases(searchQuery).subscribe({
       next: currentUserPurchases => {
@@ -65,9 +68,12 @@ export class DetailsComponent implements OnInit {
             const sunglassesWithEditedQuantity = { ...userPurchase, quantity: editQuantity, totalPrice: editQuantity * userPurchase.sunglassesDetails.price }
             this.purchasesService.subscribeEditPurchaseQuantity(id, sunglassesWithEditedQuantity)
           } else {
-            if (this.sunglassesDetails && this.buyerId) {
+            if (this.sunglassesDetails && this.user && buyerId) {
               const totalPrice = quantity * this.sunglassesDetails.price
-              this.sunglassesService.buySunglasses(quantity, totalPrice, this.sunglassesDetails, this.buyerId).subscribe({
+              const buyerEmail = this.user.email
+              
+
+              this.sunglassesService.buySunglasses(quantity, totalPrice, this.sunglassesDetails, buyerEmail , buyerId).subscribe({
                 next: boughtSunglasses => {
                 },
                 error: (responseError: HttpErrorResponse) => {

@@ -13,7 +13,6 @@ import { User } from 'src/app/shared/types/user';
 export class CompletedPurchasesComponent implements OnInit {
   isCompletedPurchases: boolean = false
   completedPurchases: Purchase[] = []
-  user: User | undefined
 
   constructor(
     private purchasesService: PurchasesService,
@@ -28,7 +27,6 @@ export class CompletedPurchasesComponent implements OnInit {
         } else {
           this.isCompletedPurchases = true
           this.completedPurchases = currentCompletedPurchases
-          this.user = this.authenticationService.getUser()
           console.log(this.completedPurchases)
         }
       },

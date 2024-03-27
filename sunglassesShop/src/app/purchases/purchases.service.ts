@@ -67,7 +67,7 @@ export class PurchasesService {
         }
       })
 
-      this.createCompletedPurchases(purchase.quantity, purchase.totalPrice, purchase.sunglassesDetails, purchase.buyerId).subscribe({
+      this.createCompletedPurchases(purchase.quantity, purchase.totalPrice, purchase.sunglassesDetails, purchase.buyerEmail ,purchase.buyerId).subscribe({
         next: completedPurchase => {
         },
         error: (responseError: HttpErrorResponse) => {
@@ -100,12 +100,13 @@ export class PurchasesService {
       .delete<Purchase>(`/api/data/purchases/${id}`)
   }
 
-  createCompletedPurchases(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerId: string): Observable<Purchase> {
+  createCompletedPurchases(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerEmail:string ,buyerId: string): Observable<Purchase> {
     return this.http
       .post<Purchase>('/api/data/completedPurchases', {
         quantity,
         totalPrice,
         sunglassesDetails,
+        buyerEmail,
         buyerId
       })
   }

@@ -12,7 +12,7 @@ export class SunglassesService {
 
   constructor(private http: HttpClient) { }
 
-  getSunglasses():Observable<Sunglasses[]> {
+  getSunglasses(): Observable<Sunglasses[]> {
     return this.http.get<Sunglasses[]>('/api/data/sunglasses')
   }
 
@@ -30,17 +30,18 @@ export class SunglassesService {
       })
   }
 
-  getSunglassesDetails(id: number):Observable<Sunglasses>{
+  getSunglassesDetails(id: number): Observable<Sunglasses> {
     return this.http.get<Sunglasses>(`/api/data/sunglasses/${id}`)
   }
 
-  buySunglasses(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerId: string):Observable<Sunglasses>{
+  buySunglasses(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerEmail: string, buyerId: string): Observable<Sunglasses> {
     return this.http
-    .post<Sunglasses>('/api/data/purchases', {
-      sunglassesDetails,
-      quantity,
-      totalPrice,
-      buyerId
-    })
+      .post<Sunglasses>('/api/data/purchases', {
+        sunglassesDetails,
+        quantity,
+        totalPrice,
+        buyerEmail,
+        buyerId
+      })
   }
 }
