@@ -17,7 +17,6 @@ export class DetailsComponent implements OnInit {
   sunglassesDetails: Sunglasses | undefined
   defaultQuantity = 1
   user: User | undefined
-  buyerId: string | undefined
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -47,7 +46,6 @@ export class DetailsComponent implements OnInit {
     })
   }
 
-
   buySunglassesHandler(form: NgForm) {
     if (form.invalid) {
       console.log('Invalid form')
@@ -58,13 +56,12 @@ export class DetailsComponent implements OnInit {
     this.user = this.authenticationService.getUser()
 
     const buyerId = this.user?._id
+    const buyerEmail = this.user?.email
     const searchQuery = encodeURIComponent(`buyerId="${buyerId}"`)
 
-
-    // Ако няма никакви поръчки ще върни 403. 
     this.purchasesService.getUserPurchases(searchQuery).subscribe({
       next: currentUserPurchases => {
-        if (this.sunglassesDetails) {
+        if (this.sunglassesDetails && buyerId && buyerEmail) {
           const userPurchase = this.purchasesService.findBoughtSunglases(this.sunglassesDetails)
           if (userPurchase) {
             const id = userPurchase._id
@@ -72,25 +69,8 @@ export class DetailsComponent implements OnInit {
             const sunglassesWithEditedQuantity = { ...userPurchase, quantity: editQuantity, totalPrice: editQuantity * userPurchase.sunglassesDetails.price }
             this.purchasesService.subscribeEditPurchaseQuantity(id, sunglassesWithEditedQuantity)
           } else {
-            if (this.sunglassesDetails && this.user && buyerId) {
-              const totalPrice = quantity * this.sunglassesDetails.price
-              const buyerEmail = this.user.email
-              
-
-              this.sunglassesService.buySunglasses(quantity, totalPrice, this.sunglassesDetails, buyerEmail , buyerId).subscribe({
-                next: boughtSunglasses => {
-                },
-                error: (responseError: HttpErrorResponse) => {
-                  // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-                  // Да тествам дали работи оптимално.
-                  if (responseError.error.message === 'Invalid access token') {
-                    this.authenticationService.clearLocalStorage()
-                  } else {
-                    alert(responseError.error.message)
-                  }
-                }
-              })
-            }
+            const totalPrice = quantity * this.sunglassesDetails.price
+            this.sunglassesService.subscribeBuySunglasses(quantity, totalPrice, this.sunglassesDetails, buyerEmail, buyerId)
           }
         }
       },
@@ -99,6 +79,11 @@ export class DetailsComponent implements OnInit {
         // Да тествам дали работи оптимално.
         if (responseError.error.message === 'Invalid access token') {
           this.authenticationService.clearLocalStorage()
+        } else if (responseError.status === 404) {
+          if (this.sunglassesDetails && buyerId && buyerEmail) {
+            const totalPrice = quantity * this.sunglassesDetails.price
+            this.sunglassesService.subscribeBuySunglasses(quantity, totalPrice, this.sunglassesDetails, buyerEmail, buyerId)
+          }
         } else {
           alert(responseError.error.message)
         }

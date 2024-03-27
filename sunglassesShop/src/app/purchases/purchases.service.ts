@@ -37,8 +37,7 @@ export class PurchasesService {
     this.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe({
       next: editedSunglasses => {
         // console.log(editedSunglasses)
-      }
-      ,
+      },
       error: (responseError: HttpErrorResponse) => {
         // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
         // Да тествам дали работи оптимално.
@@ -116,8 +115,4 @@ export class PurchasesService {
       .get<Purchase[]>('/api/data/completedPurchases')
   }
 
-  deleteCompletedPurchase(id: string): Observable<Purchase> {
-    return this.http
-      .delete<Purchase>(`/api/data/completedPurchases/${id}`)
-  }
 }

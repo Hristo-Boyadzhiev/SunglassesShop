@@ -56,6 +56,8 @@ export class BasketComponent implements OnInit {
           // Да тествам дали работи оптимално.
           if (responseError.error.message === 'Invalid access token') {
             this.authenticationService.clearLocalStorage()
+          } else if(responseError.status === 404){
+            this.isEmptyCollection = true
           } else {
             alert(responseError.error.message)
           }

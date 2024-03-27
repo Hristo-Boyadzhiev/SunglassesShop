@@ -70,13 +70,6 @@ tr:hover{
     font-weight: bold;
     font-size: 1.2em;
     background: lightgray;
+    transition: 0.3s ease-in-out
 }
 
-i.fa-regular.fa-square-check {
-    font-size: 1.3em;
-    cursor: pointer;
-}
-
-i.fa-regular.fa-square-check:hover {
-    font-weight: bold;
-}

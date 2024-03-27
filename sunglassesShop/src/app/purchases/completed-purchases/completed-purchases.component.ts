@@ -35,6 +35,8 @@ export class CompletedPurchasesComponent implements OnInit {
         // Да тествам дали работи оптимално.
         if (responseError.error.message === 'Invalid access token') {
           this.authenticationService.clearLocalStorage()
+        } else if(responseError.status === 404){
+          this.isCompletedPurchases = false
         } else {
           alert(responseError.error.message)
         }
@@ -42,32 +44,4 @@ export class CompletedPurchasesComponent implements OnInit {
     })
   }
 
-  completeOrderHandler(sunglasses: Purchase) {
-    const confirm = window.confirm(`Are you sure you want to delete ${sunglasses.sunglassesDetails.brand} ${sunglasses.sunglassesDetails.model}?`);
-    if (confirm) {
-      const id = sunglasses._id
-
-      this.purchasesService.deleteCompletedPurchase(id).subscribe({
-        next: completedOrder => {
-          this.completedPurchases = this.completedPurchases.filter(purchase => {
-            return purchase._id !== id
-          })
-
-          if(this.completedPurchases.length === 0){
-            this.isCompletedPurchases = false
-          }
-        },
-        error: (responseError: HttpErrorResponse) => {
-          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-          // Да тествам дали работи оптимално.
-          if (responseError.error.message === 'Invalid access token') {
-            this.authenticationService.clearLocalStorage()
-          } else {
-            alert(responseError.error.message)
-          }
-        }
-      })
-    }
-
-  }
 }

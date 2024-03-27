@@ -12,7 +12,6 @@
             <th>Price</th>
             <th>Total</th>
             <th>Buyer</th>
-            <th>Complete the order</th>
         </tr>
 
     </thead>
@@ -23,8 +22,7 @@
             <td>{{sunglasses.quantity}}</td>
             <td>{{sunglasses.sunglassesDetails.price}}€</td>
             <td>{{sunglasses.totalPrice}}€</td>
-            <td>dada</td>
-            <td><i (click)="completeOrderHandler(sunglasses)" class="fa-regular fa-square-check"></i></td>
+            <td>{{sunglasses.buyerEmail}}</td>
         </tr>
     </tbody>
 </table>
