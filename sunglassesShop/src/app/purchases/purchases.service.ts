@@ -51,6 +51,38 @@ export class PurchasesService {
     })
   }
 
+  transfortUserPurchaseInCompletedPurchase(){
+    this.userPurchases.forEach(purchase => {
+      this.deletePurchase(purchase._id).subscribe({
+        next: deletedPurchase=>{
+        },
+        error: (responseError: HttpErrorResponse) => {
+          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+          // Да тествам дали работи оптимално.
+          if (responseError.error.message === 'Invalid access token') {
+            this.authenticationService.clearLocalStorage()
+          } else {
+            alert(responseError.error.message)
+          }
+        }
+      })
+
+      this.createCompletedPurchases(purchase.quantity, purchase.totalPrice, purchase.sunglassesDetails, purchase.buyerId).subscribe({
+        next: completedPurchase=>{
+        },
+        error: (responseError: HttpErrorResponse) => {
+          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+          // Да тествам дали работи оптимално.
+          if (responseError.error.message === 'Invalid access token') {
+            this.authenticationService.clearLocalStorage()
+          } else {
+            alert(responseError.error.message)
+          }
+        }
+      })
+    });
+  }
+
   getUserPurchases(searchQuery: string): Observable<Purchase[]> {
     return this.http.get<Purchase[]>(`/api/data/purchases?where=${searchQuery}`)
       .pipe(tap((userPurchases) => {
@@ -66,5 +98,15 @@ export class PurchasesService {
   deletePurchase(id: string): Observable<Purchase> {
     return this.http
       .delete<Purchase>(`/api/data/purchases/${id}`)
+  }
+
+  createCompletedPurchases(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerId: string):Observable<Purchase>{
+    return this.http
+    .post<Purchase>('/api/data/completedPurchases', {
+      quantity,
+      totalPrice,
+      sunglassesDetails,
+      buyerId
+    })
   }
 }

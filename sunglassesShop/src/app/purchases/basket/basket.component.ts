@@ -43,7 +43,6 @@ export class BasketComponent implements OnInit {
           if (currentUserPurchases.length === 0) {
             this.isEmptyCollection = true
           } else {
-            // console.log(currentUserPurchases)
             this.isEmptyCollection = false
             this.purchasesList = currentUserPurchases
             this.total = this.purchasesList.reduce((acc, purchase) => acc + purchase.totalPrice, 0)
@@ -130,6 +129,9 @@ export class BasketComponent implements OnInit {
 
   completeOrderHandler(){
     this.isCompletedOrder = !this.isCompletedOrder
+
+    this.purchasesService.transfortUserPurchaseInCompletedPurchase()
+
     setTimeout(() => {
       this.router.navigate(['/catalog'])
     }, 3000);
