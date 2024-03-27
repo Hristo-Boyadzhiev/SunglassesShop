@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { DeliveryCostPipe } from 'src/app/shared/pipes/delivery-cost.pipe';
 import { Router } from '@angular/router';
+import { Sunglasses } from 'src/app/shared/types/sunglasses';
 
 @Component({
   selector: 'app-basket',
@@ -69,7 +70,7 @@ export class BasketComponent implements OnInit {
     if (form.invalid) {
       alert('The quantity must be positive number')
       return;
-  }
+    }
 
     // При всяка промяна на количеството се прави put request и да променя quantity
     const { quantity } = form.value
@@ -100,34 +101,39 @@ export class BasketComponent implements OnInit {
     })
   }
 
-  deleteSunglasses(id: string) {
-    this.purchasesService.deletePurchase(id).subscribe({
-      next: deletedPurchase => {
-        this.purchasesList = this.purchasesList.filter(purchase => {
-          return purchase._id !== id
-        })
+  deleteSunglasses(sunglasses: Purchase) {
+    const confirm = window.confirm(`Are you sure you want to delete ${sunglasses.sunglassesDetails.brand} ${sunglasses.sunglassesDetails.model}?`);
+    if (confirm) {
+      const id = sunglasses._id
 
-        if (this.purchasesList.length === 0) {
-          this.isEmptyCollection = true
-        } else {
-          this.total = this.purchasesList.reduce((acc, purchase) => acc + purchase.totalPrice, 0)
-          this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
-          this.paymentAmount = this.total + this.deliveryCost
+      this.purchasesService.deletePurchase(id).subscribe({
+        next: deletedPurchase => {
+          this.purchasesList = this.purchasesList.filter(purchase => {
+            return purchase._id !== id
+          })
+
+          if (this.purchasesList.length === 0) {
+            this.isEmptyCollection = true
+          } else {
+            this.total = this.purchasesList.reduce((acc, purchase) => acc + purchase.totalPrice, 0)
+            this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
+            this.paymentAmount = this.total + this.deliveryCost
+          }
+        },
+        error: (responseError: HttpErrorResponse) => {
+          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+          // Да тествам дали работи оптимално.
+          if (responseError.error.message === 'Invalid access token') {
+            this.authenticationService.clearLocalStorage()
+          } else {
+            alert(responseError.error.message)
+          }
         }
-      },
-      error: (responseError: HttpErrorResponse) => {
-        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-        // Да тествам дали работи оптимално.
-        if (responseError.error.message === 'Invalid access token') {
-          this.authenticationService.clearLocalStorage()
-        } else {
-          alert(responseError.error.message)
-        }
-      }
-    })
+      })
+    }
   }
 
-  completeOrderHandler(){
+  completeOrderHandler() {
     this.isCompletedOrder = !this.isCompletedOrder
 
     this.purchasesService.transfortUserPurchaseInCompletedPurchase()

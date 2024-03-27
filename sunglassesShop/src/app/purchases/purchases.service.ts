@@ -18,7 +18,7 @@ export class PurchasesService {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService
-    ) {
+  ) {
     this.subscription = this.userPurchases$.subscribe({
       next: currentUserPurchases => {
         this.userPurchases = currentUserPurchases
@@ -51,10 +51,10 @@ export class PurchasesService {
     })
   }
 
-  transfortUserPurchaseInCompletedPurchase(){
+  transfortUserPurchaseInCompletedPurchase() {
     this.userPurchases.forEach(purchase => {
       this.deletePurchase(purchase._id).subscribe({
-        next: deletedPurchase=>{
+        next: deletedPurchase => {
         },
         error: (responseError: HttpErrorResponse) => {
           // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
@@ -68,7 +68,7 @@ export class PurchasesService {
       })
 
       this.createCompletedPurchases(purchase.quantity, purchase.totalPrice, purchase.sunglassesDetails, purchase.buyerId).subscribe({
-        next: completedPurchase=>{
+        next: completedPurchase => {
         },
         error: (responseError: HttpErrorResponse) => {
           // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
@@ -100,13 +100,23 @@ export class PurchasesService {
       .delete<Purchase>(`/api/data/purchases/${id}`)
   }
 
-  createCompletedPurchases(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerId: string):Observable<Purchase>{
+  createCompletedPurchases(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerId: string): Observable<Purchase> {
     return this.http
-    .post<Purchase>('/api/data/completedPurchases', {
-      quantity,
-      totalPrice,
-      sunglassesDetails,
-      buyerId
-    })
+      .post<Purchase>('/api/data/completedPurchases', {
+        quantity,
+        totalPrice,
+        sunglassesDetails,
+        buyerId
+      })
+  }
+
+  getCompletePurchases(): Observable<Purchase[]> {
+    return this.http
+      .get<Purchase[]>('/api/data/completedPurchases')
+  }
+
+  deleteCompletedPurchase(id: string): Observable<Purchase> {
+    return this.http
+      .delete<Purchase>(`/api/data/completedPurchases/${id}`)
   }
 }

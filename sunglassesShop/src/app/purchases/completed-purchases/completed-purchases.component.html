@@ -1,1 +1,30 @@
-<p>completed-purchases works!</p>
+<section *ngIf="!isCompletedPurchases" class="emptyCollectionContainer">
+    <p class="message">No completed purchase yet</p>
+    <span class="home"><a class="homeLink" routerLink="/home">Home</a></span>
+</section>
+
+<table *ngIf="isCompletedPurchases">
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Buyer</th>
+            <th>Complete the order</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let sunglasses of completedPurchases">
+            <td>{{sunglasses.sunglassesDetails.brand}}</td>
+            <td>{{sunglasses.sunglassesDetails.model}}</td>
+            <td>{{sunglasses.quantity}}</td>
+            <td>{{sunglasses.sunglassesDetails.price}}€</td>
+            <td>{{sunglasses.totalPrice}}€</td>
+            <td>{{user?.email}}</td>
+            <td><i (click)="completeOrderHandler(sunglasses)" class="fa-regular fa-square-check"></i></td>
+        </tr>
+    </tbody>
+</table>
