@@ -9,7 +9,8 @@ import { AuthenticationService } from '../authentication/authentication.service'
   styleUrls: ['./authenticate.component.css']
 })
 export class AuthenticateComponent implements OnInit {
-  isAuthenticationCompleted: boolean = true
+  // В процес на аутентикация
+  isInAuthenticationProcess: boolean = false
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -24,18 +25,14 @@ export class AuthenticateComponent implements OnInit {
 
       this.authenticateService.getUserInfo().subscribe({
         next: currentUser => {
-          // console.log(currentUser)
-          this.isAuthenticationCompleted= true
+          // Аутентикацията приключи
+          this.isInAuthenticationProcess = false
         },
-        error: (responseError: HttpErrorResponse) => {
-          if (responseError.error.message === 'Invalid access token') {
-            this.authenticationService.clearLocalStorage()
-          } else {
-            alert(responseError.error.message)
-          }
-          this.isAuthenticationCompleted= true
-        }
+        // complete: () => {
+        //   // Аутентикацията приключи
+        //   this.isInAuthenticationProcess = false
+        // }
       })
-    } 
+    }
   }
 }

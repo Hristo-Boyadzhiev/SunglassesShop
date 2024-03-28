@@ -11,13 +11,17 @@ import {
 import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { AuthenticationService } from './authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
 
   apiUrl: string = environment.apiUrl
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router
+    ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> { 
   if (request.url.startsWith('/api')) {
@@ -38,7 +42,12 @@ export class AppInterceptor implements HttpInterceptor {
     }
     return next.handle(request).pipe(
       catchError((responseError:HttpErrorResponse) => {
-        if (responseError.status === 404) {
+          if (responseError.error.message === 'Invalid access token') {
+            this.authenticationService.clearLocalStorage()
+            // Не връщам празен масив, а връщам нищо
+            this.router.navigate(['/home'])
+            return []
+          } else if (responseError.status === 404) {
 // Създаваме нов Observable, който връща [], който ще е достъпен в next метода на subscribed компонент
           return of(new HttpResponse<any>({ body: [] }));
         } else {

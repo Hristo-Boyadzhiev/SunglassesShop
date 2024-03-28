@@ -1,2 +1,2 @@
-<app-loader *ngIf="!isAuthenticationCompleted" />
-<ng-content *ngIf="isAuthenticationCompleted" />
+<app-loader *ngIf="isInAuthenticationProcess" />
+<ng-content *ngIf="!isInAuthenticationProcess" />
