@@ -5,6 +5,8 @@ import { SunglassesService } from '../sunglasses.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
+import { Sunglasses } from 'src/app/shared/types/sunglasses';
+
 
 @Component({
   selector: 'app-create',
@@ -12,10 +14,12 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent {
+  sunglasses: Sunglasses | undefined
+
   form = this.fb.group({
     brand: ['', [Validators.required, Validators.maxLength(10)]],
     model: ['', [Validators.required, Validators.maxLength(10)]],
-    price: ['', [Validators.required, Validators.min(1)]],
+    price: [1, [Validators.required, Validators.min(1)]],
     imageUrl: ['', [Validators.required, imageUrlValidator()]],
     gender: ['', [Validators.required]],
     shape: ['', [Validators.required, Validators.maxLength(10)]],
@@ -36,71 +40,30 @@ export class CreateComponent {
       return
     }
 
-    const {
-      brand,
-      model,
-      price,
-      imageUrl,
-      gender,
-      shape,
-      frameColor,
-      glassColor
-    } = this.form.value
+    this.sunglasses = this.form.value as Sunglasses
 
-    if (
-      typeof brand === 'string' &&
-      typeof model === 'string' &&
-      typeof price === 'number' &&
-      typeof imageUrl === 'string' &&
-      typeof gender === 'string' &&
-      typeof shape === 'string' &&
-      typeof frameColor === 'string' &&
-      typeof glassColor === 'string'
-    ) {
-      this.sunglassesService.createSunglasses(
-        brand,
-        model,
-        price,
-        imageUrl,
-        gender,
-        shape,
-        frameColor,
-        glassColor
-      ).subscribe({
-        next: newSunglasses => {
-          this.router.navigate(['/catalog'])
-        },
-        error: (responseError: HttpErrorResponse) => {
-          if (responseError.error.message === 'Invalid access token') {
-            this.authenticationService.clearLocalStorage()
-          } else {
-            alert(responseError.error.message)
+    this.sunglassesService.createSunglasses(this.sunglasses).subscribe({
+      next: newSunglasses => {
+        this.router.navigate(['/catalog'])
+      },
+      error: (responseError: HttpErrorResponse) => {
+        if (responseError.error.message === 'Invalid access token') {
+          this.authenticationService.clearLocalStorage()
+        } else {
+          alert(responseError.error.message)
 
-            this.form.setValue({
-              brand: '',
-              model: '',
-              price: '',
-              imageUrl: '',
-              gender: '',
-              shape: '',
-              frameColor: '',
-              glassColor: '',
-            })
-          }
+          this.form.setValue({
+            brand: '',
+            model: '',
+            price: 1,
+            imageUrl: '',
+            gender: '',
+            shape: '',
+            frameColor: '',
+            glassColor: '',
+          })
         }
-      })
-    } else {
-      alert('Some form fields are invalid or missing')
-      this.form.setValue({
-        brand: '',
-        model: '',
-        price: '',
-        imageUrl: '',
-        gender: '',
-        shape: '',
-        frameColor: '',
-        glassColor: '',
-      })
-    }
+      }
+    })
   }
 }

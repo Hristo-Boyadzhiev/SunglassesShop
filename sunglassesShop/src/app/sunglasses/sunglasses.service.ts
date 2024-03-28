@@ -14,45 +14,36 @@ export class SunglassesService {
 
   constructor(
     private http: HttpClient,
-    private authenticationService:AuthenticationService
-    ) {}
+    private authenticationService: AuthenticationService
+  ) { }
 
-  subscribeBuySunglasses(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerEmail:string , buyerId:string){
+  subscribeBuySunglasses(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerEmail: string, buyerId: string) {
 
-      this.buySunglasses(quantity, totalPrice, sunglassesDetails, buyerEmail , buyerId).subscribe({
-        next: boughtSunglasses => {
-        },
-        error: (responseError: HttpErrorResponse) => {
-          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-          // Да тествам дали работи оптимално.
-          if (responseError.error.message === 'Invalid access token') {
-            this.authenticationService.clearLocalStorage()
-          } else {
-            alert(responseError.error.message)
-          }
+    this.buySunglasses(quantity, totalPrice, sunglassesDetails, buyerEmail, buyerId).subscribe({
+      next: boughtSunglasses => {
+      },
+      error: (responseError: HttpErrorResponse) => {
+        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+        // Да тествам дали работи оптимално.
+        if (responseError.error.message === 'Invalid access token') {
+          this.authenticationService.clearLocalStorage()
+        } else {
+          alert(responseError.error.message)
         }
-      })
+      }
+    })
   }
 
   getSunglasses(): Observable<Sunglasses[]> {
     return this.http.get<Sunglasses[]>('/api/data/sunglasses')
   }
 
-  createSunglasses(brand: string, model: string, price: number, imageUrl: string, gender: string, shape: string, frameColor: string, glassColor: string): Observable<Sunglasses[]> {
+  createSunglasses(sunglasses: Sunglasses): Observable<Sunglasses> {
     return this.http
-      .post<Sunglasses[]>('/api/data/sunglasses', {
-        brand,
-        model,
-        price,
-        imageUrl,
-        gender,
-        shape,
-        frameColor,
-        glassColor
-      })
+      .post<Sunglasses>('/api/data/sunglasses', sunglasses)
   }
 
-  getSunglassesDetails(id: number): Observable<Sunglasses> {
+  getSunglassesDetails(id: string): Observable<Sunglasses> {
     return this.http.get<Sunglasses>(`/api/data/sunglasses/${id}`)
   }
 
@@ -65,5 +56,10 @@ export class SunglassesService {
         buyerEmail,
         buyerId
       })
+  }
+
+  editSunglasses(id: string, editedSunglasses: Sunglasses): Observable<Sunglasses> {
+    return this.http
+      .put<Sunglasses>(`/api/data/sunglasses/${id}`, editedSunglasses)
   }
 }

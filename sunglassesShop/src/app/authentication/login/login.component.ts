@@ -32,6 +32,7 @@ export class LoginComponent {
     if (typeof email === 'string' && typeof password === 'string') {
       this.authenticationService.login(email, password).subscribe({
         next: currentUser => {
+          console.log(currentUser)
           this.router.navigate(['/catalog'])
         },
         error: (responseError: HttpErrorResponse) => {

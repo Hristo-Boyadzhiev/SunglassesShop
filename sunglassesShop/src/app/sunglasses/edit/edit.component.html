@@ -1,0 +1,145 @@
+<form [formGroup]="form" (ngSubmit)="editHandler()">
+    <fieldset>
+        <legend>Edit Sunglasses</legend>
+
+        <div class="brand">
+            <label for="brand">Brand</label>
+            <input
+            type="text" 
+            id="brand" 
+            placeholder="Enter brand (e.g. Ray-Ban)"
+            formControlName="brand"
+            appFormStyles
+            >
+        </div>
+
+        <ng-container *ngIf="form.get('brand')?.touched">
+            <p class="error" *ngIf="form.get('brand')?.errors?.['required']">The brand is required</p>
+            <p class="error" *ngIf="form.get('brand')?.errors?.['maxlength']">The brand can be a maximum of {{form.get('brand')?.errors?.['maxlength'].requiredLength}} characters</p>
+        </ng-container>
+        
+        <div class="model">
+            <label for="model">Model</label>
+            <input
+            type="text" 
+            id="model" 
+            placeholder="Enter model (e.g. Aviator)"
+            formControlName="model"
+            appFormStyles
+            >
+        </div>
+
+        <ng-container *ngIf="form.get('model')?.touched">
+            <p class="error" *ngIf="form.get('model')?.errors?.['required']">The model is required</p>
+            <p class="error" *ngIf="form.get('model')?.errors?.['maxlength']">The model can be a maximum of {{form.get('model')?.errors?.['maxlength'].requiredLength}} characters</p>
+        </ng-container>
+
+        <div class="price">
+            <label for="price">Price</label>
+            <input
+            type="number" 
+            id="price"
+            min="1"
+            placeholder="Enter price (e.g. 50€)"
+            formControlName="price"
+            appFormStyles
+            >
+        </div>
+
+        <ng-container *ngIf="form.get('price')?.touched">
+            <p class="error" *ngIf="form.get('price')?.errors?.['required']">The price is required</p>
+            <p class="error" *ngIf="form.get('price')?.errors?.['min']">The price can be a minimum of {{form.get('price')?.errors?.['min'].min}}€</p>
+        </ng-container>
+
+        <div class="imageUrl">
+            <label for="imageUrl">Image URL</label>
+            <input
+            type="text" 
+            id="imageUrl" 
+            placeholder="Enter URL starting with http:// or https://"
+            formControlName="imageUrl"
+            appFormStyles
+            >
+        </div>
+
+        <ng-container *ngIf="form.get('imageUrl')?.touched">
+            <p class="error" *ngIf="form.get('imageUrl')?.errors?.['required']">The imageUrl is required</p>
+            <p class="error" *ngIf="form.get('imageUrl')?.errors?.['invalidUrl']">The URL must be starts with http:// or https://</p>
+        </ng-container>
+
+        <div class="gender">
+            <label for="gender">Gender</label>
+            <select
+            name="gender" 
+            id="gender" 
+            formControlName="gender"
+            appFormStyles
+            >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="unisex">Unisex</option>
+              </select>
+        </div>
+
+        <ng-container *ngIf="form.get('gender')?.touched">
+            <p class="error" *ngIf="form.get('gender')?.errors?.['required']">The gender is required</p>
+        </ng-container>
+
+        <div class="shape">
+            <label for="shape">Shape</label>
+            <input 
+            type="text" 
+            id="shape" 
+            placeholder="Enter shape (e.g. Rectangle)"
+            formControlName="shape"
+            appFormStyles
+            >
+        </div>
+
+        <ng-container *ngIf="form.get('shape')?.touched">
+            <p class="error" *ngIf="form.get('shape')?.errors?.['required']">The shape is required</p>
+            <p class="error" *ngIf="form.get('shape')?.errors?.['maxlength']">The shape can be a maximum of {{form.get('shape')?.errors?.['maxlength'].requiredLength}} characters</p>
+        </ng-container>
+
+        <div class="frameColor">
+            <label for="frameColor">Frame color</label>
+            <input
+            type="text" 
+            id="frameColor" 
+            placeholder="Enter frame color (e.g. Gold)"
+            formControlName="frameColor"
+            appFormStyles
+            >
+        </div>
+
+        <ng-container *ngIf="form.get('frameColor')?.touched">
+            <p class="error" *ngIf="form.get('frameColor')?.errors?.['required']">The frame color is required</p>
+            <p class="error" *ngIf="form.get('frameColor')?.errors?.['maxlength']">The frame color can be a maximum of {{form.get('frameColor')?.errors?.['maxlength'].requiredLength}} characters</p>
+        </ng-container>
+
+        <div class="glassColor">
+            <label for="glassColor">Glass color</label>
+            <input
+            type="text" 
+            id="glassColor" 
+            placeholder="Enter glass color (e.g. Black)"
+            formControlName="glassColor"
+            appFormStyles
+            >
+        </div>
+
+        <ng-container *ngIf="form.get('glassColor')?.touched">
+            <p class="error" *ngIf="form.get('glassColor')?.errors?.['required']">The glass color is required</p>
+            <p class="error" *ngIf="form.get('glassColor')?.errors?.['maxlength']">The glass color can be a maximum of {{form.get('glassColor')?.errors?.['maxlength'].requiredLength}} characters</p>
+        </ng-container>
+
+        <div class="submit-container">
+          <button
+          class="submit"
+          [disabled]="form.invalid"
+          >Edit</button>
+        </div>
+        
+    </fieldset>
+
+</form>

@@ -6,6 +6,7 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { DetailsComponent } from './details/details.component';
+import { EditComponent } from './edit/edit.component';
 
 
 
@@ -14,6 +15,7 @@ import { DetailsComponent } from './details/details.component';
     CreateComponent,
     CatalogComponent,
     DetailsComponent,
+    EditComponent,
   ],
   imports: [
     CommonModule,

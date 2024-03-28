@@ -14,6 +14,7 @@ import { User } from 'src/app/shared/types/user';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+  id: string = ''
   sunglassesDetails: Sunglasses | undefined
   defaultQuantity = 1
   user: User | undefined
@@ -30,9 +31,9 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['sunglassesId']
-
-    this.sunglassesService.getSunglassesDetails(id).subscribe({
+    this.id = this.activatedRoute.snapshot.params['sunglassesId']
+    
+    this.sunglassesService.getSunglassesDetails(this.id).subscribe({
       next: currentSunglassesDetails => {
         this.sunglassesDetails = currentSunglassesDetails
       },

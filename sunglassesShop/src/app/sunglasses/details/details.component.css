@@ -43,7 +43,13 @@ input.quantity {
     border-color: black;
 }
 
-button.buy-button {
+span.edit{
+    display: inline;
+}
+
+button.buy-button,
+a.edit-link,
+button.delete {
     display: inline-block;
     text-decoration: none;
     font-size: 1.2em;
@@ -53,12 +59,20 @@ button.buy-button {
     border: 1px solid black;
 }
 
-button.buy-button:hover {
+button.buy-button:hover,
+a.edit-link:hover,
+button.delete:hover {
     background: black;
     color: white;
     font-size: 1.5em;
     letter-spacing: 0.3em;
     transition: 0.3s ease-in-out
+}
+
+div.edit-delete {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
 }
 
 button.buy-button:disabled {
