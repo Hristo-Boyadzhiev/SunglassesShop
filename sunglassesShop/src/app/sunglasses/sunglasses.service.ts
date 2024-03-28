@@ -62,4 +62,9 @@ export class SunglassesService {
     return this.http
       .put<Sunglasses>(`/api/data/sunglasses/${id}`, editedSunglasses)
   }
+
+  deleteSunglasse(id: string):Observable<Sunglasses>{
+    return this.http
+    .delete<Sunglasses>(`/api/data/sunglasses/${id}`)
+  }
 }

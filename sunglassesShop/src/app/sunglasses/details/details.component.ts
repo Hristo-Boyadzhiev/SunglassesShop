@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Sunglasses } from 'src/app/shared/types/sunglasses';
 import { SunglassesService } from '../sunglasses.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -23,7 +23,8 @@ export class DetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private sunglassesService: SunglassesService,
     private authenticationService: AuthenticationService,
-    private purchasesService: PurchasesService
+    private purchasesService: PurchasesService,
+    private router: Router
   ) { }
 
   get isAuthenticated(): boolean {
@@ -32,7 +33,7 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['sunglassesId']
-    
+
     this.sunglassesService.getSunglassesDetails(this.id).subscribe({
       next: currentSunglassesDetails => {
         this.sunglassesDetails = currentSunglassesDetails
@@ -90,5 +91,27 @@ export class DetailsComponent implements OnInit {
         }
       }
     })
+  }
+
+  deleteSunglassesHandler(sunglasses: Sunglasses | undefined) {
+    if (sunglasses) {
+      const confirm = window.confirm(`Are you sure you want to delete ${sunglasses.brand} ${sunglasses.model}?`);
+      if (confirm) {
+        this.sunglassesService.deleteSunglasse(sunglasses._id).subscribe({
+          next: deletedSunglasses => {
+            this.router.navigate(['/catalog'])
+          },
+          error: (responseError: HttpErrorResponse) => {
+            // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
+            // Да тествам дали работи оптимално.
+            if (responseError.error.message === 'Invalid access token') {
+              this.authenticationService.clearLocalStorage()
+            } else {
+              alert(responseError.error.message)
+            }
+          }
+        })
+      }
+    }
   }
 }
