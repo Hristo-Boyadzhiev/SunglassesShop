@@ -32,24 +32,15 @@ export class LoginComponent {
     if (typeof email === 'string' && typeof password === 'string') {
       this.authenticationService.login(email, password).subscribe({
         next: currentUser => {
-          console.log(currentUser)
           this.router.navigate(['/catalog'])
         },
         error: (responseError: HttpErrorResponse) => {
-          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-          // Да тествам дали работи оптимално.
-          if (responseError.error.message === 'Invalid access token') {
-            this.authenticationService.clearLocalStorage()
-          } else {
-            alert(responseError.error.message)
-
-            // Заради стиловете за валидация не използвам this.form.reset()
-            // Да измисля как да го оправя
-            this.form.setValue({
-              email: '',
-              password: ''
-            })
-          }
+          // Заради стиловете за валидация не използвам this.form.reset()
+          // Да измисля как да го оправя
+          this.form.setValue({
+            email: '',
+            password: ''
+          })
         }
       })
     } else {

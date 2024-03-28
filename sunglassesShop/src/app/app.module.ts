@@ -13,11 +13,13 @@ import { SharedModule } from './shared/shared.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { AppInterceptorProvider } from './app.interceptor';
 import { PurchasesModule } from './purchases/purchases.module';
+import { AuthenticateComponent } from './authenticate/authenticate.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    AuthenticateComponent,
   ],
   imports: [
     BrowserModule,

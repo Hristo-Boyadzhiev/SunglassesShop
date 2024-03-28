@@ -47,11 +47,6 @@ export class CreateComponent {
         this.router.navigate(['/catalog'])
       },
       error: (responseError: HttpErrorResponse) => {
-        if (responseError.error.message === 'Invalid access token') {
-          this.authenticationService.clearLocalStorage()
-        } else {
-          alert(responseError.error.message)
-
           this.form.setValue({
             brand: '',
             model: '',
@@ -61,8 +56,7 @@ export class CreateComponent {
             shape: '',
             frameColor: '',
             glassColor: '',
-          })
-        }
+          })  
       }
     })
   }

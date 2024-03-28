@@ -41,23 +41,25 @@ export class EditComponent implements OnInit {
 
     this.sunglassesService.getSunglassesDetails(this.id).subscribe({
       next: currentSunglasses => {
-        this.sunglasses = currentSunglasses
-        this.form.setValue({
-          brand: this.sunglasses.brand,
-          model: this.sunglasses.model,
-          price: this.sunglasses.price,
-          imageUrl: this.sunglasses.imageUrl,
-          gender: this.sunglasses.gender,
-          shape: this.sunglasses.shape,
-          frameColor: this.sunglasses.frameColor,
-          glassColor: this.sunglasses.glassColor
-        })
-      },
-      error: (responseError: HttpErrorResponse) => {
-        if (responseError.error.message === 'Invalid access token') {
-          this.authenticationService.clearLocalStorage()
+        // Ако се опита да влезе на 
+        // http://localhost:4200/catalog/(грешно id)/edit
+        // Правилното поведение е да отиде на Not found
+        // Да измисля как да стане
+        // При статус 404 интерсепторът връща празен масив
+        if (Array.isArray(currentSunglasses) && currentSunglasses.length === 0) {
+          this.router.navigate(['/catalog'])
         } else {
-          alert(responseError.error.message)
+          this.sunglasses = currentSunglasses
+          this.form.setValue({
+            brand: this.sunglasses.brand,
+            model: this.sunglasses.model,
+            price: this.sunglasses.price,
+            imageUrl: this.sunglasses.imageUrl,
+            gender: this.sunglasses.gender,
+            shape: this.sunglasses.shape,
+            frameColor: this.sunglasses.frameColor,
+            glassColor: this.sunglasses.glassColor
+          })
         }
       }
     })
@@ -76,25 +78,19 @@ export class EditComponent implements OnInit {
         this.router.navigate([`/catalog/${this.id}`])
       },
       error: (responseError: HttpErrorResponse) => {
-        if (responseError.error.message === 'Invalid access token') {
-          this.authenticationService.clearLocalStorage()
+        if (this.sunglasses) {
+          this.form.setValue({
+            brand: this.sunglasses.brand,
+            model: this.sunglasses.model,
+            price: this.sunglasses.price,
+            imageUrl: this.sunglasses.imageUrl,
+            gender: this.sunglasses.gender,
+            shape: this.sunglasses.shape,
+            frameColor: this.sunglasses.frameColor,
+            glassColor: this.sunglasses.glassColor
+          })
         } else {
-          alert(responseError.error.message)
-
-          if (this.sunglasses) {
-            this.form.setValue({
-              brand: this.sunglasses.brand,
-              model: this.sunglasses.model,
-              price: this.sunglasses.price,
-              imageUrl: this.sunglasses.imageUrl,
-              gender: this.sunglasses.gender,
-              shape: this.sunglasses.shape,
-              frameColor: this.sunglasses.frameColor,
-              glassColor: this.sunglasses.glassColor
-            })
-          } else {
-            alert('This sunglasses is not found')
-          }
+          alert('This sunglasses is not found')
         }
       }
     })

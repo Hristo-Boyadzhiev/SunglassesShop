@@ -5,7 +5,8 @@ import {
   HttpEvent,
   HttpInterceptor,
   HTTP_INTERCEPTORS,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpResponse
 } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
@@ -18,8 +19,8 @@ export class AppInterceptor implements HttpInterceptor {
 
   constructor(private authenticationService: AuthenticationService) { }
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (request.url.startsWith('/api')) {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> { 
+  if (request.url.startsWith('/api')) {
       request = request.clone({
         url: request.url.replace('/api', this.apiUrl)
       })
@@ -35,8 +36,17 @@ export class AppInterceptor implements HttpInterceptor {
         }
       }
     }
-
-    return next.handle(request)
+    return next.handle(request).pipe(
+      catchError((responseError:HttpErrorResponse) => {
+        if (responseError.status === 404) {
+// Създаваме нов Observable, който връща [], който ще е достъпен в next метода на subscribed компонент
+          return of(new HttpResponse<any>({ body: [] }));
+        } else {
+          alert(responseError.error.message)
+          throw responseError
+        }
+      })
+    )
   }
 }
 

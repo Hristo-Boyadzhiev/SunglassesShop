@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormStylesDirective } from './styles/form-styles.directive';
 import { EmailDirective } from './validators/email.directive';
 import { DeliveryCostPipe } from './pipes/delivery-cost.pipe';
+import { LoaderComponent } from './loader/loader.component';
 
 
 
@@ -10,7 +11,8 @@ import { DeliveryCostPipe } from './pipes/delivery-cost.pipe';
   declarations: [
     FormStylesDirective,
     EmailDirective,
-    DeliveryCostPipe
+    DeliveryCostPipe,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { DeliveryCostPipe } from './pipes/delivery-cost.pipe';
   exports: [
     FormStylesDirective,
     EmailDirective,
-    DeliveryCostPipe
+    DeliveryCostPipe,
+    LoaderComponent
   ]
 })
 export class SharedModule { }

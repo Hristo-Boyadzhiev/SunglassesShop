@@ -50,21 +50,10 @@ export class BasketComponent implements OnInit {
             this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
             this.paymentAmount = this.total + this.deliveryCost
           }
-        },
-        error: (responseError: HttpErrorResponse) => {
-          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-          // Да тествам дали работи оптимално.
-          if (responseError.error.message === 'Invalid access token') {
-            this.authenticationService.clearLocalStorage()
-          } else if(responseError.status === 404){
-            this.isEmptyCollection = true
-          } else {
-            alert(responseError.error.message)
-          }
         }
       })
     } else {
-      alert('You are not authenticated. Please log-in')
+      this.router.navigate(['/login'])
     }
   }
 
@@ -90,15 +79,6 @@ export class BasketComponent implements OnInit {
         this.total = this.purchasesList.reduce((acc, purchase) => acc + purchase.totalPrice, 0)
         this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
         this.paymentAmount = this.total + this.deliveryCost
-      },
-      error: (responseError: HttpErrorResponse) => {
-        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-        // Да тествам дали работи оптимално.
-        if (responseError.error.message === 'Invalid access token') {
-          this.authenticationService.clearLocalStorage()
-        } else {
-          alert(responseError.error.message)
-        }
       }
     })
   }
@@ -121,15 +101,6 @@ export class BasketComponent implements OnInit {
             this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
             this.paymentAmount = this.total + this.deliveryCost
           }
-        },
-        error: (responseError: HttpErrorResponse) => {
-          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-          // Да тествам дали работи оптимално.
-          if (responseError.error.message === 'Invalid access token') {
-            this.authenticationService.clearLocalStorage()
-          } else {
-            alert(responseError.error.message)
-          }
         }
       })
     }
@@ -144,5 +115,4 @@ export class BasketComponent implements OnInit {
       this.router.navigate(['/catalog'])
     }, 3000);
   }
-
 }

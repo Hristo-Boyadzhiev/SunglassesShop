@@ -27,21 +27,8 @@ export class CompletedPurchasesComponent implements OnInit {
         } else {
           this.isCompletedPurchases = true
           this.completedPurchases = currentCompletedPurchases
-          console.log(this.completedPurchases)
-        }
-      },
-      error: (responseError: HttpErrorResponse) => {
-        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-        // Да тествам дали работи оптимално.
-        if (responseError.error.message === 'Invalid access token') {
-          this.authenticationService.clearLocalStorage()
-        } else if(responseError.status === 404){
-          this.isCompletedPurchases = false
-        } else {
-          alert(responseError.error.message)
         }
       }
     })
   }
-
 }

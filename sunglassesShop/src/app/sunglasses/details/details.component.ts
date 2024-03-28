@@ -36,13 +36,16 @@ export class DetailsComponent implements OnInit {
 
     this.sunglassesService.getSunglassesDetails(this.id).subscribe({
       next: currentSunglassesDetails => {
-        this.sunglassesDetails = currentSunglassesDetails
-      },
-      error: (responseError: HttpErrorResponse) => {
-        if (responseError.error.message === 'Invalid access token') {
-          this.authenticationService.clearLocalStorage()
+         // Ако се опита да влезе на 
+        // http://localhost:4200/catalog/(грешно id)/edit
+        // Правилното поведение е да отиде на Not found
+        // Да измисля как да стане
+        // При статус 404 интерсепторът връща празен масив
+        if (Array.isArray(currentSunglassesDetails) && currentSunglassesDetails.length === 0) {
+          this.router.navigate(['/catalog'])
         } else {
-          alert(responseError.error.message)
+          this.sunglassesDetails = currentSunglassesDetails;
+          // console.log(currentSunglassesDetails);
         }
       }
     })
@@ -75,20 +78,6 @@ export class DetailsComponent implements OnInit {
             this.sunglassesService.subscribeBuySunglasses(quantity, totalPrice, this.sunglassesDetails, buyerEmail, buyerId)
           }
         }
-      },
-      error: (responseError: HttpErrorResponse) => {
-        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-        // Да тествам дали работи оптимално.
-        if (responseError.error.message === 'Invalid access token') {
-          this.authenticationService.clearLocalStorage()
-        } else if (responseError.status === 404) {
-          if (this.sunglassesDetails && buyerId && buyerEmail) {
-            const totalPrice = quantity * this.sunglassesDetails.price
-            this.sunglassesService.subscribeBuySunglasses(quantity, totalPrice, this.sunglassesDetails, buyerEmail, buyerId)
-          }
-        } else {
-          alert(responseError.error.message)
-        }
       }
     })
   }
@@ -100,15 +89,6 @@ export class DetailsComponent implements OnInit {
         this.sunglassesService.deleteSunglasse(sunglasses._id).subscribe({
           next: deletedSunglasses => {
             this.router.navigate(['/catalog'])
-          },
-          error: (responseError: HttpErrorResponse) => {
-            // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-            // Да тествам дали работи оптимално.
-            if (responseError.error.message === 'Invalid access token') {
-              this.authenticationService.clearLocalStorage()
-            } else {
-              alert(responseError.error.message)
-            }
           }
         })
       }
