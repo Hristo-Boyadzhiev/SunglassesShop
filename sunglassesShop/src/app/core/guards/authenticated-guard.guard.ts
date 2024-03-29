@@ -8,7 +8,7 @@ import { AuthenticationService } from "src/app/authentication/authentication.ser
   providedIn: 'root'
 })
 
-export class AuthenticationGuard implements CanActivate {
+export class AuthenticatedGuard implements CanActivate {
 
   constructor(
     private authenticationService: AuthenticationService,

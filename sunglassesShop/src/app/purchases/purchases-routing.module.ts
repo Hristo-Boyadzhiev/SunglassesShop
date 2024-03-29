@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BasketComponent } from './basket/basket.component';
 import { CompletedPurchasesComponent } from './completed-purchases/completed-purchases.component';
-import { AuthenticationGuard } from '../core/guards/authentication-guard.guard';
 import { AdminGuard } from '../core/guards/admin-guard.guard';
+import { AuthenticatedGuard } from '../core/guards/authenticated-guard.guard';
 
 
 const routes: Routes = [
-  { path: 'basket', canActivate: [AuthenticationGuard], component: BasketComponent },
+  { path: 'basket', canActivate: [AuthenticatedGuard], component: BasketComponent },
   { path: 'completedPurchases',canActivate:[AdminGuard], component: CompletedPurchasesComponent }
 ];
 

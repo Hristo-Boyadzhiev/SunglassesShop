@@ -7,12 +7,14 @@ import { EditComponent } from './edit/edit.component';
 import { AdminGuard } from '../core/guards/admin-guard.guard';
 
 const routes: Routes = [
-{path: 'create',canActivate:[AdminGuard], component: CreateComponent},
-{path: 'catalog', children: [
-  {path: '', pathMatch: 'full', component: CatalogComponent},
-  {path: ':sunglassesId', component: DetailsComponent},
-  {path: ':sunglassesId/edit',canActivate:[AdminGuard], component: EditComponent}
-]},
+  { path: 'create', canActivate: [AdminGuard], component: CreateComponent },
+  {
+    path: 'catalog', children: [
+      { path: '', pathMatch: 'full', component: CatalogComponent },
+      { path: ':sunglassesId', component: DetailsComponent },
+      { path: ':sunglassesId/edit', canActivate: [AdminGuard], component: EditComponent }
+    ]
+  },
 ];
 
 @NgModule({
