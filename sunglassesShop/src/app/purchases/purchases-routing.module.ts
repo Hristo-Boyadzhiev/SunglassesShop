@@ -8,7 +8,7 @@ import { AuthenticatedGuard } from '../core/guards/authenticated-guard.guard';
 
 const routes: Routes = [
   { path: 'basket', canActivate: [AuthenticatedGuard], component: BasketComponent },
-  { path: 'completedPurchases',canActivate:[AdminGuard], component: CompletedPurchasesComponent }
+  { path: 'completedPurchases', canActivate: [AdminGuard], component: CompletedPurchasesComponent }
 ];
 
 @NgModule({

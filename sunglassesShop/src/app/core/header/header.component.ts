@@ -35,7 +35,7 @@ export class HeaderComponent {
   logout() {
     this.authenticationService.logout().subscribe({
       next: example => {
-        this.router.navigate(['/catalog'])
+        this.router.navigate(['/sunglasses/catalog'])
       }
     })
   }
