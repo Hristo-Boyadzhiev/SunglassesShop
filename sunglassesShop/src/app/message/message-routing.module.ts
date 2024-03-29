@@ -4,9 +4,8 @@ import { SendMessageComponent } from './send-message/send-message.component';
 import { AuthenticatedGuard } from '../core/guards/authenticated-guard.guard';
 
 
-
 const routes: Routes = [
-{path: 'send-message',canActivate:[AuthenticatedGuard], component: SendMessageComponent},
+  { path: 'send-message', canActivate: [AuthenticatedGuard], component: SendMessageComponent },
 ]
 
 @NgModule({
