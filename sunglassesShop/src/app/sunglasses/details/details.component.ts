@@ -46,7 +46,7 @@ export class DetailsComponent implements OnInit {
         // Да измисля как да стане
         // При статус 404 интерсепторът връща празен масив
         if (Array.isArray(currentSunglassesDetails) && currentSunglassesDetails.length === 0) {
-          this.router.navigate(['/catalog'])
+          this.router.navigate(['/sunglasses/catalog'])
         } else {
           this.sunglassesDetails = currentSunglassesDetails;
           // console.log(currentSunglassesDetails);
@@ -92,7 +92,7 @@ export class DetailsComponent implements OnInit {
       if (confirm) {
         this.sunglassesService.deleteSunglasse(sunglasses._id).subscribe({
           next: deletedSunglasses => {
-            this.router.navigate(['/catalog'])
+            this.router.navigate(['/sunglasses/catalog'])
           }
         })
       }

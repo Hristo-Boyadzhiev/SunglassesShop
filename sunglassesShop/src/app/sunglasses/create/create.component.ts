@@ -4,7 +4,6 @@ import { imageUrlValidator } from 'src/app/shared/validators/image-url-validator
 import { SunglassesService } from '../sunglasses.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { Sunglasses } from 'src/app/shared/types/sunglasses';
 
 
@@ -30,7 +29,6 @@ export class CreateComponent {
   constructor(
     private fb: FormBuilder,
     private sunglassesService: SunglassesService,
-    private authenticationService: AuthenticationService,
     private router: Router
   ) { }
 
@@ -44,7 +42,7 @@ export class CreateComponent {
 
     this.sunglassesService.createSunglasses(this.sunglasses).subscribe({
       next: newSunglasses => {
-        this.router.navigate(['/catalog'])
+        this.router.navigate(['/sunglasses/catalog'])
       },
       error: (responseError: HttpErrorResponse) => {
           this.form.setValue({

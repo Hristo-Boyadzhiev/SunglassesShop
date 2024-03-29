@@ -110,7 +110,7 @@ export class BasketComponent implements OnInit {
     this.purchasesService.transfortUserPurchaseInCompletedPurchase()
 
     setTimeout(() => {
-      this.router.navigate(['/catalog'])
+      this.router.navigate(['/sunglasses/catalog'])
     }, 3000);
   }
 }

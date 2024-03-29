@@ -1,6 +1,6 @@
 <section *ngIf="isEmptyCollection" class="empty-collection-container">
     <p class="message">The basket is empty</p>
-    <span *ngIf="isAuthenticated" class="catalog"><a class="catalog-link" routerLink="/catalog">Catalog</a></span>
+    <span *ngIf="isAuthenticated" class="catalog"><a class="catalog-link" routerLink="/sunglasses/catalog">Catalog</a></span>
 </section>
 
 <section *ngIf="!isEmptyCollection && !isCompletedOrder" class="basket-container">
@@ -12,14 +12,14 @@
         </header>
         <article *ngFor="let sunglasses of purchasesList" class="single-product">
             <div class="img-container">
-                <a [routerLink]="['/catalog', sunglasses.sunglassesDetails._id]" class="link-sunglasses">
+                <a [routerLink]="['/sunglasses/catalog', sunglasses.sunglassesDetails._id]" class="link-sunglasses">
                     <img src="{{sunglasses.sunglassesDetails.imageUrl}}" alt="sunglasses-image">
                 </a>
             </div>
 
             <div class="sunglasses-details">
                 <div class="brand-and-model">
-                    <a [routerLink]="['/catalog', sunglasses.sunglassesDetails._id]" class="link-sunglasses">
+                    <a [routerLink]="['/sunglases/catalog', sunglasses.sunglassesDetails._id]" class="link-sunglasses">
                         <p class="sunglasses-brand">{{sunglasses.sunglassesDetails.brand}}</p>
                         <p class="sunglasses-model">{{sunglasses.sunglassesDetails.model}}</p>
                     </a>

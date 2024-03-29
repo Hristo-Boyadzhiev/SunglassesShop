@@ -47,7 +47,7 @@ export class EditComponent implements OnInit {
         // Да измисля как да стане
         // При статус 404 интерсепторът връща празен масив
         if (Array.isArray(currentSunglasses) && currentSunglasses.length === 0) {
-          this.router.navigate(['/catalog'])
+          this.router.navigate(['/sunglasses/catalog'])
         } else {
           this.sunglasses = currentSunglasses
           this.form.setValue({
@@ -75,7 +75,7 @@ export class EditComponent implements OnInit {
 
     this.sunglassesService.editSunglasses(this.id, this.editedSunglasses).subscribe({
       next: newSunglasses => {
-        this.router.navigate([`/catalog/${this.id}`])
+        this.router.navigate([`/sunglasses/catalog/${this.id}`])
       },
       error: (responseError: HttpErrorResponse) => {
         if (this.sunglasses) {
