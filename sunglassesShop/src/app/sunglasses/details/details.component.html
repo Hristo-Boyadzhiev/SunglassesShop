@@ -7,7 +7,7 @@
         <p class="brand-and-models">{{sunglassesDetails?.brand}} {{sunglassesDetails?.model}}</p>
         <p class="price">Price: {{sunglassesDetails?.price}}€</p>
 
-            <form *ngIf="isAuthenticated" #form="ngForm" (ngSubmit)="buySunglassesHandler(form)">
+            <form *ngIf="isAuthenticated && !isAdmin" #form="ngForm" (ngSubmit)="buySunglassesHandler(form)">
                 <label for="quantity">Quantity:</label>
                 <input
                 type="number"
@@ -25,15 +25,13 @@
                 >BUY</button>
             </form>
 
-        <div class="edit-delete">
+        <div *ngIf="isAdmin" class="edit-delete">
             <span class="edit">
                 <a [routerLink]="['/catalog', sunglassesDetails?._id, 'edit']" class="edit-link">Edit</a>
             </span>
             <button (click)="deleteSunglassesHandler(sunglassesDetails)" class="delete">Delete</button>
         </div>
        
-
-
         <details class="sunglasses-description">
             <summary>Sunglasses description</summary>
 

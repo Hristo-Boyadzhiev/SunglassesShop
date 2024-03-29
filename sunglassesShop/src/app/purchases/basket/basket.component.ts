@@ -52,9 +52,7 @@ export class BasketComponent implements OnInit {
           }
         }
       })
-    } else {
-      this.router.navigate(['/login'])
-    }
+    } 
   }
 
   quantityHandler(form: NgForm, sunglasses: Purchase) {

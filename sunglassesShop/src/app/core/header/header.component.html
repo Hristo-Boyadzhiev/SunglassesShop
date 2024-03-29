@@ -11,12 +11,14 @@
         <ul>
             <li><a routerLink="/home">Home</a></li>
             <li><a routerLink="/catalog">Catalog</a></li>
-            <li *ngIf="isAuthenticated"><a routerLink="/create">Create</a></li>
+            <li *ngIf="isAdmin"><a routerLink="/create">Create</a></li>
             <li *ngIf="!isAuthenticated"><a routerLink="/login">Login</a></li>
             <li *ngIf="!isAuthenticated"><a routerLink="/register">Register</a></li>
-            <li><a routerLink="/completedPurchases">Purchases</a></li>
-            <li *ngIf="isAuthenticated" class="logout" (click)="logout()"><a>Logout</a></li>
-            <li *ngIf="isAuthenticated" class="purchaseBasket">
+            <li *ngIf="isAdmin"><a routerLink="/completedPurchases">Purchases</a></li>
+            <li *ngIf="isAuthenticated" class="logout" (click)="logout()">
+                <a>{{user?.email}}|Logout</a>
+            </li>
+            <li *ngIf="isAuthenticated && !isAdmin" class="purchaseBasket">
                 <a routerLink="/basket"><i class="fa-solid fa-cart-shopping"></i></a>
             </li>
         </ul>

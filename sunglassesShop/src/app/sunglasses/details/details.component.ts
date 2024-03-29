@@ -31,12 +31,16 @@ export class DetailsComponent implements OnInit {
     return this.authenticationService.isAuthenticated
   }
 
+  get isAdmin(): boolean {
+    return this.authenticationService.isAdmin
+  }
+
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['sunglassesId']
 
     this.sunglassesService.getSunglassesDetails(this.id).subscribe({
       next: currentSunglassesDetails => {
-         // Ако се опита да влезе на 
+        // Ако се опита да влезе на 
         // http://localhost:4200/catalog/(грешно id)/edit
         // Правилното поведение е да отиде на Not found
         // Да измисля как да стане

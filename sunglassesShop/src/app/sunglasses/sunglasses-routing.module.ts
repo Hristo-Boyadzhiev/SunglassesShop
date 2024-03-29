@@ -4,13 +4,14 @@ import { CreateComponent } from './create/create.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { DetailsComponent } from './details/details.component';
 import { EditComponent } from './edit/edit.component';
+import { AdminGuard } from '../core/guards/admin-guard.guard';
 
 const routes: Routes = [
-{path: 'create', component: CreateComponent},
+{path: 'create',canActivate:[AdminGuard], component: CreateComponent},
 {path: 'catalog', children: [
   {path: '', pathMatch: 'full', component: CatalogComponent},
   {path: ':sunglassesId', component: DetailsComponent},
-  {path: ':sunglassesId/edit', component: EditComponent}
+  {path: ':sunglassesId/edit',canActivate:[AdminGuard], component: EditComponent}
 ]},
 ];
 

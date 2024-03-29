@@ -10,7 +10,7 @@ import { User } from '../shared/types/user';
 export class AuthenticationService {
   key: string = 'auth'
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getUser(): User | undefined {
     const localStorageUser = localStorage.getItem(this.key)
@@ -21,13 +21,22 @@ export class AuthenticationService {
     }
   }
 
-  clearLocalStorage(): void{
+  clearLocalStorage(): void {
     localStorage.removeItem(this.key)
     this.getUser()
   }
 
   get isAuthenticated(): boolean {
     return !!this.getUser()
+  }
+
+  get isAdmin(): boolean {
+    const user = this.getUser()
+    if (user && user.email === 'hristo@abv.bg') {
+      return true
+    } else {
+      return false
+    }
   }
 
   register(firstName: string, lastName: string, email: string, password: string): Observable<User> {
