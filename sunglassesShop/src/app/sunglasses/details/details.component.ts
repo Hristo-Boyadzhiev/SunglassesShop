@@ -14,6 +14,7 @@ import { User } from 'src/app/shared/types/user';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+  isLoading: boolean = true
   id: string = ''
   sunglassesDetails: Sunglasses | undefined
   defaultQuantity = 1
@@ -40,6 +41,7 @@ export class DetailsComponent implements OnInit {
 
     this.sunglassesService.getSunglassesDetails(this.id).subscribe({
       next: currentSunglassesDetails => {
+        this.isLoading = false
         // Ако се опита да влезе на 
         // http://localhost:4200/catalog/(грешно id)/edit
         // Правилното поведение е да отиде на Not found

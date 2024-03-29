@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticateService } from './authenticate.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../authentication/authentication.service';
 
 @Component({
@@ -22,6 +21,8 @@ export class AuthenticateComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.isToken) {
+
+      this.isInAuthenticationProcess = true
 
       this.authenticateService.getUserInfo().subscribe({
         next: currentUser => {

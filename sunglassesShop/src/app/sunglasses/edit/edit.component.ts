@@ -13,6 +13,7 @@ import { Sunglasses } from 'src/app/shared/types/sunglasses';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
+  isLoading: boolean = true
   sunglasses: Sunglasses | undefined
   editedSunglasses: Sunglasses | undefined
   id: string = ''
@@ -41,6 +42,7 @@ export class EditComponent implements OnInit {
 
     this.sunglassesService.getSunglassesDetails(this.id).subscribe({
       next: currentSunglasses => {
+        this.isLoading = false
         // Ако се опита да влезе на 
         // http://localhost:4200/catalog/(грешно id)/edit
         // Правилното поведение е да отиде на Not found

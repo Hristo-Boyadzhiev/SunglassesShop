@@ -15,6 +15,7 @@ import { Sunglasses } from 'src/app/shared/types/sunglasses';
   providers: [DeliveryCostPipe]
 })
 export class BasketComponent implements OnInit {
+  isLoading: boolean = true
   buyerId: string | undefined
   purchasesList: Purchase[] = []
   isEmptyCollection: boolean = true
@@ -41,6 +42,7 @@ export class BasketComponent implements OnInit {
 
       this.purchasesService.getUserPurchases(searchQuery).subscribe({
         next: currentUserPurchases => {
+          this.isLoading = false
           if (currentUserPurchases.length === 0) {
             this.isEmptyCollection = true
           } else {
@@ -52,7 +54,7 @@ export class BasketComponent implements OnInit {
           }
         }
       })
-    } 
+    }
   }
 
   quantityHandler(form: NgForm, sunglasses: Purchase) {

@@ -11,6 +11,7 @@ import { User } from 'src/app/shared/types/user';
   styleUrls: ['./completed-purchases.component.css']
 })
 export class CompletedPurchasesComponent implements OnInit {
+  isLoading: boolean = true
   isCompletedPurchases: boolean = false
   completedPurchases: Purchase[] = []
 
@@ -22,6 +23,7 @@ export class CompletedPurchasesComponent implements OnInit {
   ngOnInit(): void {
     this.purchasesService.getCompletePurchases().subscribe({
       next: currentCompletedPurchases => {
+        this.isLoading = false
         if (currentCompletedPurchases.length === 0) {
           this.isCompletedPurchases = false
         } else {

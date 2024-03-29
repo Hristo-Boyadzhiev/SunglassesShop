@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { User } from '../shared/types/user';
 
 @Injectable({
@@ -12,6 +12,5 @@ export class AuthenticateService {
   getUserInfo(): Observable<User> {
     return this.http
       .get<User>('/api/users/me')
-
   }
 }

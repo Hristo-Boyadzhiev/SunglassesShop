@@ -1,4 +1,6 @@
-<form [formGroup]="form" (ngSubmit)="editHandler()">
+<app-loader *ngIf="isLoading" />
+
+<form *ngIf="!isLoading" [formGroup]="form" (ngSubmit)="editHandler()">
     <fieldset>
         <legend>Edit Sunglasses</legend>
 

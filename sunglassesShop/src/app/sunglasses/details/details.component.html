@@ -1,4 +1,6 @@
-<section class="details-container">
+<app-loader *ngIf="isLoading"/>
+
+<section *ngIf="!isLoading" class="details-container">
     <article class="img-container">
         <img src="{{sunglassesDetails?.imageUrl}}" alt="sunglasses-image">
     </article>

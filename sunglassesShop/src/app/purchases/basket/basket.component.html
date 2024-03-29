@@ -1,9 +1,11 @@
-<section *ngIf="isEmptyCollection" class="empty-collection-container">
+<app-loader *ngIf="isLoading" />
+
+<section *ngIf="isEmptyCollection && !isLoading" class="empty-collection-container">
     <p class="message">The basket is empty</p>
     <span *ngIf="isAuthenticated" class="catalog"><a class="catalog-link" routerLink="/sunglasses/catalog">Catalog</a></span>
 </section>
 
-<section *ngIf="!isEmptyCollection && !isCompletedOrder" class="basket-container">
+<section *ngIf="!isEmptyCollection && !isCompletedOrder && !isLoading" class="basket-container">
 
     <section class="basket-items">
         <header>
