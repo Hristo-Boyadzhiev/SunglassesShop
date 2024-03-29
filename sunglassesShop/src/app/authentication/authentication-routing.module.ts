@@ -5,8 +5,10 @@ import { RegisterComponent } from './register/register.component';
 import { GuestGuard } from '../core/guards/guest-guard.guard';
 
 const routes: Routes = [
-  { path: 'login',canActivate:[GuestGuard], component: LoginComponent },
-  { path: 'register',canActivate:[GuestGuard], component: RegisterComponent }
+  { path: 'login', canActivate: [GuestGuard], component: LoginComponent },
+  { path: 'register', canActivate: [GuestGuard], component: RegisterComponent }
+  // { path: 'login', component: LoginComponent },
+  // { path: 'register', component: RegisterComponent }
 ];
 
 @NgModule({

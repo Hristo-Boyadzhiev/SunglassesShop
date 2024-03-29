@@ -26,12 +26,12 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
     AppRoutingModule,
     CoreModule,
     RouterOutlet,
-    SunglassesModule,
+    // SunglassesModule,
     HttpClientModule,
-    MessageModule,
+    // MessageModule,
     SharedModule,
-    AuthenticationModule,
-    PurchasesModule
+    // AuthenticationModule,
+    // PurchasesModule
   ],
   providers: [AppInterceptorProvider],
   bootstrap: [AppComponent]

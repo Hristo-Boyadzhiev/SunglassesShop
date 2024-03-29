@@ -52,7 +52,7 @@ export class RegisterComponent {
     ) {
       this.authenticationService.register(firstName, lastName, email, password).subscribe({
         next: user => {
-          this.router.navigate(['/catalog'])
+          this.router.navigate(['/sunglasses/catalog'])
         },
         error: (responseError: HttpErrorResponse) => {
           this.form.setValue({

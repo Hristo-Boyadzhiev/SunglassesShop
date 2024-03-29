@@ -23,9 +23,9 @@ export class HeaderComponent {
   }
 
   // Да помисля дали има и по-умен и с по-красив начин начин 
-  get user(){
+  get user() {
     const user = this.authenticationService.getUser()
-    if(user){
+    if (user) {
       return user
     } else {
       return undefined

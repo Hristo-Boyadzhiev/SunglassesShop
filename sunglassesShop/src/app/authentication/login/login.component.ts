@@ -32,7 +32,7 @@ export class LoginComponent {
     if (typeof email === 'string' && typeof password === 'string') {
       this.authenticationService.login(email, password).subscribe({
         next: currentUser => {
-          this.router.navigate(['/catalog'])
+          this.router.navigate(['/sunglasses/catalog'])
         },
         error: (responseError: HttpErrorResponse) => {
           // Заради стиловете за валидация не използвам this.form.reset()

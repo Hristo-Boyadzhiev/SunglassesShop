@@ -27,7 +27,7 @@
 
         <div *ngIf="isAdmin" class="edit-delete">
             <span class="edit">
-                <a [routerLink]="['/catalog', sunglassesDetails?._id, 'edit']" class="edit-link">Edit</a>
+                <a [routerLink]="['/sunglasses/catalog', sunglassesDetails?._id, 'edit']" class="edit-link">Edit</a>
             </span>
             <button (click)="deleteSunglassesHandler(sunglassesDetails)" class="delete">Delete</button>
         </div>
