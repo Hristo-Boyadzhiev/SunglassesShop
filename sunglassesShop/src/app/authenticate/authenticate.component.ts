@@ -9,7 +9,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 })
 export class AuthenticateComponent implements OnInit {
   // В процес на аутентикация
-  isInAuthenticationProcess: boolean = false
+  // isInAuthenticationProcess: boolean = false
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -22,12 +22,12 @@ export class AuthenticateComponent implements OnInit {
   ngOnInit(): void {
     if (this.isToken) {
 
-      this.isInAuthenticationProcess = true
+      // this.isInAuthenticationProcess = true
 
       this.authenticateService.getUserInfo().subscribe({
         next: currentUser => {
           // Аутентикацията приключи
-          this.isInAuthenticationProcess = false
+          // this.isInAuthenticationProcess = false
         },
         // complete: () => {
         //   // Аутентикацията приключи

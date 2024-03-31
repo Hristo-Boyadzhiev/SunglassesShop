@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
 import { NgForm } from '@angular/forms';
 import { PurchasesService } from 'src/app/purchases/purchases.service';
 import { User } from 'src/app/shared/types/user';
+import { FavouriteService } from 'src/app/favourite/favourite.service';
 
 @Component({
   selector: 'app-details',
@@ -25,6 +26,7 @@ export class DetailsComponent implements OnInit {
     private sunglassesService: SunglassesService,
     private authenticationService: AuthenticationService,
     private purchasesService: PurchasesService,
+    private favouriteService: FavouriteService, 
     private router: Router
   ) { }
 
@@ -98,6 +100,16 @@ export class DetailsComponent implements OnInit {
           }
         })
       }
+    }
+  }
+
+  addToFavouriteHandler(sunglasses:Sunglasses | undefined){
+    if(sunglasses){
+      this.favouriteService.createFavouriteSunglasses(sunglasses).subscribe({
+        next: newFavouriteSunglasses=>{
+          console.log(newFavouriteSunglasses)
+        }
+      })
     }
   }
 }

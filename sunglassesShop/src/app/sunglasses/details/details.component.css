@@ -29,12 +29,33 @@ p.brand-and-models {
     font-size: 2em;
 }
 
+div.authenticated-user-functionality {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
+}
+
+div.authenticated-user-functionality i.fa-regular.fa-heart{
+    font-size: 2em;
+    color: black
+}
+
+div.authenticated-user-functionality i.fa-regular.fa-heart:hover{
+    font-size: 3em;
+    transition: 0.3s ease-in-out
+}
+
+div.authenticated-user-functionality span.favourite {
+    cursor: pointer;
+}
+
 form {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1em;
-    margin-top: 1em;
 }
 
 input.quantity {

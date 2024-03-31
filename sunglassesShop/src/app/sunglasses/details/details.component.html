@@ -9,6 +9,67 @@
         <p class="brand-and-models">{{sunglassesDetails?.brand}} {{sunglassesDetails?.model}}</p>
         <p class="price">Price: {{sunglassesDetails?.price}}€</p>
 
+        <div class="authenticated-user-functionality">
+            <form *ngIf="isAuthenticated && !isAdmin" #form="ngForm" (ngSubmit)="buySunglassesHandler(form)">
+                <label for="quantity">Quantity:</label>
+                <input
+                type="number"
+                class="quantity"
+                id="quantity"
+                name="quantity"
+                min="1"
+                [ngModel]="defaultQuantity"
+                #inputQuantity="ngModel"
+                required
+                >
+                <button 
+                class="buy-button"
+                [disabled]="form.invalid"
+                >BUY</button>
+            </form>
+
+            <span (click)="addToFavouriteHandler(sunglassesDetails)" class="favourite"><i class="fa-regular fa-heart"></i></span>
+        </div>
+            
+        <div *ngIf="isAdmin" class="edit-delete">
+            <span class="edit">
+                <a [routerLink]="['/sunglasses/catalog', sunglassesDetails?._id, 'edit']" class="edit-link">Edit</a>
+            </span>
+            <button (click)="deleteSunglassesHandler(sunglassesDetails)" class="delete">Delete</button>
+        </div>
+       
+        <details class="sunglasses-description">
+            <summary>Sunglasses description</summary>
+
+            <p>Gender: {{sunglassesDetails?.gender}}</p>
+            <p>Shape: {{sunglassesDetails?.shape}}</p>
+            <p>Frame color: {{sunglassesDetails?.frameColor}}</p>
+            <p>Glass color: {{sunglassesDetails?.glassColor}}</p>
+        </details>
+
+
+    </article>
+</section>
+
+
+
+
+
+
+
+
+
+<!-- <app-loader *ngIf="isLoading"/>
+
+<section *ngIf="!isLoading" class="details-container">
+    <article class="img-container">
+        <img src="{{sunglassesDetails?.imageUrl}}" alt="sunglasses-image">
+    </article>
+
+    <article class="sunglasses-details">
+        <p class="brand-and-models">{{sunglassesDetails?.brand}} {{sunglassesDetails?.model}}</p>
+        <p class="price">Price: {{sunglassesDetails?.price}}€</p>
+
             <form *ngIf="isAuthenticated && !isAdmin" #form="ngForm" (ngSubmit)="buySunglassesHandler(form)">
                 <label for="quantity">Quantity:</label>
                 <input
@@ -45,4 +106,4 @@
 
 
     </article>
-</section>
+</section> -->
