@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MessagesService } from '../messages.service';
 
 @Component({
   selector: 'app-send-message',
@@ -8,12 +9,16 @@ import { NgForm } from '@angular/forms';
 })
 export class SendMessageComponent {
 
+  constructor(private messagesService: MessagesService){}
+
   sendMessageHandler(form:NgForm){
     if(form.invalid){
       console.log('invalid form')
       return
     }
 
-    console.log(form.value)
+   const {name, email, message} = form.value
+
+
   }
 }

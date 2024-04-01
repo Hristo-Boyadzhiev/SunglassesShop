@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SendMessageComponent } from './send-message/send-message.component';
 import { AuthenticatedGuard } from '../core/guards/authenticated-guard.guard';
+import { SendMessageComponent } from './send-message/send-message.component';
 
 
 const routes: Routes = [
@@ -12,5 +12,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MessageRoutingModule { }
+export class MessagesRoutingModule { }
 
