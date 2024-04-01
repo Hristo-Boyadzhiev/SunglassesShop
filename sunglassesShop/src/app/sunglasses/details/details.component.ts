@@ -75,27 +75,6 @@ export class DetailsComponent implements OnInit {
     })
   }
 
-  // ngOnInit(): void {
-  //   this.id = this.activatedRoute.snapshot.params['sunglassesId']
-
-  //   this.sunglassesService.getSunglassesDetails(this.id).subscribe({
-  //     next: currentSunglassesDetails => {
-  //       this.isLoading = false
-  //       // Ако се опита да влезе на 
-  //       // http://localhost:4200/catalog/(грешно id)/edit
-  //       // Правилното поведение е да отиде на Not found
-  //       // Да измисля как да стане
-  //       // При статус 404 интерсепторът връща празен масив
-  //       if (Array.isArray(currentSunglassesDetails) && currentSunglassesDetails.length === 0) {
-  //         this.router.navigate(['/sunglasses/catalog'])
-  //       } else {
-  //         this.sunglassesDetails = currentSunglassesDetails;
-  //         // console.log(currentSunglassesDetails);
-  //       }
-  //     }
-  //   })
-  // }
-
   buySunglassesHandler(form: NgForm) {
     if (form.invalid) {
       console.log('Invalid form')
