@@ -28,14 +28,16 @@
                 >BUY</button>
             </form>
 
-            <span (click)="addToFavouriteHandler(sunglassesDetails)" class="favourite"><i class="fa-regular fa-heart"></i></span>
+            <span *ngIf="isAuthenticated && !isAdmin" (click)="addToFavouriteHandler()" class="favourite">
+                <i class="fa-regular fa-heart"></i>
+            </span>
         </div>
             
         <div *ngIf="isAdmin" class="edit-delete">
             <span class="edit">
                 <a [routerLink]="['/sunglasses/catalog', sunglassesDetails?._id, 'edit']" class="edit-link">Edit</a>
             </span>
-            <button (click)="deleteSunglassesHandler(sunglassesDetails)" class="delete">Delete</button>
+            <button (click)="deleteSunglassesHandler()" class="delete">Delete</button>
         </div>
        
         <details class="sunglasses-description">

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sunglasses } from 'src/app/shared/types/sunglasses';
 import { SunglassesService } from '../sunglasses.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { NgForm } from '@angular/forms';
 import { PurchasesService } from 'src/app/purchases/purchases.service';
@@ -26,7 +25,7 @@ export class DetailsComponent implements OnInit {
     private sunglassesService: SunglassesService,
     private authenticationService: AuthenticationService,
     private purchasesService: PurchasesService,
-    private favouriteService: FavouriteService, 
+    private favouriteService: FavouriteService,
     private router: Router
   ) { }
 
@@ -75,7 +74,7 @@ export class DetailsComponent implements OnInit {
     this.purchasesService.getUserPurchases(searchQuery).subscribe({
       next: currentUserPurchases => {
         if (this.sunglassesDetails && buyerId && buyerEmail) {
-          const userPurchase = this.purchasesService.findBoughtSunglases(this.sunglassesDetails)
+          const userPurchase = this.purchasesService.findBoughtSunglasses(this.sunglassesDetails)
           if (userPurchase) {
             const id = userPurchase._id
             const editQuantity = quantity + userPurchase.quantity
@@ -90,11 +89,12 @@ export class DetailsComponent implements OnInit {
     })
   }
 
-  deleteSunglassesHandler(sunglasses: Sunglasses | undefined) {
-    if (sunglasses) {
-      const confirm = window.confirm(`Are you sure you want to delete ${sunglasses.brand} ${sunglasses.model}?`);
+
+  deleteSunglassesHandler() {
+    if (this.sunglassesDetails) {
+      const confirm = window.confirm(`Are you sure you want to delete ${this.sunglassesDetails.brand} ${this.sunglassesDetails.model}?`);
       if (confirm) {
-        this.sunglassesService.deleteSunglasse(sunglasses._id).subscribe({
+        this.sunglassesService.deleteSunglasse(this.sunglassesDetails._id).subscribe({
           next: deletedSunglasses => {
             this.router.navigate(['/sunglasses/catalog'])
           }
@@ -103,11 +103,23 @@ export class DetailsComponent implements OnInit {
     }
   }
 
-  addToFavouriteHandler(sunglasses:Sunglasses | undefined){
-    if(sunglasses){
-      this.favouriteService.createFavouriteSunglasses(sunglasses).subscribe({
-        next: newFavouriteSunglasses=>{
-          console.log(newFavouriteSunglasses)
+  addToFavouriteHandler() {
+    this.user = this.authenticationService.getUser()
+    const userId = this.user?._id
+    const searchQuery = encodeURIComponent(`_ownerId="${userId}"`)
+
+    if (this.sunglassesDetails) {
+      this.favouriteService.getFavouriteSunglasses(searchQuery).subscribe({
+        next: favouriteSunglassesList => {
+          if (this.sunglassesDetails) {
+            const currentFavouriteSunglasses = this.favouriteService.findFavouriteSunglasses(favouriteSunglassesList, this.sunglassesDetails)
+            if (!currentFavouriteSunglasses) {
+              this.favouriteService.createFavouriteSunglasses(this.sunglassesDetails).subscribe({
+                next: newFavouriteSunglasses => {
+                }
+              })
+            }
+          }
         }
       })
     }

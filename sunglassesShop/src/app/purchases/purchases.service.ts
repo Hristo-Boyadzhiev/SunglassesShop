@@ -1,9 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
 import { Purchase } from '../shared/types/purchase';
 import { Sunglasses } from '../shared/types/sunglasses';
-import { AuthenticationService } from '../authentication/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,6 @@ export class PurchasesService {
 
   constructor(
     private http: HttpClient,
-    private authenticationService: AuthenticationService
   ) {
     this.subscription = this.userPurchases$.subscribe({
       next: currentUserPurchases => {
@@ -26,7 +24,7 @@ export class PurchasesService {
     })
   }
 
-  findBoughtSunglases(sunglasses: Sunglasses) {
+  findBoughtSunglasses(sunglasses: Sunglasses) {
     const userPurchase = this.userPurchases.find(purchase => {
       return purchase.sunglassesDetails._id === sunglasses._id
     })
@@ -36,16 +34,6 @@ export class PurchasesService {
   subscribeEditPurchaseQuantity(id: string, sunglassesWithEditedQuantity: Purchase) {
     this.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe({
       next: editedSunglasses => {
-        // console.log(editedSunglasses)
-      },
-      error: (responseError: HttpErrorResponse) => {
-        // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-        // Да тествам дали работи оптимално.
-        if (responseError.error.message === 'Invalid access token') {
-          this.authenticationService.clearLocalStorage()
-        } else {
-          alert(responseError.error.message)
-        }
       }
     })
   }
@@ -54,29 +42,11 @@ export class PurchasesService {
     this.userPurchases.forEach(purchase => {
       this.deletePurchase(purchase._id).subscribe({
         next: deletedPurchase => {
-        },
-        error: (responseError: HttpErrorResponse) => {
-          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-          // Да тествам дали работи оптимално.
-          if (responseError.error.message === 'Invalid access token') {
-            this.authenticationService.clearLocalStorage()
-          } else {
-            alert(responseError.error.message)
-          }
         }
       })
 
       this.createCompletedPurchases(purchase.quantity, purchase.totalPrice, purchase.sunglassesDetails, purchase.buyerEmail ,purchase.buyerId).subscribe({
         next: completedPurchase => {
-        },
-        error: (responseError: HttpErrorResponse) => {
-          // Когато съм logged и рестартирам server-a. Като вляза на страница, която прави заявка се получава грешката.
-          // Да тествам дали работи оптимално.
-          if (responseError.error.message === 'Invalid access token') {
-            this.authenticationService.clearLocalStorage()
-          } else {
-            alert(responseError.error.message)
-          }
         }
       })
     });
