@@ -10,7 +10,6 @@ export class MessagesService {
 
   constructor(private http: HttpClient) { }
 
-  // От тип Observable
   createMessage(message: Message):Observable<Message>{
    return this.http
     .post<Message>('/api/data/messages', message)

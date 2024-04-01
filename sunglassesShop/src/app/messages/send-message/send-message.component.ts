@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Message } from 'src/app/shared/types/message';
 import { Router } from '@angular/router';
 import { MessagesService } from '../messages.service';
+import { Message } from 'src/app/shared/types/message';
 
 @Component({
   selector: 'app-send-message',
