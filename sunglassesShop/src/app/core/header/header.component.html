@@ -17,6 +17,10 @@
             <li *ngIf="isAdmin"><a routerLink="/purchases/completedPurchases">Purchases</a></li>
 
             <li class="right-container">
+                <a *ngIf="isAuthenticated || isAdmin" [routerLink]="['/profile/user', user?._id]" class="profile">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+
                 <a *ngIf="isAdmin" routerLink="/messages/messages-received" class="messages">
                     <i class="fa-solid fa-message"></i>
                 </a>

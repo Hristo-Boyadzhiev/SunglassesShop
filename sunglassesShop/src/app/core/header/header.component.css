@@ -51,6 +51,7 @@ li.right-container a.purchaseBasket {
     margin: 0 1em;
 }
 
-li.right-container a.messages {
+li.right-container a.messages,
+li.right-container a.profile {
     margin-right: 1em;
 }

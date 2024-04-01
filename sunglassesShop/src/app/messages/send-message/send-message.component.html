@@ -27,7 +27,7 @@
             name="email"
             id="email" 
             placeholder="Enter your email (e.g. ivan@gmail.com)"
-            ngModel
+            [ngModel]="user?.email"
             #inputEmail="ngModel"
             appFormStyles
             required
