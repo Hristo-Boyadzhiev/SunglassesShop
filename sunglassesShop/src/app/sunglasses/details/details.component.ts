@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
 import { NgForm } from '@angular/forms';
 import { PurchasesService } from 'src/app/purchases/purchases.service';
 import { User } from 'src/app/shared/types/user';
-import { FavouriteService } from 'src/app/favourite/favourite.service';
+import { FavouritesService } from 'src/app/favourites/favourites.service';
 
 @Component({
   selector: 'app-details',
@@ -17,7 +17,7 @@ export class DetailsComponent implements OnInit {
   isLoading: boolean = true
   id: string = ''
   sunglassesDetails: Sunglasses | undefined
-  isFavouriteSunglasses: boolean = false
+  isFavouritesSunglasses: boolean = false
   defaultQuantity = 1
   user: User | undefined
 
@@ -26,7 +26,7 @@ export class DetailsComponent implements OnInit {
     private sunglassesService: SunglassesService,
     private authenticationService: AuthenticationService,
     private purchasesService: PurchasesService,
-    private favouriteService: FavouriteService,
+    private favouritesService: FavouritesService,
     private router: Router
   ) { }
 
@@ -58,14 +58,14 @@ export class DetailsComponent implements OnInit {
         } else {
           this.sunglassesDetails = currentSunglassesDetails;
 
-          this.favouriteService.getFavouriteSunglasses(searchQuery).subscribe({
-            next: favouriteSunglassesList => {
+          this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
+            next: favouritesSunglassesList => {
               if (this.sunglassesDetails) {
-                const currentFavouriteSunglasses = this.favouriteService.findFavouriteSunglasses(favouriteSunglassesList, this.sunglassesDetails)
-                if (currentFavouriteSunglasses) {
-                  this.isFavouriteSunglasses = true
+                const currentFavouritesSunglasses = this.favouritesService.findFavouritesSunglasses(favouritesSunglassesList, this.sunglassesDetails)
+                if (currentFavouritesSunglasses) {
+                  this.isFavouritesSunglasses = true
                 } else {
-                  this.isFavouriteSunglasses = false
+                  this.isFavouritesSunglasses = false
                 }
               }
             }
@@ -141,22 +141,22 @@ export class DetailsComponent implements OnInit {
     }
   }
 
-  addToFavouriteHandler() {
+  addToFavouritesHandler() {
     this.user = this.authenticationService.getUser()
     const userId = this.user?._id
     const searchQuery = encodeURIComponent(`_ownerId="${userId}"`)
 
     if (this.sunglassesDetails) {
-      this.favouriteService.getFavouriteSunglasses(searchQuery).subscribe({
-        next: favouriteSunglassesList => {
+      this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
+        next: favouritesSunglassesList => {
           if (this.sunglassesDetails) {
-            const currentFavouriteSunglasses = this.favouriteService.findFavouriteSunglasses(favouriteSunglassesList, this.sunglassesDetails)
-            if (currentFavouriteSunglasses) {
-              this.isFavouriteSunglasses = false
-              this.favouriteService.deleteFavouriteSunglasses(currentFavouriteSunglasses._id).subscribe()
+            const currentFavouritesSunglasses = this.favouritesService.findFavouritesSunglasses(favouritesSunglassesList, this.sunglassesDetails)
+            if (currentFavouritesSunglasses) {
+              this.isFavouritesSunglasses = false
+              this.favouritesService.deleteFavouritesSunglasses(currentFavouritesSunglasses._id).subscribe()
             } else {
-              this.isFavouriteSunglasses = true
-              this.favouriteService.createFavouriteSunglasses(this.sunglassesDetails).subscribe()
+              this.isFavouritesSunglasses = true
+              this.favouritesService.createFavouritesSunglasses(this.sunglassesDetails).subscribe()
             }
           }
         }

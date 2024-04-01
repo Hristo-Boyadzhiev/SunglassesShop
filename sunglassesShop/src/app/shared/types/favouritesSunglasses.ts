@@ -1,6 +1,6 @@
 import { Sunglasses } from "./sunglasses";
 
-export interface FavouriteSunglasses {
+export interface FavouritesSunglasses {
         ownerId: string,
         sunglasses: Sunglasses,
         _createdOn: number,

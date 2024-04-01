@@ -17,9 +17,9 @@
                 <button class="buy-button" [disabled]="form.invalid">BUY</button>
             </form>
 
-            <span *ngIf="isAuthenticated && !isAdmin" (click)="addToFavouriteHandler()" class="favourite">
+            <span *ngIf="isAuthenticated && !isAdmin" (click)="addToFavouritesHandler()" class="favourites">
                 <i 
-                [ngClass]="isFavouriteSunglasses ?'fa-solid fa-heart' :'fa-regular fa-heart' " 
+                [ngClass]="isFavouritesSunglasses ?'fa-solid fa-heart' :'fa-regular fa-heart' " 
                 
                 ></i>
             </span>
