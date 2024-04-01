@@ -8,19 +8,7 @@ import { FavouriteSunglasses } from '../shared/types/favouriteSunglasses';
   providedIn: 'root'
 })
 export class FavouriteService {
-  // private userFavouriteSunglasses$$ = new BehaviorSubject<Sunglasses[]>([])
-  // userFavouriteSunglasses$ = this.userFavouriteSunglasses$$.asObservable()
-
-  // userFavouriteSunglasses: Sunglasses[] = []
-  // subscription: Subscription
-
-  constructor(private http: HttpClient) {
-    // this.subscription = this.userFavouriteSunglasses$.subscribe({
-    //   next: currentUserFavouriteSunglasses=>{
-    //     this.userFavouriteSunglasses = currentUserFavouriteSunglasses
-    //   }
-    // })
-   }
+  constructor(private http: HttpClient) {}
 
   findFavouriteSunglasses(favouriteSunglassesList: FavouriteSunglasses[], sunglasses: Sunglasses) {
     const currentFavouriteSunglasses = favouriteSunglassesList.find(favouriteSunglasses => {
@@ -39,8 +27,10 @@ export class FavouriteService {
   getFavouriteSunglasses(searchQuery: string):Observable<FavouriteSunglasses[]>{
     return this.http
     .get<FavouriteSunglasses[]>(`/api/data/favouriteSunglasses?where=${searchQuery}`)
-    // .pipe(tap((currentUserFavouriteSunglasses)=>{
-    //   this.userFavouriteSunglasses$$.next(currentUserFavouriteSunglasses)
-    // }))
+  }
+
+  deleteFavouriteSunglasses(id: string):Observable<FavouriteSunglasses>{
+    return this.http
+    .delete<FavouriteSunglasses>(`/api/data/favouriteSunglasses/${id}`)
   }
 }

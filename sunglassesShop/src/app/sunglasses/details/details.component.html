@@ -1,4 +1,4 @@
-<app-loader *ngIf="isLoading"/>
+<app-loader *ngIf="isLoading" />
 
 <section *ngIf="!isLoading" class="details-container">
     <article class="img-container">
@@ -12,34 +12,26 @@
         <div class="authenticated-user-functionality">
             <form *ngIf="isAuthenticated && !isAdmin" #form="ngForm" (ngSubmit)="buySunglassesHandler(form)">
                 <label for="quantity">Quantity:</label>
-                <input
-                type="number"
-                class="quantity"
-                id="quantity"
-                name="quantity"
-                min="1"
-                [ngModel]="defaultQuantity"
-                #inputQuantity="ngModel"
-                required
-                >
-                <button 
-                class="buy-button"
-                [disabled]="form.invalid"
-                >BUY</button>
+                <input type="number" class="quantity" id="quantity" name="quantity" min="1" [ngModel]="defaultQuantity"
+                    #inputQuantity="ngModel" required>
+                <button class="buy-button" [disabled]="form.invalid">BUY</button>
             </form>
 
             <span *ngIf="isAuthenticated && !isAdmin" (click)="addToFavouriteHandler()" class="favourite">
-                <i class="fa-regular fa-heart"></i>
+                <i 
+                [ngClass]="isFavouriteSunglasses ?'fa-solid fa-heart' :'fa-regular fa-heart' " 
+                
+                ></i>
             </span>
         </div>
-            
+
         <div *ngIf="isAdmin" class="edit-delete">
             <span class="edit">
                 <a [routerLink]="['/sunglasses/catalog', sunglassesDetails?._id, 'edit']" class="edit-link">Edit</a>
             </span>
             <button (click)="deleteSunglassesHandler()" class="delete">Delete</button>
         </div>
-       
+
         <details class="sunglasses-description">
             <summary>Sunglasses description</summary>
 

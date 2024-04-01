@@ -37,15 +37,19 @@ div.authenticated-user-functionality {
     margin-top: 1em;
 }
 
-div.authenticated-user-functionality i.fa-regular.fa-heart{
+div.authenticated-user-functionality i.fa-regular.fa-heart,
+div.authenticated-user-functionality i.fa-solid.fa-heart {
     font-size: 2em;
     color: black
 }
 
-div.authenticated-user-functionality i.fa-regular.fa-heart:hover{
+div.authenticated-user-functionality i.fa-regular.fa-heart:hover,
+div.authenticated-user-functionality i.fa-solid.fa-heart:hover {
     font-size: 3em;
     transition: 0.3s ease-in-out
 }
+
+
 
 div.authenticated-user-functionality span.favourite {
     cursor: pointer;
@@ -64,7 +68,7 @@ input.quantity {
     border-color: black;
 }
 
-span.edit{
+span.edit {
     display: inline;
 }
 

@@ -17,6 +17,7 @@ export class DetailsComponent implements OnInit {
   isLoading: boolean = true
   id: string = ''
   sunglassesDetails: Sunglasses | undefined
+  isFavouriteSunglasses: boolean = false
   defaultQuantity = 1
   user: User | undefined
 
@@ -40,6 +41,10 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['sunglassesId']
 
+    this.user = this.authenticationService.getUser()
+    const userId = this.user?._id
+    const searchQuery = encodeURIComponent(`_ownerId="${userId}"`)
+
     this.sunglassesService.getSunglassesDetails(this.id).subscribe({
       next: currentSunglassesDetails => {
         this.isLoading = false
@@ -52,11 +57,44 @@ export class DetailsComponent implements OnInit {
           this.router.navigate(['/sunglasses/catalog'])
         } else {
           this.sunglassesDetails = currentSunglassesDetails;
-          // console.log(currentSunglassesDetails);
+
+          this.favouriteService.getFavouriteSunglasses(searchQuery).subscribe({
+            next: favouriteSunglassesList => {
+              if (this.sunglassesDetails) {
+                const currentFavouriteSunglasses = this.favouriteService.findFavouriteSunglasses(favouriteSunglassesList, this.sunglassesDetails)
+                if (currentFavouriteSunglasses) {
+                  this.isFavouriteSunglasses = true
+                } else {
+                  this.isFavouriteSunglasses = false
+                }
+              }
+            }
+          })
         }
       }
     })
   }
+
+  // ngOnInit(): void {
+  //   this.id = this.activatedRoute.snapshot.params['sunglassesId']
+
+  //   this.sunglassesService.getSunglassesDetails(this.id).subscribe({
+  //     next: currentSunglassesDetails => {
+  //       this.isLoading = false
+  //       // Ако се опита да влезе на 
+  //       // http://localhost:4200/catalog/(грешно id)/edit
+  //       // Правилното поведение е да отиде на Not found
+  //       // Да измисля как да стане
+  //       // При статус 404 интерсепторът връща празен масив
+  //       if (Array.isArray(currentSunglassesDetails) && currentSunglassesDetails.length === 0) {
+  //         this.router.navigate(['/sunglasses/catalog'])
+  //       } else {
+  //         this.sunglassesDetails = currentSunglassesDetails;
+  //         // console.log(currentSunglassesDetails);
+  //       }
+  //     }
+  //   })
+  // }
 
   buySunglassesHandler(form: NgForm) {
     if (form.invalid) {
@@ -113,11 +151,12 @@ export class DetailsComponent implements OnInit {
         next: favouriteSunglassesList => {
           if (this.sunglassesDetails) {
             const currentFavouriteSunglasses = this.favouriteService.findFavouriteSunglasses(favouriteSunglassesList, this.sunglassesDetails)
-            if (!currentFavouriteSunglasses) {
-              this.favouriteService.createFavouriteSunglasses(this.sunglassesDetails).subscribe({
-                next: newFavouriteSunglasses => {
-                }
-              })
+            if (currentFavouriteSunglasses) {
+              this.isFavouriteSunglasses = false
+              this.favouriteService.deleteFavouriteSunglasses(currentFavouriteSunglasses._id).subscribe()
+            } else {
+              this.isFavouriteSunglasses = true
+              this.favouriteService.createFavouriteSunglasses(this.sunglassesDetails).subscribe()
             }
           }
         }

@@ -19,7 +19,7 @@
                 <a>{{user?.email}}|Logout</a>
             </li>
             <li *ngIf="isAuthenticated && !isAdmin" class="favourite">
-                <a routerLink="#"><i class="fa-solid fa-heart"></i></a>
+                <a routerLink="/favourites/sunglasses"><i class="fa-solid fa-heart"></i></a>
             </li>
             <li *ngIf="isAuthenticated && !isAdmin" class="purchaseBasket">
                 <a routerLink="/purchases/basket"><i class="fa-solid fa-cart-shopping"></i></a>
