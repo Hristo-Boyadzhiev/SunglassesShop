@@ -43,6 +43,11 @@ ul li a:hover {
     cursor: pointer;
 }
 
-.purchaseBasket {
+/* /* .purchaseBasket  */
+li.right-container {
     margin-left: auto;
+}
+
+li.right-container a.favourites {
+    margin: 0 1em;
 }

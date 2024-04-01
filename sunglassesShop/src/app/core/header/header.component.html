@@ -15,14 +15,18 @@
             <li *ngIf="!isAuthenticated"><a routerLink="/auth/login">Login</a></li>
             <li *ngIf="!isAuthenticated"><a routerLink="/auth/register">Register</a></li>
             <li *ngIf="isAdmin"><a routerLink="/purchases/completedPurchases">Purchases</a></li>
-            <li *ngIf="isAuthenticated" class="logout" (click)="logout()">
-                <a>{{user?.email}}|Logout</a>
-            </li>
-            <li *ngIf="isAuthenticated && !isAdmin" class="favourite">
-                <a routerLink="/favourites/sunglasses"><i class="fa-solid fa-heart"></i></a>
-            </li>
-            <li *ngIf="isAuthenticated && !isAdmin" class="purchaseBasket">
-                <a routerLink="/purchases/basket"><i class="fa-solid fa-cart-shopping"></i></a>
+
+            <li class="right-container">
+                <a *ngIf="isAuthenticated" class="logout" (click)="logout()">{{user?.email}}|Logout</a>
+
+                <a *ngIf="isAuthenticated && !isAdmin" routerLink="/favourites/sunglasses" class="favourites">
+                    <i class="fa-solid fa-heart"></i>
+                </a>
+
+                <a *ngIf="isAuthenticated && !isAdmin" routerLink="/purchases/basket" class="purchaseBasket">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+
             </li>
         </ul>
     </div>
