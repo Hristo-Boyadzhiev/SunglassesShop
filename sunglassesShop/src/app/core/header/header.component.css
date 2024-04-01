@@ -47,6 +47,10 @@ li.right-container {
     margin-left: auto;
 }
 
-li.right-container a.favourites {
+li.right-container a.purchaseBasket {
     margin: 0 1em;
+}
+
+li.right-container a.messages {
+    margin-right: 1em;
 }

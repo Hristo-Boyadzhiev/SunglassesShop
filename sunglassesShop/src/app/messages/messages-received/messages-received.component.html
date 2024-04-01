@@ -1,0 +1,26 @@
+<app-loader *ngIf="isLoading" />
+
+<section *ngIf="!isMessage && !isLoading" class="emptyCollectionContainer">
+    <p class="message">No message yet</p>
+    <span class="home"><a class="homeLink" routerLink="/home">Home</a></span>
+</section>
+
+<table *ngIf="isMessage && !isLoading">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Created</th>
+            <th>Message</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let message of messages">
+            <td>{{message.name}}</td>
+            <td>{{message.email}}</td>
+            <td>{{message._createdOn | elapsedTime}}</td>
+            <td>{{message.message}}</td>   
+        </tr>
+    </tbody>
+</table>

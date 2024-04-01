@@ -4,6 +4,7 @@ import { FormStylesDirective } from './styles/form-styles.directive';
 import { EmailDirective } from './validators/email.directive';
 import { DeliveryCostPipe } from './pipes/delivery-cost.pipe';
 import { LoaderComponent } from './loader/loader.component';
+import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
 
 
 
@@ -12,7 +13,8 @@ import { LoaderComponent } from './loader/loader.component';
     FormStylesDirective,
     EmailDirective,
     DeliveryCostPipe,
-    LoaderComponent
+    LoaderComponent,
+    ElapsedTimePipe
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { LoaderComponent } from './loader/loader.component';
     FormStylesDirective,
     EmailDirective,
     DeliveryCostPipe,
-    LoaderComponent
+    LoaderComponent,
+    ElapsedTimePipe
   ]
 })
 export class SharedModule { }

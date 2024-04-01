@@ -1,0 +1,82 @@
+/* no purchase */
+
+.emptyCollectionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+p.message {
+    font-family: Kanit;
+    font-size: 5em;
+    margin-top: 2.5em;
+}
+
+span.home {
+    display: inline-block;
+}
+
+a.homeLink {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-family: Bebas Neue;
+    color: black;
+    padding: 0.3em 1.5em;
+    border: 1px solid black;
+    border-radius: 0.5em;  
+}
+
+a.homeLink:hover {
+    background: black;
+    color: white;
+    font-size: 2em;
+    letter-spacing: 0.3em;
+    transition: 0.3s ease-in-out
+}
+
+
+/* available purchase */
+
+table {
+    display: flex;
+    flex-direction: column;
+    border-collapse: collapse;
+    margin: 2em 4em;
+    border:1px solid black
+}
+
+tr {
+    display: flex;
+}
+
+thead tr th,
+tbody tr td {
+    flex: 1;
+    font-family: Roboto Condensed;
+    border: 1px solid black;
+    padding: 1em;
+    text-align: center;
+}
+
+thead tr th {
+    text-transform: uppercase;
+    background: rgba(35,31,32,255);
+    color: white
+}
+
+tr:hover{
+    font-weight: bold;
+    font-size: 1.2em;
+    background: lightgray;
+    transition: 0.3s ease-in-out
+}
+
+tbody tr td:nth-child(4) {
+    word-wrap: break-word;
+    overflow-y: auto; 
+}
+
+
+

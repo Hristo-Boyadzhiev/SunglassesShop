@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PurchasesService } from '../purchases.service';
-import { AuthenticationService } from 'src/app/authentication/authentication.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Purchase } from 'src/app/shared/types/purchase';
-import { User } from 'src/app/shared/types/user';
 
 @Component({
   selector: 'app-completed-purchases',
@@ -17,7 +14,6 @@ export class CompletedPurchasesComponent implements OnInit {
 
   constructor(
     private purchasesService: PurchasesService,
-    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit(): void {

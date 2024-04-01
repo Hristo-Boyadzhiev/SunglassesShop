@@ -17,7 +17,9 @@
             <li *ngIf="isAdmin"><a routerLink="/purchases/completedPurchases">Purchases</a></li>
 
             <li class="right-container">
-                <a *ngIf="isAuthenticated" class="logout" (click)="logout()">{{user?.email}}|Logout</a>
+                <a *ngIf="isAdmin" routerLink="/messages/messages-received" class="messages">
+                    <i class="fa-solid fa-message"></i>
+                </a>
 
                 <a *ngIf="isAuthenticated && !isAdmin" routerLink="/favourites/sunglasses" class="favourites">
                     <i class="fa-solid fa-heart"></i>
@@ -26,6 +28,8 @@
                 <a *ngIf="isAuthenticated && !isAdmin" routerLink="/purchases/basket" class="purchaseBasket">
                     <i class="fa-solid fa-cart-shopping"></i>
                 </a>
+
+                <a *ngIf="isAuthenticated" class="logout" (click)="logout()">{{user?.email}}|Logout</a>
 
             </li>
         </ul>
