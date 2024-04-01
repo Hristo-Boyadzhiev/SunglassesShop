@@ -5,6 +5,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
     // Гард да сложа
+    // Да опиша routes по-добре + за edit
     {path: 'user/:userId', component: ProfileComponent}
 ];
 

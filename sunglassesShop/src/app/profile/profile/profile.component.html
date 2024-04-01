@@ -1,1 +1,12 @@
-<p>{{user?.firstName}}</p>
+<section class="profile-info">
+    <h1>Profile details</h1>
+    <p class="firstName">First name: {{user?.firstName}}</p>
+    <p class="lastName">Last name: {{user?.lastName}}</p>
+    <p class="email">Email: {{user?.email}}</p>
+    <p class="createnOn">Created on: {{user?._createdOn | date}}</p>
+
+    <div class="buttons">
+        <span class="edit"><a [routerLink]="['/profile/user', user?._id, 'edit']" class="edit-link">Edit</a></span>
+        <button class="delete">Delete</button>
+    </div>
+</section>

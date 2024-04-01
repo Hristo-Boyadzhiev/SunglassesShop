@@ -1,0 +1,51 @@
+section.profile-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Bebas Neue;
+    gap: 1em;
+    max-width: 25em;
+    margin: 9.5em auto;
+    padding: 2em 0;
+    border: 1px solid black;
+    border-radius: 1em;
+}
+
+section.profile-info h1 {
+    font-size: 2.5em;
+}
+
+section.profile-info p {
+    font-size: 1.5em;
+}
+
+span.edit {
+    display: inline-block;
+}
+
+div.buttons {
+    display: flex;
+    gap: 1em;
+}
+
+a.edit-link, 
+button.delete {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-family: Bebas Neue;
+    color: black;
+    padding: 0.3em 1.5em;
+    border: 1px solid black;
+    border-radius: 0.5em;  
+}
+
+a.edit-link:hover,
+button.delete:hover {
+    background: black;
+    color: white;
+    font-size: 2em;
+    letter-spacing: 0.3em;
+    transition: 0.3s ease-in-out
+}
+
