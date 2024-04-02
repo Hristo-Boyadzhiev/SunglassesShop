@@ -20,7 +20,7 @@ export class AppInterceptor implements HttpInterceptor {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
   ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {

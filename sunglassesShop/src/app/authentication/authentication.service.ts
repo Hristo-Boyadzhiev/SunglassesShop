@@ -39,18 +39,18 @@ export class AuthenticationService {
     }
   }
 
-  register(firstName: string, lastName: string, email: string, password: string): Observable<User> {
+  register(user: User): Observable<User> {
     return this.http
-      .post<User>('/api/users/register', { firstName, lastName, email, password })
+      .post<User>('/api/users/register', user)
       .pipe(tap(currentUser => {
         localStorage.setItem(this.key, JSON.stringify(currentUser))
       })
       )
   }
 
-  login(email: string, password: string): Observable<User> {
+  login(user: User): Observable<User> {
     return this.http
-      .post<User>('/api/users/login', { email, password })
+      .post<User>('/api/users/login', user)
       .pipe(tap(currentUser => {
         localStorage.setItem(this.key, JSON.stringify(currentUser))
       })

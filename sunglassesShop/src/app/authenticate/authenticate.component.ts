@@ -10,32 +10,18 @@ import { Subscription } from 'rxjs';
 })
 export class AuthenticateComponent implements OnInit, OnDestroy {
   subscription: Subscription | undefined
-  // В процес на аутентикация
-  // isInAuthenticationProcess: boolean = false
 
   constructor(
     private authenticationService: AuthenticationService,
     private authenticateService: AuthenticateService) { }
 
-  get isToken(): boolean {
+  get isAuthenticated(): boolean {
     return this.authenticationService.isAuthenticated
   }
 
   ngOnInit(): void {
-    if (this.isToken) {
-
-      // this.isInAuthenticationProcess = true
-
-      this.subscription = this.authenticateService.getUserInfo().subscribe({
-        next: currentUser => {
-          // Аутентикацията приключи
-          // this.isInAuthenticationProcess = false
-        },
-        // complete: () => {
-        //   // Аутентикацията приключи
-        //   this.isInAuthenticationProcess = false
-        // }
-      })
+    if (this.isAuthenticated) {
+      this.subscription = this.authenticateService.getUserInfo().subscribe()
     }
   }
 

@@ -4,18 +4,19 @@ import { emailValidator } from 'src/app/shared/validators/email-validator';
 import { matchPassword } from 'src/app/shared/validators/match-passwords-validator';
 import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/shared/types/user';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnDestroy{
+export class RegisterComponent implements OnDestroy {
   isVisiblePassword: boolean = false
   isVisibleRePassword: boolean = false
   subscription: Subscription | undefined
+  user: User | undefined
 
   form = this.fb.group({
     firstName: ['', [Validators.required, Validators.maxLength(15)]],
@@ -42,39 +43,27 @@ export class RegisterComponent implements OnDestroy{
       return
     }
 
-    const {
-      firstName,
-      lastName,
-      email,
-      passwordsGroup: { password, rePassword } = {}
-    } = this.form.value
+    const { firstName, lastName, email, passwordsGroup: { password, rePassword } = {} } = this.form.value
 
-    if (
-      typeof firstName === 'string' &&
-      typeof lastName === 'string' &&
-      typeof email === 'string' &&
-      typeof password === 'string'
-    ) {
-      this.subscription = this.authenticationService.register(firstName, lastName, email, password).subscribe({
-        next: user => {
-          this.router.navigate(['/sunglasses/catalog'])
-        },
-        error: (responseError: HttpErrorResponse) => {
-          this.form.setValue({
-            firstName: '',
-            lastName: '',
-            email: '',
-            passwordsGroup:
-            {
-              password: '',
-              rePassword: ''
-            }
-          })
-        }
-      })
-    } else {
-      alert('Invalid register data. Please try again.');
-    }
+    this.user = { firstName, lastName, email, password } as User
+
+    this.subscription = this.authenticationService.register(this.user).subscribe({
+      next: registeredUser => {
+        this.router.navigate(['/sunglasses/catalog'])
+      },
+      error: () => {
+        this.form.setValue({
+          firstName: '',
+          lastName: '',
+          email: '',
+          passwordsGroup:
+          {
+            password: '',
+            rePassword: ''
+          }
+        })
+      }
+    })
   }
 
   togglePasswordVisibility() {

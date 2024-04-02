@@ -4,6 +4,7 @@ import { emailValidator } from 'src/app/shared/validators/email-validator';
 import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/shared/types/user';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnDestroy{
   isVisiblePassword: boolean = false
   subscription: Subscription | undefined
+  user: User | undefined
 
   form = this.fb.group({
     email: ['', [Validators.required, emailValidator()]],
@@ -31,10 +33,9 @@ export class LoginComponent implements OnDestroy{
       return
     }
 
-    const { email, password } = this.form.value
+    this.user = this.form.value as User
 
-    if (typeof email === 'string' && typeof password === 'string') {
-      this.subscription = this.authenticationService.login(email, password).subscribe({
+      this.subscription = this.authenticationService.login(this.user).subscribe({
         next: currentUser => {
           this.router.navigate(['/sunglasses/catalog'])
         },
@@ -47,9 +48,6 @@ export class LoginComponent implements OnDestroy{
           })
         }
       })
-    } else {
-      alert('Invalid login data. Please try again.');
-    }
   }
 
   togglePasswordVisibility(){
