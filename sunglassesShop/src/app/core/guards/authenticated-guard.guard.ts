@@ -19,6 +19,10 @@ export class AuthenticatedGuard implements CanActivate {
     const isAuthenticated = this.authenticationService.isAuthenticated
     const isAdmin = this.authenticationService.isAdmin
 
+    if(state.url === '/profile/user' && isAuthenticated || isAdmin){
+      return true
+    }
+
     if (isAuthenticated) {
       if (isAdmin) {
         this.router.navigate(['/home'])
