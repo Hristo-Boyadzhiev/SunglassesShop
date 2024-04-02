@@ -77,4 +77,8 @@ input.ng-touched.ng-invalid::placeholder {
     margin-top: 2em;
 }
 
+i.fa-solid.fa-eye {
+    cursor: pointer;
+}
+
 

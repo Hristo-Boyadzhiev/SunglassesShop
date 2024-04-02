@@ -11,6 +11,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  isVisiblePassword: boolean = false
+
   form = this.fb.group({
     email: ['', [Validators.required, emailValidator()]],
     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]]
@@ -21,6 +23,7 @@ export class LoginComponent {
     private authenticationService: AuthenticationService,
     private router: Router
   ) { }
+
   login() {
     if (this.form.invalid) {
       console.log('Invalid form')
@@ -46,5 +49,9 @@ export class LoginComponent {
     } else {
       alert('Invalid login data. Please try again.');
     }
+  }
+
+  togglePasswordVisibility(){
+    this.isVisiblePassword = !this.isVisiblePassword
   }
 }

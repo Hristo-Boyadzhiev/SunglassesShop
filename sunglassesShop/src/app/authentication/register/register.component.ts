@@ -12,6 +12,9 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  isVisiblePassword: boolean = false
+  isVisibleRePassword: boolean = false
+
   form = this.fb.group({
     firstName: ['', [Validators.required, Validators.maxLength(15)]],
     lastName: ['', [Validators.required, Validators.maxLength(15)]],
@@ -70,5 +73,13 @@ export class RegisterComponent {
     } else {
       alert('Invalid register data. Please try again.');
     }
+  }
+
+  togglePasswordVisibility() {
+    this.isVisiblePassword = !this.isVisiblePassword
+  }
+
+  toggleRePasswordVisibility() {
+    this.isVisibleRePassword = !this.isVisibleRePassword
   }
 }

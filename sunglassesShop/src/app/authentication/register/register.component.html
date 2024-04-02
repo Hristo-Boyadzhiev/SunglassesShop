@@ -62,13 +62,18 @@
             <div class="password">
                 <label for="password">Password</label>
                 <input
-                type="password"
+                [type]="isVisiblePassword ?'text' :'password'" 
                 name="password"
                 id="password" 
                 placeholder="Enter your password (e.g. ivan1992)"
                 formControlName="password"
                 appFormStyles
                 >
+
+                <i class="fa-solid" 
+                [ngClass]="{'fa-eye': isVisiblePassword, 'fa-eye-slash': !isVisiblePassword}" 
+                (click)="togglePasswordVisibility()">
+                </i>
             </div>
 
             <ng-container *ngIf="form.get('passwordsGroup')?.get('password')?.touched">
@@ -86,13 +91,18 @@
             <div class="rePassword">
                 <label for="rePassword">Repeat Password</label>
                 <input 
-                type="password"
+                [type]="isVisibleRePassword ?'text' :'password'" 
                 name="rePassword"
                 id="rePassword" 
                 placeholder="Repeat password"
                 formControlName="rePassword"
                 appFormStyles
                 >
+
+                <i class="fa-solid" 
+                [ngClass]="{'fa-eye': isVisibleRePassword, 'fa-eye-slash': !isVisibleRePassword}" 
+                (click)="toggleRePasswordVisibility()">
+                </i>
             </div>
 
             <ng-container *ngIf="form.get('passwordsGroup')?.get('rePassword')?.touched">

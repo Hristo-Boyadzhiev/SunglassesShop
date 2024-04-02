@@ -22,14 +22,20 @@
         <div class="password">
             <label for="password">Password</label>
             <input 
-            type="password" 
+            [type]="isVisiblePassword ?'text' :'password'" 
             name="password"
             id="password" 
             placeholder="Enter your password (e.g. ivan1992)"
             formControlName="password"
             appFormStyles
             >
+
+            <i class="fa-solid" 
+            [ngClass]="{'fa-eye': isVisiblePassword, 'fa-eye-slash': !isVisiblePassword}" 
+            (click)="togglePasswordVisibility()">
+            </i>
         </div>
+
 
         <ng-container *ngIf="form.get('password')?.touched">
             <p class="error" *ngIf="form.get('password')?.errors?.['required']">The password is required</p>
