@@ -1,21 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MessagesService } from '../messages.service';
 import { Message } from 'src/app/shared/types/message';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-messages-received',
   templateUrl: './messages-received.component.html',
   styleUrls: ['./messages-received.component.css']
 })
-export class MessagesReceivedComponent {
+export class MessagesReceivedComponent implements OnDestroy{
   isLoading: boolean = true
   isMessage: boolean = false
   messages: Message[] = []
+  subscription: Subscription | undefined
 
   constructor(private messagesService: MessagesService) { }
 
   ngOnInit(): void {
-    this.messagesService.getMessages().subscribe({
+    this.subscription = this.messagesService.getMessages().subscribe({
       next: currentMessages => {
         console.log(currentMessages)
         this.isLoading = false
@@ -27,5 +29,9 @@ export class MessagesReceivedComponent {
         }
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 }

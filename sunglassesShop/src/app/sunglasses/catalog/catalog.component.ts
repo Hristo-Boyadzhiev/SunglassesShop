@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SunglassesService } from '../sunglasses.service';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { Sunglasses } from 'src/app/shared/types/sunglasses';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -9,10 +10,11 @@ import { Sunglasses } from 'src/app/shared/types/sunglasses';
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.css']
 })
-export class CatalogComponent implements OnInit {
+export class CatalogComponent implements OnInit, OnDestroy {
   isLoading: boolean = true
   isEmptyCollection: boolean = false
   sunglassesCollection: Sunglasses[] = []
+  subscription: Subscription | undefined
 
   constructor(
     private sunglassesService: SunglassesService,
@@ -24,7 +26,7 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sunglassesService.getSunglasses().subscribe({
+    this.subscription = this.sunglassesService.getSunglasses().subscribe({
       next: sunglasses => {
         this.isLoading = false
         if (sunglasses.length === 0) {
@@ -35,5 +37,9 @@ export class CatalogComponent implements OnInit {
         }
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 }

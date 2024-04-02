@@ -10,7 +10,6 @@ export class AuthenticateService {
   constructor(private http: HttpClient) { }
 
   getUserInfo(): Observable<User> {
-    return this.http
-      .get<User>('/api/users/me')
+    return this.http.get<User>('/api/users/me')
   }
 }

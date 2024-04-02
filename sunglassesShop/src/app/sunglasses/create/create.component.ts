@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { imageUrlValidator } from 'src/app/shared/validators/image-url-validator';
 import { SunglassesService } from '../sunglasses.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Sunglasses } from 'src/app/shared/types/sunglasses';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,8 +13,9 @@ import { Sunglasses } from 'src/app/shared/types/sunglasses';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreateComponent {
+export class CreateComponent implements OnDestroy{
   sunglasses: Sunglasses | undefined
+  subscription: Subscription | undefined
 
   form = this.fb.group({
     brand: ['', [Validators.required, Validators.maxLength(10)]],
@@ -40,22 +42,14 @@ export class CreateComponent {
 
     this.sunglasses = this.form.value as Sunglasses
 
-    this.sunglassesService.createSunglasses(this.sunglasses).subscribe({
+    this.subscription = this.sunglassesService.createSunglasses(this.sunglasses).subscribe({
       next: newSunglasses => {
         this.router.navigate(['/sunglasses/catalog'])
-      },
-      error: (responseError: HttpErrorResponse) => {
-          this.form.setValue({
-            brand: '',
-            model: '',
-            price: 1,
-            imageUrl: '',
-            gender: '',
-            shape: '',
-            frameColor: '',
-            glassColor: '',
-          })  
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 }

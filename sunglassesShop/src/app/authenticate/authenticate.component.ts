@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticateService } from './authenticate.service';
 import { AuthenticationService } from '../authentication/authentication.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-authenticate',
   templateUrl: './authenticate.component.html',
   styleUrls: ['./authenticate.component.css']
 })
-export class AuthenticateComponent implements OnInit {
+export class AuthenticateComponent implements OnInit, OnDestroy {
+  subscription: Subscription | undefined
   // В процес на аутентикация
   // isInAuthenticationProcess: boolean = false
 
@@ -24,7 +26,7 @@ export class AuthenticateComponent implements OnInit {
 
       // this.isInAuthenticationProcess = true
 
-      this.authenticateService.getUserInfo().subscribe({
+      this.subscription = this.authenticateService.getUserInfo().subscribe({
         next: currentUser => {
           // Аутентикацията приключи
           // this.isInAuthenticationProcess = false
@@ -35,5 +37,9 @@ export class AuthenticateComponent implements OnInit {
         // }
       })
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 }

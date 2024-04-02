@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 
 @Component({
@@ -7,7 +8,8 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy{
+  subscription: Subscription | undefined
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -22,7 +24,6 @@ export class HeaderComponent {
     return this.authenticationService.isAdmin
   }
 
-  // Да помисля дали има и по-умен и с по-красив начин начин 
   get user() {
     const user = this.authenticationService.getUser()
     if (user) {
@@ -33,10 +34,14 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.authenticationService.logout().subscribe({
+    this.subscription = this.authenticationService.logout().subscribe({
       next: example => {
         this.router.navigate(['/sunglasses/catalog'])
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 }

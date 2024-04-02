@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { emailValidator } from 'src/app/shared/validators/email-validator';
 import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy{
   isVisiblePassword: boolean = false
+  subscription: Subscription | undefined
 
   form = this.fb.group({
     email: ['', [Validators.required, emailValidator()]],
@@ -33,11 +34,11 @@ export class LoginComponent {
     const { email, password } = this.form.value
 
     if (typeof email === 'string' && typeof password === 'string') {
-      this.authenticationService.login(email, password).subscribe({
+      this.subscription = this.authenticationService.login(email, password).subscribe({
         next: currentUser => {
           this.router.navigate(['/sunglasses/catalog'])
         },
-        error: (responseError: HttpErrorResponse) => {
+        error: () => {
           // Заради стиловете за валидация не използвам this.form.reset()
           // Да измисля как да го оправя
           this.form.setValue({
@@ -53,5 +54,9 @@ export class LoginComponent {
 
   togglePasswordVisibility(){
     this.isVisiblePassword = !this.isVisiblePassword
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 }

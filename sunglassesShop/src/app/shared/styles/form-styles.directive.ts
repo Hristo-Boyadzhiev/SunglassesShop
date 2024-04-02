@@ -1,14 +1,11 @@
-import { Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[appFormStyles]'
 })
 
-export class FormStylesDirective implements OnDestroy {
-
-  blurListenner: (() => void) | undefined
-
+export class FormStylesDirective {
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
@@ -25,9 +22,5 @@ export class FormStylesDirective implements OnDestroy {
         'border-color',
         'green')
     }
-  }
-
-  ngOnDestroy(): void {
-    this.blurListenner?.()
   }
 }

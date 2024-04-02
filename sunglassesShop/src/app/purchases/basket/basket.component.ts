@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { PurchasesService } from '../purchases.service';
 import { Purchase } from 'src/app/shared/types/purchase';
-import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { DeliveryCostPipe } from 'src/app/shared/pipes/delivery-cost.pipe';
 import { Router } from '@angular/router';
-import { Sunglasses } from 'src/app/shared/types/sunglasses';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-basket',
@@ -14,15 +13,15 @@ import { Sunglasses } from 'src/app/shared/types/sunglasses';
   styleUrls: ['./basket.component.css'],
   providers: [DeliveryCostPipe]
 })
-export class BasketComponent implements OnInit {
+export class BasketComponent implements OnInit, OnDestroy {
   isLoading: boolean = true
-  buyerId: string | undefined
   purchasesList: Purchase[] = []
   isEmptyCollection: boolean = true
   total: number = 0
   deliveryCost: number = 0
   paymentAmount: number = 0
   isCompletedOrder: boolean = false
+  subscriptions: Subscription[] = []
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -36,11 +35,10 @@ export class BasketComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authenticationService.getUser()) {
-      this.buyerId = this.authenticationService.getUser()?._id
-      const searchQuery = encodeURIComponent(`buyerId="${this.buyerId}"`)
+      const buyerId = this.authenticationService.getUser()?._id
+      const searchQuery = encodeURIComponent(`buyerId="${buyerId}"`)
 
-      this.purchasesService.getUserPurchases(searchQuery).subscribe({
+      const subscription = this.purchasesService.getUserPurchases(searchQuery).subscribe({
         next: currentUserPurchases => {
           this.isLoading = false
           if (currentUserPurchases.length === 0) {
@@ -54,7 +52,7 @@ export class BasketComponent implements OnInit {
           }
         }
       })
-    }
+      this.subscriptions.push(subscription)
   }
 
   quantityHandler(form: NgForm, sunglasses: Purchase) {
@@ -68,7 +66,7 @@ export class BasketComponent implements OnInit {
     const id = sunglasses._id
     const sunglassesWithEditedQuantity = { ...sunglasses, quantity: Number(quantity), totalPrice: Number(quantity) * sunglasses.sunglassesDetails.price }
 
-    this.purchasesService.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe({
+    const subscription = this.purchasesService.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe({
       next: editedSunglasses => {
         this.purchasesList = this.purchasesList.map(purchase => {
           return purchase._id === editedSunglasses._id
@@ -81,6 +79,7 @@ export class BasketComponent implements OnInit {
         this.paymentAmount = this.total + this.deliveryCost
       }
     })
+    this.subscriptions.push(subscription)
   }
 
   deleteSunglasses(sunglasses: Purchase) {
@@ -88,8 +87,8 @@ export class BasketComponent implements OnInit {
     if (confirm) {
       const id = sunglasses._id
 
-      this.purchasesService.deletePurchase(id).subscribe({
-        next: deletedPurchase => {
+      const subscription = this.purchasesService.deletePurchase(id).subscribe({
+        next: () => {
           this.purchasesList = this.purchasesList.filter(purchase => {
             return purchase._id !== id
           })
@@ -103,6 +102,7 @@ export class BasketComponent implements OnInit {
           }
         }
       })
+      this.subscriptions.push(subscription)
     }
   }
 
@@ -114,5 +114,9 @@ export class BasketComponent implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/sunglasses/catalog'])
     }, 3000);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe())
   }
 }

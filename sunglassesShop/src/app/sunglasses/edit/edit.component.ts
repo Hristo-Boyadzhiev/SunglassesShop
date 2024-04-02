@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SunglassesService } from '../sunglasses.service';
-import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { imageUrlValidator } from 'src/app/shared/validators/image-url-validator';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Sunglasses } from 'src/app/shared/types/sunglasses';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
   isLoading: boolean = true
   sunglasses: Sunglasses | undefined
   editedSunglasses: Sunglasses | undefined
   id: string = ''
+  subscriptions: Subscription[] = []
 
   form = this.fb.group({
     brand: ['', [Validators.required, Validators.maxLength(10)]],
@@ -32,7 +33,6 @@ export class EditComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private sunglassesService: SunglassesService,
-    private authenticationService: AuthenticationService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -40,7 +40,7 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['sunglassesId']
 
-    this.sunglassesService.getSunglassesDetails(this.id).subscribe({
+    const subscription = this.sunglassesService.getSunglassesDetails(this.id).subscribe({
       next: currentSunglasses => {
         this.isLoading = false
         // Ако се опита да влезе на 
@@ -64,6 +64,7 @@ export class EditComponent implements OnInit {
         }
       }
     })
+    this.subscriptions.push(subscription)
   }
 
   editHandler() {
@@ -74,7 +75,7 @@ export class EditComponent implements OnInit {
 
     this.editedSunglasses = this.form.value as Sunglasses
 
-    this.sunglassesService.editSunglasses(this.id, this.editedSunglasses).subscribe({
+    const subscription = this.sunglassesService.editSunglasses(this.id, this.editedSunglasses).subscribe({
       next: newSunglasses => {
         this.router.navigate([`/sunglasses/catalog/${this.id}`])
       },
@@ -95,5 +96,10 @@ export class EditComponent implements OnInit {
         }
       }
     })
+    this.subscriptions.push(subscription)
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription=>subscription.unsubscribe())
   }
 }
