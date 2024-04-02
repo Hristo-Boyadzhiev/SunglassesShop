@@ -26,7 +26,7 @@ export class LoginComponent {
 
   login() {
     if (this.form.invalid) {
-      console.log('Invalid form')
+      alert('Invalid form')
       return
     }
 

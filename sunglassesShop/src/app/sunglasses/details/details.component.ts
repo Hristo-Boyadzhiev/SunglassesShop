@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sunglasses } from 'src/app/shared/types/sunglasses';
 import { SunglassesService } from '../sunglasses.service';
@@ -7,18 +7,20 @@ import { NgForm } from '@angular/forms';
 import { PurchasesService } from 'src/app/purchases/purchases.service';
 import { User } from 'src/app/shared/types/user';
 import { FavouritesService } from 'src/app/favourites/favourites.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
   isLoading: boolean = true
   sunglassesDetails: Sunglasses | undefined
   isFavouritesSunglasses: boolean = false
   defaultQuantity = 1
   user: User | undefined
+  subscriptions: Subscription[] = []
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -39,12 +41,11 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['sunglassesId']
-
     this.user = this.authenticationService.getUser()
     const userId = this.user?._id
     const searchQuery = encodeURIComponent(`_ownerId="${userId}"`)
 
-    this.sunglassesService.getSunglassesDetails(id).subscribe({
+    const subscription = this.sunglassesService.getSunglassesDetails(id).subscribe({
       next: currentSunglassesDetails => {
         this.isLoading = false
         // Ако се опита да влезе на 
@@ -58,7 +59,7 @@ export class DetailsComponent implements OnInit {
 
           if (this.isAuthenticated && !this.isAdmin) {
 
-            this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
+            const subscription = this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
               next: favouritesSunglassesList => {
                 if (this.sunglassesDetails) {
                   const currentFavouritesSunglasses = this.favouritesService.findFavouritesSunglasses(favouritesSunglassesList, this.sunglassesDetails)
@@ -70,15 +71,17 @@ export class DetailsComponent implements OnInit {
                 }
               }
             })
+            this.subscriptions.push(subscription)
           }
         }
       }
     })
+    this.subscriptions.push(subscription)
   }
 
   buySunglassesHandler(form: NgForm) {
     if (form.invalid) {
-      console.log('Invalid form')
+      alert('Invalid form')
       return
     }
 
@@ -87,7 +90,7 @@ export class DetailsComponent implements OnInit {
     const buyerEmail = this.user?.email
     const searchQuery = encodeURIComponent(`buyerId="${buyerId}"`)
 
-    this.purchasesService.getUserPurchases(searchQuery).subscribe({
+    const subscription = this.purchasesService.getUserPurchases(searchQuery).subscribe({
       next: currentUserPurchases => {
         if (this.sunglassesDetails && buyerId && buyerEmail) {
           const userPurchase = this.purchasesService.findBoughtSunglasses(this.sunglassesDetails)
@@ -95,26 +98,29 @@ export class DetailsComponent implements OnInit {
             const id = userPurchase._id
             const editQuantity = quantity + userPurchase.quantity
             const sunglassesWithEditedQuantity = { ...userPurchase, quantity: editQuantity, totalPrice: editQuantity * userPurchase.sunglassesDetails.price }
-            this.purchasesService.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe()
+            const subscription = this.purchasesService.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe()
+            this.subscriptions.push(subscription)
           } else {
             const totalPrice = quantity * this.sunglassesDetails.price
-            this.sunglassesService.buySunglasses(quantity, totalPrice, this.sunglassesDetails, buyerEmail, buyerId).subscribe()
+            const subscription = this.sunglassesService.buySunglasses(quantity, totalPrice, this.sunglassesDetails, buyerEmail, buyerId).subscribe()
+            this.subscriptions.push(subscription)
           }
         }
       }
     })
+    this.subscriptions.push(subscription)
   }
-
 
   deleteSunglassesHandler() {
     if (this.sunglassesDetails) {
       const confirm = window.confirm(`Are you sure you want to delete ${this.sunglassesDetails.brand} ${this.sunglassesDetails.model}?`);
       if (confirm) {
-        this.sunglassesService.deleteSunglasse(this.sunglassesDetails._id).subscribe({
-          next: deletedSunglasses => {
+        const subscription = this.sunglassesService.deleteSunglasse(this.sunglassesDetails._id).subscribe({
+          next: () => {
             this.router.navigate(['/sunglasses/catalog'])
           }
         })
+        this.subscriptions.push(subscription)
       }
     }
   }
@@ -123,19 +129,26 @@ export class DetailsComponent implements OnInit {
     const userId = this.user?._id
     const searchQuery = encodeURIComponent(`_ownerId="${userId}"`)
 
-    this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
+    const subscription = this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
       next: favouritesSunglassesList => {
         if (this.sunglassesDetails) {
           const currentFavouritesSunglasses = this.favouritesService.findFavouritesSunglasses(favouritesSunglassesList, this.sunglassesDetails)
           if (currentFavouritesSunglasses) {
             this.isFavouritesSunglasses = false
-            this.favouritesService.deleteFavouritesSunglasses(currentFavouritesSunglasses._id).subscribe()
+            const subscription = this.favouritesService.deleteFavouritesSunglasses(currentFavouritesSunglasses._id).subscribe()
+            this.subscriptions.push(subscription)
           } else {
             this.isFavouritesSunglasses = true
-            this.favouritesService.createFavouritesSunglasses(this.sunglassesDetails).subscribe()
+            const subscription = this.favouritesService.createFavouritesSunglasses(this.sunglassesDetails).subscribe()
+            this.subscriptions.push(subscription)
           }
         }
       }
     })
+    this.subscriptions.push(subscription)
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription=>subscription.unsubscribe())
   }
 }

@@ -14,9 +14,7 @@ export class PurchasesService {
   userPurchases: Purchase[] = []
   subscription: Subscription
 
-  constructor(
-    private http: HttpClient,
-  ) {
+  constructor(private http: HttpClient) {
     this.subscription = this.userPurchases$.subscribe({
       next: currentUserPurchases => {
         this.userPurchases = currentUserPurchases
@@ -33,15 +31,8 @@ export class PurchasesService {
 
   transfortUserPurchaseInCompletedPurchase() {
     this.userPurchases.forEach(purchase => {
-      this.deletePurchase(purchase._id).subscribe({
-        next: deletedPurchase => {
-        }
-      })
-
-      this.createCompletedPurchases(purchase.quantity, purchase.totalPrice, purchase.sunglassesDetails, purchase.buyerEmail ,purchase.buyerId).subscribe({
-        next: completedPurchase => {
-        }
-      })
+      this.deletePurchase(purchase._id).subscribe()
+      this.createCompletedPurchases(purchase.quantity, purchase.totalPrice, purchase.sunglassesDetails, purchase.buyerEmail, purchase.buyerId).subscribe()
     });
   }
 
@@ -62,7 +53,7 @@ export class PurchasesService {
       .delete<Purchase>(`/api/data/purchases/${id}`)
   }
 
-  createCompletedPurchases(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerEmail:string ,buyerId: string): Observable<Purchase> {
+  createCompletedPurchases(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerEmail: string, buyerId: string): Observable<Purchase> {
     return this.http
       .post<Purchase>('/api/data/completedPurchases', {
         quantity,
@@ -77,5 +68,4 @@ export class PurchasesService {
     return this.http
       .get<Purchase[]>('/api/data/completedPurchases')
   }
-
 }

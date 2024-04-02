@@ -34,7 +34,7 @@ export class CreateComponent {
 
   createHandler() {
     if (this.form.invalid) {
-      console.log('Invalid form')
+      alert('Invalid form')
       return
     }
 

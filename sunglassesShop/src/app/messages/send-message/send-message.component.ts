@@ -27,7 +27,7 @@ export class SendMessageComponent implements OnInit{
 
   sendMessageHandler(form: NgForm) {
     if (form.invalid) {
-      console.log('invalid form')
+      alert('invalid form')
       return
     }
 
