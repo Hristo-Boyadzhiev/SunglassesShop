@@ -16,7 +16,4 @@ export class ProfileComponent implements OnInit {
     this.user = this.authenticationService.getUser()
   }
 
-  // deleteUserHandler(){
-
-  // }
 }

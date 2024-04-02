@@ -17,7 +17,7 @@
             <li *ngIf="isAdmin"><a routerLink="/purchases/completedPurchases">Purchases</a></li>
 
             <li class="right-container">
-                <a *ngIf="isAuthenticated || isAdmin" [routerLink]="['/profile/user', user?._id]" class="profile">
+                <a *ngIf="isAuthenticated || isAdmin" routerLink="/profile/user" class="profile">
                     <i class="fa-solid fa-user"></i>
                 </a>
 

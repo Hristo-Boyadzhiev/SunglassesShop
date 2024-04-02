@@ -8,4 +8,8 @@ export class ProfileService {
 
   constructor(private http: HttpClient) { }
 
+  getUser(){
+    return this.http
+    .get(`/api/users`)
+  }
 }
