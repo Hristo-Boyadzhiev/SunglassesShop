@@ -31,13 +31,6 @@ export class PurchasesService {
     return userPurchase
   }
 
-  subscribeEditPurchaseQuantity(id: string, sunglassesWithEditedQuantity: Purchase) {
-    this.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe({
-      next: editedSunglasses => {
-      }
-    })
-  }
-
   transfortUserPurchaseInCompletedPurchase() {
     this.userPurchases.forEach(purchase => {
       this.deletePurchase(purchase._id).subscribe({

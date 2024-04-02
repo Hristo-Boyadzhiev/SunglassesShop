@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
-import { Observable, catchError, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Sunglasses } from '../shared/types/sunglasses';
-import { AuthenticationService } from '../authentication/authentication.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +12,7 @@ export class SunglassesService {
   apiUrl: string = environment.apiUrl
 
 
-  constructor(
-    private http: HttpClient,
-    private authenticationService: AuthenticationService
-  ) { }
-
-  subscribeBuySunglasses(quantity: number, totalPrice: number, sunglassesDetails: Sunglasses, buyerEmail: string, buyerId: string) {
-
-    this.buySunglasses(quantity, totalPrice, sunglassesDetails, buyerEmail, buyerId).subscribe({
-      next: boughtSunglasses => {
-      }
-    })
-  }
+  constructor(private http: HttpClient) { }
 
   getSunglasses(): Observable<Sunglasses[]> {
     return this.http.get<Sunglasses[]>('/api/data/sunglasses')

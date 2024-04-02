@@ -15,7 +15,6 @@ import { FavouritesService } from 'src/app/favourites/favourites.service';
 })
 export class DetailsComponent implements OnInit {
   isLoading: boolean = true
-  id: string = ''
   sunglassesDetails: Sunglasses | undefined
   isFavouritesSunglasses: boolean = false
   defaultQuantity = 1
@@ -39,13 +38,13 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.activatedRoute.snapshot.params['sunglassesId']
+    const id = this.activatedRoute.snapshot.params['sunglassesId']
 
     this.user = this.authenticationService.getUser()
     const userId = this.user?._id
     const searchQuery = encodeURIComponent(`_ownerId="${userId}"`)
 
-    this.sunglassesService.getSunglassesDetails(this.id).subscribe({
+    this.sunglassesService.getSunglassesDetails(id).subscribe({
       next: currentSunglassesDetails => {
         this.isLoading = false
         // Ако се опита да влезе на 
@@ -56,7 +55,7 @@ export class DetailsComponent implements OnInit {
           this.router.navigate(['/not-found'])
         } else {
           this.sunglassesDetails = currentSunglassesDetails;
-          
+
           if (this.isAuthenticated && !this.isAdmin) {
 
             this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
@@ -84,8 +83,6 @@ export class DetailsComponent implements OnInit {
     }
 
     const { quantity } = form.value
-    this.user = this.authenticationService.getUser()
-
     const buyerId = this.user?._id
     const buyerEmail = this.user?.email
     const searchQuery = encodeURIComponent(`buyerId="${buyerId}"`)
@@ -98,10 +95,10 @@ export class DetailsComponent implements OnInit {
             const id = userPurchase._id
             const editQuantity = quantity + userPurchase.quantity
             const sunglassesWithEditedQuantity = { ...userPurchase, quantity: editQuantity, totalPrice: editQuantity * userPurchase.sunglassesDetails.price }
-            this.purchasesService.subscribeEditPurchaseQuantity(id, sunglassesWithEditedQuantity)
+            this.purchasesService.editPurchaseQuantity(id, sunglassesWithEditedQuantity).subscribe()
           } else {
             const totalPrice = quantity * this.sunglassesDetails.price
-            this.sunglassesService.subscribeBuySunglasses(quantity, totalPrice, this.sunglassesDetails, buyerEmail, buyerId)
+            this.sunglassesService.buySunglasses(quantity, totalPrice, this.sunglassesDetails, buyerEmail, buyerId).subscribe()
           }
         }
       }
@@ -123,25 +120,22 @@ export class DetailsComponent implements OnInit {
   }
 
   addToFavouritesHandler() {
-    this.user = this.authenticationService.getUser()
     const userId = this.user?._id
     const searchQuery = encodeURIComponent(`_ownerId="${userId}"`)
 
-    if (this.sunglassesDetails) {
-      this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
-        next: favouritesSunglassesList => {
-          if (this.sunglassesDetails) {
-            const currentFavouritesSunglasses = this.favouritesService.findFavouritesSunglasses(favouritesSunglassesList, this.sunglassesDetails)
-            if (currentFavouritesSunglasses) {
-              this.isFavouritesSunglasses = false
-              this.favouritesService.deleteFavouritesSunglasses(currentFavouritesSunglasses._id).subscribe()
-            } else {
-              this.isFavouritesSunglasses = true
-              this.favouritesService.createFavouritesSunglasses(this.sunglassesDetails).subscribe()
-            }
+    this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
+      next: favouritesSunglassesList => {
+        if (this.sunglassesDetails) {
+          const currentFavouritesSunglasses = this.favouritesService.findFavouritesSunglasses(favouritesSunglassesList, this.sunglassesDetails)
+          if (currentFavouritesSunglasses) {
+            this.isFavouritesSunglasses = false
+            this.favouritesService.deleteFavouritesSunglasses(currentFavouritesSunglasses._id).subscribe()
+          } else {
+            this.isFavouritesSunglasses = true
+            this.favouritesService.createFavouritesSunglasses(this.sunglassesDetails).subscribe()
           }
         }
-      })
-    }
+      }
+    })
   }
 }
