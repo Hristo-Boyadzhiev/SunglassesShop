@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -10,7 +11,9 @@ const routes: Routes = [
   { path: 'purchases', loadChildren: () => import('./purchases/purchases.module').then(module => module.PurchasesModule) },
   { path: 'sunglasses', loadChildren: () => import('./sunglasses/sunglasses.module').then(module => module.SunglassesModule) },
   { path: 'favourites', loadChildren: () => import('./favourites/favourites.module').then(module => module.FavouritesModule) },
-  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(module => module.ProfileModule) }
+  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(module => module.ProfileModule) },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: '/not-found' }
 ];
 
 @NgModule({

@@ -5,6 +5,7 @@ import { EmailDirective } from './validators/email.directive';
 import { DeliveryCostPipe } from './pipes/delivery-cost.pipe';
 import { LoaderComponent } from './loader/loader.component';
 import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
@@ -14,7 +15,8 @@ import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
     EmailDirective,
     DeliveryCostPipe,
     LoaderComponent,
-    ElapsedTimePipe
+    ElapsedTimePipe,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
     EmailDirective,
     DeliveryCostPipe,
     LoaderComponent,
-    ElapsedTimePipe
+    ElapsedTimePipe,
+    NotFoundComponent
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,21 @@
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 18em;
+}
+
+h1 {
+    font-size: 5em;
+    font-family: Bebas Neue;
+    letter-spacing: 0.1em;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.2);
+    }
+}

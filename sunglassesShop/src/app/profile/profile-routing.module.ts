@@ -3,9 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticatedGuard } from '../core/guards/authenticated-guard.guard';
 
-
 const routes: Routes = [
-  { path: 'user', canActivate: [AuthenticatedGuard], component: ProfileComponent }
+  { path: 'user', canActivate: [AuthenticatedGuard], component: ProfileComponent },
 ];
 
 @NgModule({

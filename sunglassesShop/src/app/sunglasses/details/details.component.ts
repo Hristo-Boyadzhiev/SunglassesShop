@@ -49,27 +49,29 @@ export class DetailsComponent implements OnInit {
       next: currentSunglassesDetails => {
         this.isLoading = false
         // Ако се опита да влезе на 
-        // http://localhost:4200/catalog/(грешно id)/edit
-        // Правилното поведение е да отиде на Not found
-        // Да измисля как да стане
+        // http://localhost:4200/catalog/(грешно id)
+        // пренасочва към /not-found
         // При статус 404 интерсепторът връща празен масив
         if (Array.isArray(currentSunglassesDetails) && currentSunglassesDetails.length === 0) {
-          this.router.navigate(['/sunglasses/catalog'])
+          this.router.navigate(['/not-found'])
         } else {
           this.sunglassesDetails = currentSunglassesDetails;
+          
+          if (this.isAuthenticated && !this.isAdmin) {
 
-          this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
-            next: favouritesSunglassesList => {
-              if (this.sunglassesDetails) {
-                const currentFavouritesSunglasses = this.favouritesService.findFavouritesSunglasses(favouritesSunglassesList, this.sunglassesDetails)
-                if (currentFavouritesSunglasses) {
-                  this.isFavouritesSunglasses = true
-                } else {
-                  this.isFavouritesSunglasses = false
+            this.favouritesService.getFavouritesSunglasses(searchQuery).subscribe({
+              next: favouritesSunglassesList => {
+                if (this.sunglassesDetails) {
+                  const currentFavouritesSunglasses = this.favouritesService.findFavouritesSunglasses(favouritesSunglassesList, this.sunglassesDetails)
+                  if (currentFavouritesSunglasses) {
+                    this.isFavouritesSunglasses = true
+                  } else {
+                    this.isFavouritesSunglasses = false
+                  }
                 }
               }
-            }
-          })
+            })
+          }
         }
       }
     })

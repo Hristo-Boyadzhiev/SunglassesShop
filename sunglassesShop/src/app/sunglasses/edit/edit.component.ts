@@ -45,11 +45,10 @@ export class EditComponent implements OnInit {
         this.isLoading = false
         // Ако се опита да влезе на 
         // http://localhost:4200/catalog/(грешно id)/edit
-        // Правилното поведение е да отиде на Not found
-        // Да измисля как да стане
+        //  пренасочва към /not-found
         // При статус 404 интерсепторът връща празен масив
         if (Array.isArray(currentSunglasses) && currentSunglasses.length === 0) {
-          this.router.navigate(['/sunglasses/catalog'])
+          this.router.navigate(['/not-found'])
         } else {
           this.sunglasses = currentSunglasses
           this.form.setValue({
