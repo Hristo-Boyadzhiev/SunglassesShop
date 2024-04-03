@@ -5,6 +5,7 @@ import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/shared/types/user';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnDestroy {
   isVisiblePassword: boolean = false
   subscription: Subscription | undefined
   user: User | undefined
+  errorMessage: string = ''
 
   form = this.fb.group({
     email: ['', [Validators.required, emailValidator()]],
@@ -29,7 +31,7 @@ export class LoginComponent implements OnDestroy {
 
   login() {
     if (this.form.invalid) {
-      alert('Invalid form')
+      this.errorMessage = 'Invalid form'
       return
     }
 
@@ -41,17 +43,18 @@ export class LoginComponent implements OnDestroy {
         next: currentUser => {
           this.router.navigate(['/sunglasses/catalog'])
         },
-        error: () => {
+        error: (responseError: HttpErrorResponse) => {
           // Заради стиловете за валидация не използвам this.form.reset()
           // Да измисля как да го оправя
           this.form.setValue({
             email: '',
             password: ''
           })
+          this.errorMessage = responseError.error.message
         }
       })
     } else {
-      alert('Invalid login data. Please try again.');
+      this.errorMessage = 'Invalid login data. Please try again.'
       return
     }
   }

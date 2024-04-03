@@ -13,9 +13,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreateComponent implements OnDestroy{
+export class CreateComponent implements OnDestroy {
   sunglasses: Sunglasses | undefined
   subscription: Subscription | undefined
+  errorMessage: string = ''
 
   form = this.fb.group({
     brand: ['', [Validators.required, Validators.maxLength(10)]],
@@ -36,17 +37,29 @@ export class CreateComponent implements OnDestroy{
 
   createHandler() {
     if (this.form.invalid) {
-      alert('Invalid form')
+      this.errorMessage = 'Invalid form'
       return
     }
 
-    this.sunglasses = this.form.value as Sunglasses
+    const { brand, model, price, imageUrl, gender, shape, frameColor, glassColor } = this.form.value
 
-    this.subscription = this.sunglassesService.createSunglasses(this.sunglasses).subscribe({
-      next: newSunglasses => {
-        this.router.navigate(['/sunglasses/catalog'])
-      }
-    })
+    if (typeof brand === 'string' && typeof model === "string" &&
+      typeof price === 'number' && typeof imageUrl === 'string' &&
+      typeof gender === 'string' && typeof shape === 'string' &&
+      typeof frameColor === 'string' && typeof glassColor === 'string') {
+
+      this.sunglasses = this.form.value as Sunglasses
+
+      this.subscription = this.sunglassesService.createSunglasses(this.sunglasses).subscribe({
+        next: newSunglasses => {
+          this.router.navigate(['/sunglasses/catalog'])
+        }
+      })
+
+    } else {
+      this.errorMessage = 'Invalid data. Please try again.'
+      return
+    }
   }
 
   ngOnDestroy(): void {

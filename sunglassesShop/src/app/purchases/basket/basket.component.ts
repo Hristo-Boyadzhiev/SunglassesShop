@@ -22,6 +22,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   paymentAmount: number = 0
   isCompletedOrder: boolean = false
   subscriptions: Subscription[] = []
+  errorMessage: string = ''
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -57,7 +58,7 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   quantityHandler(form: NgForm, sunglasses: Purchase) {
     if (form.invalid) {
-      alert('The quantity must be positive number')
+      this.errorMessage = 'The quantity must be positive number'
       return;
     }
 

@@ -32,6 +32,8 @@
                 <!-- onkeydown="return false" ще предотврати въвеждането на стойности с клавиатурата, 
                 като се гарантира, че полето може да се актуализира само с помощта на стрелките. -->
                 <form #form="ngForm" class="quantity-form">
+                    <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+                    
                     <label for="quantity">Quantity:</label>
                     <input 
                     type="number" 

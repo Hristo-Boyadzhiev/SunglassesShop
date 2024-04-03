@@ -2,6 +2,8 @@
     <fieldset>
         <legend>Add Sunglasses</legend>
 
+        <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+
         <div class="brand">
             <label for="brand">Brand</label>
             <input

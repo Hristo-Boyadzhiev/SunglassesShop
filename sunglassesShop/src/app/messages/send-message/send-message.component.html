@@ -2,6 +2,8 @@
     <fieldset>
         <legend>Send Message</legend>
 
+        <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+
         <div class="name">
             <label for="name">Name</label>
             <input 

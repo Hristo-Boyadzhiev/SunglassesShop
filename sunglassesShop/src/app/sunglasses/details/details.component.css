@@ -120,3 +120,20 @@ details.sunglasses-description {
 details.sunglasses-description p {
     font-size: 0.8em;
 }
+
+p.error-message {
+    font-family: Bebas Neue;
+    font-size: 1.5em;
+    text-align: center;
+    color: red;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.2);
+    }
+}

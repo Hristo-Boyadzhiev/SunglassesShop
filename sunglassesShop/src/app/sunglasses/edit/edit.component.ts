@@ -18,6 +18,7 @@ export class EditComponent implements OnInit, OnDestroy {
   editedSunglasses: Sunglasses | undefined
   id: string = ''
   subscriptions: Subscription[] = []
+  errorMessage: string = ''
 
   form = this.fb.group({
     brand: ['', [Validators.required, Validators.maxLength(10)]],
@@ -69,37 +70,52 @@ export class EditComponent implements OnInit, OnDestroy {
 
   editHandler() {
     if (this.form.invalid) {
-      alert('Invalid form')
+      this.errorMessage = 'Invalid form'
       return
     }
 
-    this.editedSunglasses = this.form.value as Sunglasses
+    const { brand, model, price, imageUrl, gender, shape, frameColor, glassColor } = this.form.value
 
-    const subscription = this.sunglassesService.editSunglasses(this.id, this.editedSunglasses).subscribe({
-      next: newSunglasses => {
-        this.router.navigate([`/sunglasses/catalog/${this.id}`])
-      },
-      error: (responseError: HttpErrorResponse) => {
-        if (this.sunglasses) {
-          this.form.setValue({
-            brand: this.sunglasses.brand,
-            model: this.sunglasses.model,
-            price: this.sunglasses.price,
-            imageUrl: this.sunglasses.imageUrl,
-            gender: this.sunglasses.gender,
-            shape: this.sunglasses.shape,
-            frameColor: this.sunglasses.frameColor,
-            glassColor: this.sunglasses.glassColor
-          })
-        } else {
-          alert('This sunglasses is not found')
+    if (typeof brand === 'string' && typeof model === "string" &&
+      typeof price === 'number' && typeof imageUrl === 'string' &&
+      typeof gender === 'string' && typeof shape === 'string' &&
+      typeof frameColor === 'string' && typeof glassColor === 'string') {
+
+      this.editedSunglasses = this.form.value as Sunglasses
+
+      const subscription = this.sunglassesService.editSunglasses(this.id, this.editedSunglasses).subscribe({
+        next: newSunglasses => {
+          this.router.navigate([`/sunglasses/catalog/${this.id}`])
+        },
+        error: (responseError: HttpErrorResponse) => {
+          if (this.sunglasses) {
+            this.form.setValue({
+              brand: this.sunglasses.brand,
+              model: this.sunglasses.model,
+              price: this.sunglasses.price,
+              imageUrl: this.sunglasses.imageUrl,
+              gender: this.sunglasses.gender,
+              shape: this.sunglasses.shape,
+              frameColor: this.sunglasses.frameColor,
+              glassColor: this.sunglasses.glassColor
+            })
+            this.errorMessage = responseError.error.message
+          } else {
+            this.errorMessage = 'This sunglasses is not found'
+          }
         }
-      }
-    })
-    this.subscriptions.push(subscription)
+      })
+      this.subscriptions.push(subscription)
+    } else {
+      this.errorMessage = 'Invalid data. Please try again.'
+      return
+    }
+
+
+
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription=>subscription.unsubscribe())
+    this.subscriptions.forEach(subscription => subscription.unsubscribe())
   }
 }

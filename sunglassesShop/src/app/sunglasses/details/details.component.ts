@@ -21,6 +21,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   defaultQuantity = 1
   user: User | undefined
   subscriptions: Subscription[] = []
+  errorMessage: string = ''
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -81,7 +82,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   buySunglassesHandler(form: NgForm) {
     if (form.invalid) {
-      alert('Invalid form')
+      this.errorMessage ='Invalid form'
       return
     }
 

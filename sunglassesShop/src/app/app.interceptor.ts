@@ -53,7 +53,6 @@ export class AppInterceptor implements HttpInterceptor {
           // Създаваме нов Observable, който връща [], който ще е достъпен в next метода на subscribed компонент
           return of(new HttpResponse<any>({ body: [] }));
         } else {
-          alert(responseError.error.message)
           throw responseError
         }
       })

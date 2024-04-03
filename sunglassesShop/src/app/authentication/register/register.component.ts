@@ -6,6 +6,7 @@ import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/shared/types/user';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnDestroy {
   isVisibleRePassword: boolean = false
   subscription: Subscription | undefined
   user: User | undefined
+  errorMessage: string = ''
 
   form = this.fb.group({
     firstName: ['', [Validators.required, Validators.maxLength(15)]],
@@ -39,7 +41,7 @@ export class RegisterComponent implements OnDestroy {
 
   register() {
     if (this.form.invalid) {
-      alert('Invalid form')
+      this.errorMessage = 'Invalid form'
       return
     }
     const { firstName, lastName, email, passwordsGroup: { password, rePassword } = {} } = this.form.value
@@ -53,7 +55,7 @@ export class RegisterComponent implements OnDestroy {
         next: registeredUser => {
           this.router.navigate(['/sunglasses/catalog'])
         },
-        error: () => {
+        error: (responseError: HttpErrorResponse) => {
           this.form.setValue({
             firstName: '',
             lastName: '',
@@ -64,10 +66,11 @@ export class RegisterComponent implements OnDestroy {
               rePassword: ''
             }
           })
+          this.errorMessage = responseError.error.message
         }
       })
     } else {
-      alert('Invalid register data. Please try again.')
+      this.errorMessage='Invalid register data. Please try again.'
       return
     }
   }

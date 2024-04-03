@@ -16,6 +16,7 @@ export class SendMessageComponent implements OnInit, OnDestroy{
   message: Message | undefined
   user: User | undefined
   subscription: Subscription | undefined
+  errorMessage: string = ''
 
   constructor(
     private messagesService: MessagesService,
@@ -29,7 +30,7 @@ export class SendMessageComponent implements OnInit, OnDestroy{
 
   sendMessageHandler(form: NgForm) {
     if (form.invalid) {
-      alert('invalid form')
+      this.errorMessage ='invalid form'
       return
     }
 

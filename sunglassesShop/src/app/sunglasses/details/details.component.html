@@ -11,6 +11,8 @@
 
         <div class="authenticated-user-functionality">
             <form *ngIf="isAuthenticated && !isAdmin" #form="ngForm" (ngSubmit)="buySunglassesHandler(form)">
+                <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+                
                 <label for="quantity">Quantity:</label>
                 <input 
                 type="number" 
