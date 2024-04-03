@@ -94,7 +94,9 @@ It represents a page accessed when a user enters a URL that is not defined.
 
 ### Private Part
 
-This part is accessible after successful authentication. Authenticated users who are not administrators have access to it and it consists of:
+This part is accessible after successful authentication. 
+
+**Authenticated users who are not administrators have access to it and it consists of:**
 
 **Profile Page:**
 
