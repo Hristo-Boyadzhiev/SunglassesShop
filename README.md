@@ -112,6 +112,29 @@ This page displays a catalog only with the favorite products. Each product inclu
 
 **Access to the following pages is available only to the administrator:**
 
+**Create Page:**
+
+Represents a form through which we add sunglasses to the catalog.
+
+Each field in the form is mandatory. Additional validations are as follows:
+
+**Brand:** Maximum length of 10 characters.
+
+**Model:** Maximum length of 10 characters.
+
+**Price:** Minimum €1.
+
+**Image URL:** Must start with "http://" or "https://".
+
+**Gender:** Selection of male, female, unisex.
+
+**Shape:** Maximum length of 10 characters.
+
+**Frame color:** Maximum length of 10 characters.
+
+**Glass color:** Maximum length of 10 characters.
+If the user is an authenticated user, they see the "buy" button and can choose the desired quantity of the product. They can also add the product to their "favorites". If the user is a guest, they only see detailed information about the product.
+
 **Message Received Page:**
 
 This page is where received messages are displayed.
