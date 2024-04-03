@@ -169,11 +169,22 @@ This page displays the completed purchases made.
 | Logout             |     ✅     |     ✅     |     ❌     |
 
 
+## Installation and usage
 
+**To run sunglassesShop app**
 
+Type in the terminal:
 
+   cd sunglassesShop 
+   
+   ng serve
 
+   
 
+**To run server app**
 
+Type in the new terminal:
 
+cd server
 
+node server.js
