@@ -6,4 +6,5 @@ SunglassesShop is a Single Page Application (SPA) for online sunglasses commerce
 **The application consists of two main parts:**
 
 **-Public Section**
+
 **-Private Section**
