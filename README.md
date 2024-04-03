@@ -156,6 +156,7 @@ This page displays the completed purchases made.
 | Edit sunglasses     |     ✅     |     ❌     |     ❌     |
 | Delete sunglasses   |     ✅     |     ❌     |     ❌     |
 | Buy sunglasses      |     ❌     |     ✅     |     ❌     |
+| add/remove from favourite sunglasses page      |     ❌     |     ✅     |     ❌     |
 | Favourite sunglasses page      |     ❌     |     ✅     |     ❌     |
 | Send message page       |      ❌     |     ✅     |     ❌     |
 | Messages received page   |     ✅     |     ❌     |     ❌     |
