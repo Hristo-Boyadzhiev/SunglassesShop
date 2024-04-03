@@ -57,3 +57,28 @@ It displays an image and a button for accessing the catalog of sunglasses.
 **Catalog Page:**
 
 It showcases all available sunglasses. Each product includes an image and a button for detailed product information. In case there are no sunglasses available, a message "No sunglasses yet" is displayed. If the user is an administrator, they will have access to a "create" button as well.
+
+**Details Page:**
+
+It presents detailed information about the selected product, including an image, brand, model, price, gender, shape, frame color, and glass color. If the user is an administrator, they see the "edit" and "delete" buttons. Upon pressing the "edit" button, a form with the product's existing data is loaded. 
+Each field in the form is mandatory. Additional validations are as follows:
+
+**Brand:** Maximum length of 10 characters.
+
+**Model:** Maximum length of 10 characters.
+
+**Price:** Minimum €1.
+
+**Image URL:** Must start with "http://" or "https://".
+
+**Gender:** Selection of male, female, unisex.
+
+**Shape:** Maximum length of 10 characters.
+
+**Frame color:** Maximum length of 10 characters.
+
+**Glass color:** Maximum length of 10 characters.
+If the user is an authenticated user, they see the "buy" button and can choose the desired quantity of the product. They can also add the product to their "favorites". If the user is a guest, they only see detailed information about the product.
+
+**Not-found Page:**
+It represents a page accessed when a user enters a URL that is not defined.
