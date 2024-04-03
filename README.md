@@ -124,11 +124,11 @@ This page displays the completed purchases made.
 
 ### Access to Site Functionality
 
-Functionality	Admin	User	Guest
+Functionality	Admin	Authenticated user	Guest
 Home page	✅	✅	✅
 Catalog page	✅	✅	✅
 Details page	✅	✅	✅
-Send message page	❌ ✅ ❌
+Send message page	❌	✅	❌
 Messages received page	✅	❌	❌
 Completed purchases page	✅	❌	❌
 Edit sunglasses page	✅	❌	❌
