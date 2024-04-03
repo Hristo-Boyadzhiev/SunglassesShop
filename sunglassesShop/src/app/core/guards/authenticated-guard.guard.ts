@@ -19,7 +19,7 @@ export class AuthenticatedGuard implements CanActivate {
     const isAuthenticated = this.authenticationService.isAuthenticated
     const isAdmin = this.authenticationService.isAdmin
 
-    if(state.url === '/profile/user' && isAuthenticated || isAdmin){
+    if(state.url === '/profile/user' && (isAuthenticated || isAdmin)){
       return true
     }
 

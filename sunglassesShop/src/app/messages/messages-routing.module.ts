@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticatedGuard } from '../core/guards/authenticated-guard.guard';
 import { AdminGuard } from '../core/guards/admin-guard.guard';
 import { MessagesReceivedComponent } from './messages-received/messages-received.component';
 import { SendMessageComponent } from './send-message/send-message.component';
+import { AuthenticatedGuard } from '../core/guards/authenticated-guard.guard';
 
 
 
