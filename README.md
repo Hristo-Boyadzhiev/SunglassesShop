@@ -28,6 +28,7 @@ All other pages are visible and accessible to all three types of users.**
 **Register Page**
 
 This page represents a form where users input their first name, last name, email, password, and confirm password. 
+
 Each input field is mandatory. Additionally, the following validations are applied:
 
 **First Name:** Maximum length of 15 characters.
@@ -46,6 +47,7 @@ Each input field is mandatory. Additionally, the following validations are appli
 **Login Page:**
 
 The page presents a form where users input their email and password. 
+
 Each input field is mandatory. Additionally, the following validations are applied:
 
 **Email:** Custom validator utilizing RegExp to validate email format.
