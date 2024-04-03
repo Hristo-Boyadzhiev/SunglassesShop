@@ -110,6 +110,37 @@ This page displays the products added to the basket along with their respective 
 
 This page displays a catalog only with the favorite products. Each product includes an image and a button for detailed product information. In case there are no sunglasses available, a message "No sunglasses yet" is displayed. If the user is an administrator, they will have access to a "create" button as well.
 
+**Access to the following pages is available only to the administrator:**
+
+**Message Received Page:**
+
+This page is where received messages are displayed.
+
+**Completed Purchases Page:**
+
+This page displays the completed purchases made.
+
+
+
+### Access to Site Functionality
+
+Functionality	Admin	User	Guest
+Home page	✅	✅	✅
+Catalog page	✅	✅	✅
+Details page	✅	✅	✅
+Send message page	❌ ✅ ❌
+Messages received page	✅	❌	❌
+Completed purchases page	✅	❌	❌
+Edit sunglasses page	✅	❌	❌
+Delete sunglasses	✅	❌	❌
+Basket page	❌	✅	❌
+Favourite sunglasses page	❌	✅	❌
+Not Found page	✅	✅	✅
+Profile page	✅	✅	❌
+Login page	❌	❌	✅
+Register page	❌	❌	✅
+Logout	✅	✅	❌
+
 
 
 
