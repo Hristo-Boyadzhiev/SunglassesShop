@@ -9,11 +9,11 @@ import { FavouritesSunglasses } from '../shared/types/favouritesSunglasses';
   providedIn: 'root'
 })
 export class FavouritesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   findFavouritesSunglasses(favouritesSunglassesList: FavouritesSunglasses[], sunglasses: Sunglasses) {
     const currentFavouritesSunglasses = favouritesSunglassesList.find(favouritesSunglasses => {
-     return favouritesSunglasses.sunglasses._id === sunglasses._id
+      return favouritesSunglasses.sunglasses._id === sunglasses._id
     })
     return currentFavouritesSunglasses
   }
@@ -25,13 +25,13 @@ export class FavouritesService {
       })
   }
 
-  getFavouritesSunglasses(searchQuery: string):Observable<FavouritesSunglasses[]>{
+  getFavouritesSunglasses(searchQuery: string): Observable<FavouritesSunglasses[]> {
     return this.http
-    .get<FavouritesSunglasses[]>(`/api/data/favouritesSunglasses?where=${searchQuery}`)
+      .get<FavouritesSunglasses[]>(`/api/data/favouritesSunglasses?where=${searchQuery}`)
   }
 
-  deleteFavouritesSunglasses(id: string):Observable<FavouritesSunglasses>{
+  deleteFavouritesSunglasses(id: string): Observable<FavouritesSunglasses> {
     return this.http
-    .delete<FavouritesSunglasses>(`/api/data/favouritesSunglasses/${id}`)
+      .delete<FavouritesSunglasses>(`/api/data/favouritesSunglasses/${id}`)
   }
 }

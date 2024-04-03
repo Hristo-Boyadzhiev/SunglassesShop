@@ -28,7 +28,8 @@ label {
     font-size: 1.3em;
 }
 
-input[type="text"], textarea {
+input[type="text"],
+textarea {
     border: 1px solid black;
     border-radius: 0.3em;
     padding: 0.5em;
@@ -89,6 +90,7 @@ p.error-message {
     from {
         transform: scale(1);
     }
+
     to {
         transform: scale(1.2);
     }

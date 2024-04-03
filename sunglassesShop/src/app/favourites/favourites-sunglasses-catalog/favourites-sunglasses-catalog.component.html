@@ -14,12 +14,12 @@
         </div>
 
         <div class="content">
-            <!-- Тук може да използвам pipe за ограничаване дължината на името -->
             <p class="brand-and-model">{{favouritesSunglasses.sunglasses.brand}}
                 {{favouritesSunglasses.sunglasses.model}}</p>
             <p class="price">{{favouritesSunglasses.sunglasses.price}}€</p>
-            <span class="details"><a class="detailsLink"
-                    [routerLink]="['/sunglasses/catalog', favouritesSunglasses.sunglasses._id]">Details</a></span>
+            <span class="details">
+                <a class="detailsLink" [routerLink]="['/sunglasses/catalog', favouritesSunglasses.sunglasses._id]">Details</a>
+            </span>
         </div>
     </article>
 </section>

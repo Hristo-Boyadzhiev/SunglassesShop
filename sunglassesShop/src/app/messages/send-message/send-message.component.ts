@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './send-message.component.html',
   styleUrls: ['./send-message.component.css']
 })
-export class SendMessageComponent implements OnInit, OnDestroy{
+export class SendMessageComponent implements OnInit, OnDestroy {
   message: Message | undefined
   user: User | undefined
   subscription: Subscription | undefined
@@ -30,17 +30,23 @@ export class SendMessageComponent implements OnInit, OnDestroy{
 
   sendMessageHandler(form: NgForm) {
     if (form.invalid) {
-      this.errorMessage ='invalid form'
+      this.errorMessage = 'invalid form'
       return
     }
 
-    this.message = form.value as Message
+    const { name, email, message } = form.value
 
-    this.subscription = this.messagesService.createMessage(this.message).subscribe({
-      next: newMessage => {
-        this.router.navigate(['/sunglasses/catalog'])
-      }
-    })
+    if (typeof name === 'string' && typeof email === 'string' && typeof message === 'string') {
+      this.message = form.value as Message
+
+      this.subscription = this.messagesService.createMessage(this.message).subscribe({
+        next: newMessage => {
+          this.router.navigate(['/sunglasses/catalog'])
+        }
+      })
+    } else {
+      this.errorMessage = 'Invalid data. Please try again.'
+    }
   }
 
   ngOnDestroy(): void {

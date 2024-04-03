@@ -59,7 +59,6 @@ export class AuthenticationService {
 
   logout() {
     return this.http
-      //  { observe: 'response' }) -> С това казва върни целия http response
       .get('/api/users/logout', { observe: 'response' })
       .pipe(tap((response) => {
         if (response.status === 204 && !response.headers.has('Content-Type')) {

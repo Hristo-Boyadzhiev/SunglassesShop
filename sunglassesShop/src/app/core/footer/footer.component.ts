@@ -8,7 +8,7 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
 })
 export class FooterComponent {
 
-  constructor(private authenticationService:AuthenticationService){}
+  constructor(private authenticationService: AuthenticationService) { }
 
   get isAuthenticated(): boolean {
     return this.authenticationService.isAuthenticated

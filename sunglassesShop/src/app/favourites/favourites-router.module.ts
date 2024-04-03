@@ -4,7 +4,7 @@ import { FavouritesSunglassesCatalogComponent } from './favourites-sunglasses-ca
 import { AuthenticatedGuard } from '../core/guards/authenticated-guard.guard';
 
 const routes: Routes = [
-  {path: 'sunglasses',canActivate:[AuthenticatedGuard], component: FavouritesSunglassesCatalogComponent}
+  { path: 'sunglasses', canActivate: [AuthenticatedGuard], component: FavouritesSunglassesCatalogComponent }
 ];
 
 @NgModule({

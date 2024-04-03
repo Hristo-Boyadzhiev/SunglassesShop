@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './messages-received.component.html',
   styleUrls: ['./messages-received.component.css']
 })
-export class MessagesReceivedComponent implements OnDestroy{
+export class MessagesReceivedComponent implements OnDestroy {
   isLoading: boolean = true
   isMessage: boolean = false
   messages: Message[] = []
@@ -19,7 +19,6 @@ export class MessagesReceivedComponent implements OnDestroy{
   ngOnInit(): void {
     this.subscription = this.messagesService.getMessages().subscribe({
       next: currentMessages => {
-        console.log(currentMessages)
         this.isLoading = false
         if (currentMessages.length === 0) {
           this.isMessage = false

@@ -44,8 +44,6 @@ export class LoginComponent implements OnDestroy {
           this.router.navigate(['/sunglasses/catalog'])
         },
         error: (responseError: HttpErrorResponse) => {
-          // Заради стиловете за валидация не използвам this.form.reset()
-          // Да измисля как да го оправя
           this.form.setValue({
             email: '',
             password: ''

@@ -8,7 +8,7 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnDestroy{
+export class HeaderComponent implements OnDestroy {
   subscription: Subscription | undefined
 
   constructor(
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnDestroy{
 
   logout() {
     this.subscription = this.authenticationService.logout().subscribe({
-      next: example => {
+      next: () => {
         this.router.navigate(['/sunglasses/catalog'])
       }
     })
