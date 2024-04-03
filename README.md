@@ -9,7 +9,7 @@ SunglassesShop is a Single Page Application (SPA) for online sunglasses commerce
 
 -Authenticated users without administrative rights, briefly referred to as authenticated users.
 
--Admin
+-Admin: Admin user, identified by the email "hristo@abv.bg" has additional privileges.
 
 **The application consists of two main parts:**
 
@@ -86,4 +86,34 @@ If the user is an authenticated user, they see the "buy" button and can choose t
 
 
 **Not-found Page:**
+
 It represents a page accessed when a user enters a URL that is not defined.
+
+
+### Private Part
+
+This part is accessible after successful authentication. Authenticated users who are not administrators have access to it and it consists of:
+
+**Profile Page:**
+
+Both types of users have access to this page. It displays detailed information about the logged-in user.
+
+**Send Message Page:**
+
+It represents a form where the user's name and email are automatically filled in. The user is required to write a message of up to 100 characters to send to the website administrator. Each input field is mandatory.
+
+**Basket Page:**
+
+This page displays the products added to the basket along with their respective quantities. The user can modify the quantity of each product, delete it, and view detailed information about it by clicking on the image or product name. Changing the quantity will affect the final price of the respective product and the total price of the order. The order is free of charge if it exceeds 100 euros. There is a "complete the order" button to confirm the order, which redirects to the catalog upon confirmation. Upon order confirmation, the basket is emptied, and the ordered products are visible on the "completed purchases" page only for the website administrator. If the basket is empty, "The basket is empty" is displayed along with the "catalog" button.
+
+**Favourites Sunglasses Page:**
+
+This page displays a catalog only with the favorite products. Each product includes an image and a button for detailed product information. In case there are no sunglasses available, a message "No sunglasses yet" is displayed. If the user is an administrator, they will have access to a "create" button as well.
+
+
+
+
+
+
+
+
