@@ -21,8 +21,8 @@ export class CatalogComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService
   ) { }
 
-  get isAuthenticated(): boolean {
-    return this.authenticationService.isAuthenticated
+  get isAdmin(): boolean {
+    return this.authenticationService.isAdmin
   }
 
   ngOnInit(): void {
