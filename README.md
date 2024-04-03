@@ -5,16 +5,16 @@ SunglassesShop is a Single Page Application (SPA) for online sunglasses commerce
 
 **There are three types of users:**
 
-**-Guests**
+-Guests
 
-**-Authenticated users without administrative rights, briefly referred to as authenticated users.**
+-Authenticated users without administrative rights, briefly referred to as authenticated users.
 
-**-Admin**
+-Admin
 
 **The application consists of two main parts:**
 
-**-Public Part**
+-Public Part
 
-**-Private Part**
+-Private Part
 
 ### Public Part
