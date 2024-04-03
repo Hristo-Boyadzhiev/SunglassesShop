@@ -27,8 +27,15 @@ This page is accessible only to guests. It represents a form where users input t
 Each input field is mandatory. Additionally, the following validations are applied:
 
 **First Name:** Maximum length of 15 characters.
+
 **Last Name:** Maximum length of 15 characters.
+
 **Email:** Custom validator utilizing RegExp to validate email format.
+
 **Password:** Minimum length of 6 characters.
+
 **rePassword:** Minimum length of 6 characters.
-Password and rePassword must match.
+
+**Password and rePassword must match.**
+
+
