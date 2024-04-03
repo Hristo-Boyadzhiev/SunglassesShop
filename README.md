@@ -25,7 +25,7 @@ The public part does not require authentication and consists of:
 All other pages are visible and accessible to all three types of users.**
 
 
-**Register Page:**
+<u>Register Page</u>
 
 This page represents a form where users input their first name, last name, email, password, and confirm password. 
 Each input field is mandatory. Additionally, the following validations are applied:
