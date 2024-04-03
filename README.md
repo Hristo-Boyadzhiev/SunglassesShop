@@ -38,4 +38,11 @@ Each input field is mandatory. Additionally, the following validations are appli
 
 **Password and rePassword must match.**
 
+**Login Page:**
 
+The login page is accessible only to guests. It presents a form where users input their email and password. 
+Each input field is mandatory. Additionally, the following validations are applied:
+
+**Email:** Custom validator utilizing RegExp to validate email format.
+
+**Password:** Minimum length of 6 characters and maximum length of 15 characters.
