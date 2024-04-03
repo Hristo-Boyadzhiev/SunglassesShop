@@ -11,7 +11,7 @@
             name="name"
             id="name" 
             placeholder="Enter your name (e.g. Ivan Ivanov)"
-            ngModel
+            [ngModel]="(user?.firstName ?? '') + ' ' + (user?.lastName ?? '')"
             #inputName="ngModel"
             appFormStyles
             required
