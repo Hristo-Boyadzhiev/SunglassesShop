@@ -125,21 +125,25 @@ This page displays the completed purchases made.
 ### Access to Site Functionality
 
 Functionality	Admin	Authenticated user	Guest
-Home page	✅	✅	✅
-Catalog page	✅	✅	✅
-Details page	✅	✅	✅
-Send message page	❌	✅	❌
-Messages received page	✅	❌	❌
-Completed purchases page	✅	❌	❌
-Edit sunglasses page	✅	❌	❌
-Delete sunglasses	✅	❌	❌
-Basket page	❌	✅	❌
-Favourite sunglasses page	❌	✅	❌
-Not Found page	✅	✅	✅
-Profile page	✅	✅	❌
-Login page	❌	❌	✅
-Register page	❌	❌	✅
-Logout	✅	✅	❌
+| Home page          |     ✅     |     ✅     |     ✅     |
+| Catalog page       |     ✅     |     ✅     |     ✅     |
+| Details page       |     ✅     |     ✅     |     ✅     |
+| Create sunglasses   |     ✅     |     ❌     |     ❌     |
+| Edit sunglasses     |     ✅     |     ❌     |     ❌     |
+| Delete sunglasses   |     ✅     |     ❌     |     ❌     |
+| Buy sunglasses      |     ❌     |     ✅     |     ❌     |
+| Favourite sunglasses page      |     ❌     |     ✅     |     ❌     |
+| Send message page       |      ❌     |     ✅     |     ❌     |
+| Messages received page   |     ✅     |     ❌     |     ❌     |
+| Completed purchases page     |     ✅     |     ❌     |     ❌     ||
+| Basket page        |     ❌     |     ✅     |     ❌     |
+| Not Found page     |     ✅     |     ✅     |     ✅     |
+|  Profile page    |     ✅     |     ✅     |     ❌     |
+| Login page         |     ❌     |     ❌     |     ✅     |
+| Register page      |     ❌     |     ❌     |     ✅     |
+| Logout             |     ✅     |     ✅     |     ❌     |
+
+
 
 
 
