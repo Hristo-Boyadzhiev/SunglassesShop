@@ -96,11 +96,12 @@ It represents a page accessed when a user enters a URL that is not defined.
 
 This part is accessible after successful authentication. 
 
-**Authenticated users who are not administrators have access to it and it consists of:**
-
 **Profile Page:**
 
 Both types of users have access to this page. It displays detailed information about the logged-in user.
+
+**Authenticated users who are not administrators have access to it and it consists of:**
+
 
 **Send Message Page:**
 
