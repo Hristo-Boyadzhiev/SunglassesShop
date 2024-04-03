@@ -24,6 +24,7 @@ The public part does not require authentication and consists of:
 **The login and register pages are accessible only to guests. 
 All other pages are visible and accessible to all three types of users.**
 
+
 **Register Page:**
 
 This page represents a form where users input their first name, last name, email, password, and confirm password. 
@@ -41,6 +42,7 @@ Each input field is mandatory. Additionally, the following validations are appli
 
 **Password and rePassword must match.**
 
+
 **Login Page:**
 
 The page presents a form where users input their email and password. 
@@ -50,9 +52,11 @@ Each input field is mandatory. Additionally, the following validations are appli
 
 **Password:** Minimum length of 6 characters and maximum length of 15 characters.
 
+
 **Home Page:**
 
 It displays an image and a button for accessing the catalog of sunglasses.
+
 
 **Catalog Page:**
 
@@ -79,6 +83,7 @@ Each field in the form is mandatory. Additional validations are as follows:
 
 **Glass color:** Maximum length of 10 characters.
 If the user is an authenticated user, they see the "buy" button and can choose the desired quantity of the product. They can also add the product to their "favorites". If the user is a guest, they only see detailed information about the product.
+
 
 **Not-found Page:**
 It represents a page accessed when a user enters a URL that is not defined.
