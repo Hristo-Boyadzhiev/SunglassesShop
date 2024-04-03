@@ -11,7 +11,7 @@ import { User } from 'src/app/shared/types/user';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnDestroy{
+export class LoginComponent implements OnDestroy {
   isVisiblePassword: boolean = false
   subscription: Subscription | undefined
   user: User | undefined
@@ -33,7 +33,9 @@ export class LoginComponent implements OnDestroy{
       return
     }
 
-    this.user = this.form.value as User
+    const { email, password } = this.form.value
+    if (typeof email === 'string' && typeof password === 'string') {
+      this.user = this.form.value as User
 
       this.subscription = this.authenticationService.login(this.user).subscribe({
         next: currentUser => {
@@ -48,9 +50,13 @@ export class LoginComponent implements OnDestroy{
           })
         }
       })
+    } else {
+      alert('Invalid login data. Please try again.');
+      return
+    }
   }
 
-  togglePasswordVisibility(){
+  togglePasswordVisibility() {
     this.isVisiblePassword = !this.isVisiblePassword
   }
 

@@ -42,28 +42,34 @@ export class RegisterComponent implements OnDestroy {
       alert('Invalid form')
       return
     }
-
     const { firstName, lastName, email, passwordsGroup: { password, rePassword } = {} } = this.form.value
 
-    this.user = { firstName, lastName, email, password } as User
+    if (typeof firstName === 'string' && typeof lastName === 'string' &&
+      typeof email === 'string' && typeof password === 'string') {
 
-    this.subscription = this.authenticationService.register(this.user).subscribe({
-      next: registeredUser => {
-        this.router.navigate(['/sunglasses/catalog'])
-      },
-      error: () => {
-        this.form.setValue({
-          firstName: '',
-          lastName: '',
-          email: '',
-          passwordsGroup:
-          {
-            password: '',
-            rePassword: ''
-          }
-        })
-      }
-    })
+      this.user = { firstName, lastName, email, password } as User
+
+      this.subscription = this.authenticationService.register(this.user).subscribe({
+        next: registeredUser => {
+          this.router.navigate(['/sunglasses/catalog'])
+        },
+        error: () => {
+          this.form.setValue({
+            firstName: '',
+            lastName: '',
+            email: '',
+            passwordsGroup:
+            {
+              password: '',
+              rePassword: ''
+            }
+          })
+        }
+      })
+    } else {
+      alert('Invalid register data. Please try again.')
+      return
+    }
   }
 
   togglePasswordVisibility() {
