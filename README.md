@@ -124,7 +124,8 @@ This page displays the completed purchases made.
 
 ### Access to Site Functionality
 
-Functionality	Admin	Authenticated user	Guest
+| Functionality      |   Admin   |   Authenticated User    |   Guest   |
+| ------------------ |:---------:|:---------:|:---------:|
 | Home page          |     ✅     |     ✅     |     ✅     |
 | Catalog page       |     ✅     |     ✅     |     ✅     |
 | Details page       |     ✅     |     ✅     |     ✅     |
