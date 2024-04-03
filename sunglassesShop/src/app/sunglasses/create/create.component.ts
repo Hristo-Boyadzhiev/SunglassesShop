@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { imageUrlValidator } from 'src/app/shared/validators/image-url-validator';
 import { SunglassesService } from '../sunglasses.service';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Sunglasses } from 'src/app/shared/types/sunglasses';
 import { Subscription } from 'rxjs';
 

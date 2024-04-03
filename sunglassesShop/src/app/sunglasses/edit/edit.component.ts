@@ -44,10 +44,6 @@ export class EditComponent implements OnInit, OnDestroy {
     const subscription = this.sunglassesService.getSunglassesDetails(this.id).subscribe({
       next: currentSunglasses => {
         this.isLoading = false
-        // Ако се опита да влезе на 
-        // http://localhost:4200/catalog/(грешно id)/edit
-        //  пренасочва към /not-found
-        // При статус 404 интерсепторът връща празен масив
         if (Array.isArray(currentSunglasses) && currentSunglasses.length === 0) {
           this.router.navigate(['/not-found'])
         } else {
@@ -110,9 +106,6 @@ export class EditComponent implements OnInit, OnDestroy {
       this.errorMessage = 'Invalid data. Please try again.'
       return
     }
-
-
-
   }
 
   ngOnDestroy(): void {

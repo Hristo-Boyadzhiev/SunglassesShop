@@ -13,7 +13,9 @@
     margin: 0;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: inherit;
 }
 
@@ -27,6 +29,12 @@ html {
     font: 16px/1.5;
 }
 
-body, form, input, textarea, option, select, button {
+body,
+form,
+input,
+textarea,
+option,
+select,
+button {
     font: inherit;
 }

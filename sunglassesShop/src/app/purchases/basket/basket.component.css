@@ -23,7 +23,7 @@ a.catalog-link {
     color: black;
     padding: 0.3em 1.5em;
     border: 1px solid black;
-    border-radius: 0.5em;  
+    border-radius: 0.5em;
 }
 
 a.catalog-link:hover {
@@ -45,7 +45,7 @@ img {
 section.basket-container {
     display: flex;
     margin: 2em;
-    border:1px solid lightgray;
+    border: 1px solid lightgray;
     border-radius: 0.5em
 }
 
@@ -56,7 +56,7 @@ section.basket-items {
     flex-basis: 70%;
 }
 
-section.basket-items header{
+section.basket-items header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -93,7 +93,7 @@ section.basket-items article.single-product div.sunglasses-details div.price-con
     gap: 0.5em
 }
 
-section.basket-items article.single-product div.sunglasses-details .brand-and-model, 
+section.basket-items article.single-product div.sunglasses-details .brand-and-model,
 section.basket-items article.single-product div.sunglasses-details .sunglasses-total-price {
     font-weight: bold;
 }
@@ -132,7 +132,7 @@ section.order-complete header.summary-header h2 {
 section.order-complete article.summary-content {
     display: flex;
     flex-direction: column;
-    gap:1.5em;
+    gap: 1.5em;
     font-family: Roboto Condensed;
     font-size: 1.3em;
 }
@@ -145,7 +145,7 @@ section.order-complete article.summary-content div.payment-amount {
 }
 
 section.order-complete article.summary-content div.payment-amount {
-font-weight: bold;
+    font-weight: bold;
 }
 
 section.order-complete article.summary-content div.complete-order {

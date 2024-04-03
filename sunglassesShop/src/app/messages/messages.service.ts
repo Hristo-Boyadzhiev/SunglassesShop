@@ -10,13 +10,13 @@ export class MessagesService {
 
   constructor(private http: HttpClient) { }
 
-  createMessage(message: Message):Observable<Message>{
-   return this.http
-    .post<Message>('/api/data/messages', message)
+  createMessage(message: Message): Observable<Message> {
+    return this.http
+      .post<Message>('/api/data/messages', message)
   }
 
-  getMessages():Observable<Message[]>{
+  getMessages(): Observable<Message[]> {
     return this.http
-    .get<Message[]>('/api/data/messages')
+      .get<Message[]>('/api/data/messages')
   }
 }

@@ -49,10 +49,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     const subscription = this.sunglassesService.getSunglassesDetails(id).subscribe({
       next: currentSunglassesDetails => {
         this.isLoading = false
-        // Ако се опита да влезе на 
-        // http://localhost:4200/catalog/(грешно id)
-        // пренасочва към /not-found
-        // При статус 404 интерсепторът връща празен масив
         if (Array.isArray(currentSunglassesDetails) && currentSunglassesDetails.length === 0) {
           this.router.navigate(['/not-found'])
         } else {
@@ -82,7 +78,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   buySunglassesHandler(form: NgForm) {
     if (form.invalid) {
-      this.errorMessage ='Invalid form'
+      this.errorMessage = 'Invalid form'
       return
     }
 
@@ -150,6 +146,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription=>subscription.unsubscribe())
+    this.subscriptions.forEach(subscription => subscription.unsubscribe())
   }
 }

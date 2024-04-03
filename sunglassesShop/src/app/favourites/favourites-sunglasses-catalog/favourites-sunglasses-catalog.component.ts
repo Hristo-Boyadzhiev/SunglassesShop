@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './favourites-sunglasses-catalog.component.html',
   styleUrls: ['./favourites-sunglasses-catalog.component.css']
 })
-export class FavouritesSunglassesCatalogComponent implements OnDestroy{
+export class FavouritesSunglassesCatalogComponent implements OnDestroy {
   isLoading: boolean = true
   subscription: Subscription | undefined
   isEmptyCollection: boolean = false

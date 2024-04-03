@@ -36,24 +36,24 @@ export class BasketComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-      const buyerId = this.authenticationService.getUser()?._id
-      const searchQuery = encodeURIComponent(`buyerId="${buyerId}"`)
+    const buyerId = this.authenticationService.getUser()?._id
+    const searchQuery = encodeURIComponent(`buyerId="${buyerId}"`)
 
-      const subscription = this.purchasesService.getUserPurchases(searchQuery).subscribe({
-        next: currentUserPurchases => {
-          this.isLoading = false
-          if (currentUserPurchases.length === 0) {
-            this.isEmptyCollection = true
-          } else {
-            this.isEmptyCollection = false
-            this.purchasesList = currentUserPurchases
-            this.total = this.purchasesList.reduce((acc, purchase) => acc + purchase.totalPrice, 0)
-            this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
-            this.paymentAmount = this.total + this.deliveryCost
-          }
+    const subscription = this.purchasesService.getUserPurchases(searchQuery).subscribe({
+      next: currentUserPurchases => {
+        this.isLoading = false
+        if (currentUserPurchases.length === 0) {
+          this.isEmptyCollection = true
+        } else {
+          this.isEmptyCollection = false
+          this.purchasesList = currentUserPurchases
+          this.total = this.purchasesList.reduce((acc, purchase) => acc + purchase.totalPrice, 0)
+          this.deliveryCost = this.deliveryCostPipe.transform(this.total, 100);
+          this.paymentAmount = this.total + this.deliveryCost
         }
-      })
-      this.subscriptions.push(subscription)
+      }
+    })
+    this.subscriptions.push(subscription)
   }
 
   quantityHandler(form: NgForm, sunglasses: Purchase) {
@@ -62,7 +62,6 @@ export class BasketComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // При всяка промяна на количеството се прави put request и да променя quantity
     const { quantity } = form.value
     const id = sunglasses._id
     const sunglassesWithEditedQuantity = { ...sunglasses, quantity: Number(quantity), totalPrice: Number(quantity) * sunglasses.sunglassesDetails.price }

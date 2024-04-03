@@ -9,5 +9,4 @@ export class ElapsedTimePipe implements PipeTransform {
   transform(date: number, ...args: unknown[]): unknown {
     return moment(date).fromNow();
   }
-
 }

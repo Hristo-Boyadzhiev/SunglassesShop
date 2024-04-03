@@ -23,7 +23,7 @@ a.createLink {
     color: black;
     padding: 0.3em 1.5em;
     border: 1px solid black;
-    border-radius: 0.5em;  
+    border-radius: 0.5em;
 }
 
 a.createLink:hover {
@@ -36,7 +36,7 @@ a.createLink:hover {
 
 /* catalog items css */
 
-.collectionContainer{
+.collectionContainer {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -52,7 +52,7 @@ article.sunglasses {
     border: 1px solid lightgray;
 }
 
-.img-container{
+.img-container {
     aspect-ratio: 1/1;
     overflow: hidden;
 }
@@ -61,7 +61,7 @@ img {
     display: block;
     width: 100%;
     height: auto;
-    object-fit: cover; 
+    object-fit: cover;
     object-position: center
 }
 
@@ -87,7 +87,7 @@ a.detailsLink {
     transition: 0.3s ease-in-out
 }
 
-article.sunglasses:hover span.details{
+article.sunglasses:hover span.details {
     display: inline-block;
     opacity: 1;
 }
@@ -107,11 +107,3 @@ article.sunglasses:hover a.detailsLink:hover {
     border: 1px solid black;
     transition: 0.3s ease-in-out
 }
-
-
-
-
-
-
-
-

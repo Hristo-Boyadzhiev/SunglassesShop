@@ -42,15 +42,11 @@ export class AppInterceptor implements HttpInterceptor {
     }
     return next.handle(request).pipe(
       catchError((responseError: HttpErrorResponse) => {
-        // При рестартиране на сървърът се получава нов токен, 
-        // но ние продължаваме да си пазим и подаваме старият токен, който е невалиден - статус 403
         if (responseError.status === 403 && responseError.error.message === 'Invalid access token') {
           this.authenticationService.clearLocalStorage()
-          // Не връщам празен масив, а връщам нищо
           this.router.navigate(['/home'])
           return []
         } else if (responseError.status === 404) {
-          // Създаваме нов Observable, който връща [], който ще е достъпен в next метода на subscribed компонент
           return of(new HttpResponse<any>({ body: [] }));
         } else {
           throw responseError
