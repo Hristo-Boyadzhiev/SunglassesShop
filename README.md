@@ -150,7 +150,7 @@ This page displays the completed purchases made.
 
 
 
-### Access to Site Functionality
+## Access to Site Functionality
 
 | Functionality      |   Admin   |   Authenticated User    |   Guest   |
 | ------------------ |:---------:|:---------:|:---------:|
@@ -173,6 +173,19 @@ This page displays the completed purchases made.
 | Register page      |     ❌     |     ❌     |     ✅     |
 | Logout             |     ✅     |     ✅     |     ❌     |
 
+## Tech Stack
+
+### Framework
+- Angular: A platform for building mobile and desktop web applications. It is licensed under the MIT License. You can find it [here](https://github.com/angular/angular/blob/main/LICENSE).
+  
+### Approaches & Techniques
+- Semantic HTML;
+- CSS
+
+## License
+This project uses the Angular framework, which is licensed under the MIT License.
+
+The MIT License allows for free use, modification, and distribution of the code, as long as the original license text and copyright notice are included in all copies or substantial portions of the software.
 
 ## Installation and usage
 
@@ -185,7 +198,6 @@ Type in the terminal:
    ng serve
 
    
-
 **To run server app**
 
 Type in the new terminal:
@@ -193,3 +205,5 @@ Type in the new terminal:
 cd server
 
 node server.js
+
+
